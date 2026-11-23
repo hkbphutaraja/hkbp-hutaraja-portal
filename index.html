@@ -44,8 +44,8 @@
     .navbar-hkbp .nav-link {
       color: #475569;
       font-weight: 500;
-      font-size: 0.92rem;
-      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      padding: 0.45rem 0.58rem;
       border-bottom: 2px solid transparent;
       transition: color 0.18s ease, border-color 0.18s ease;
     }
@@ -53,6 +53,60 @@
     .navbar-hkbp .nav-link.active {
       color: var(--hkbp-navy);
       border-bottom-color: var(--hkbp-gold);
+    }
+    .navbar-hkbp .dropdown-menu {
+      border: 1px solid var(--hkbp-border);
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(15, 41, 74, 0.12);
+      padding: 0.4rem;
+      min-width: 225px;
+    }
+    .navbar-hkbp .dropdown-item {
+      border-radius: 6px;
+      font-size: 0.84rem;
+      padding: 0.45rem 0.75rem;
+      color: #334155;
+    }
+    .navbar-hkbp .dropdown-item:hover {
+      background-color: #f1f5f9;
+      color: var(--hkbp-navy);
+    }
+    @media (min-width: 992px) {
+      .navbar-hkbp .nav-item.dropdown:hover > .dropdown-menu {
+        display: block;
+        margin-top: 0;
+      }
+    }
+    .quick-link-card {
+      background: #ffffff;
+      border: 1px solid var(--hkbp-border);
+      border-radius: 12px;
+      transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+      cursor: pointer;
+    }
+    .quick-link-card:hover {
+      border-color: var(--hkbp-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(15, 41, 74, 0.08);
+    }
+    .sub-pill-btn {
+      border: 1px solid var(--hkbp-border);
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.16s ease;
+    }
+    .sub-pill-btn:hover {
+      border-color: var(--hkbp-navy);
+      color: var(--hkbp-navy);
+    }
+    .sub-pill-btn.active {
+      background-color: var(--hkbp-navy);
+      border-color: var(--hkbp-navy);
+      color: #ffffff;
     }
     .btn-navy {
       background-color: var(--hkbp-navy);
@@ -212,25 +266,82 @@
     </div>
   </div>
 
-  <!-- Top Navigation Bar (3-Zone Clean Contract) -->
+  <!-- Top Navigation Bar (9-Group HKBP Sitemap with Dropdown Sub-Menus) -->
   <nav class="navbar navbar-expand-lg navbar-hkbp sticky-top py-2 no-print">
     <div class="container">
       <a class="navbar-brand text-nowrap d-inline-flex align-items-center gap-2" href="#beranda" data-nav="beranda">
-        <img id="navLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:36px;width:36px;object-fit:contain;" referrerpolicy="no-referrer" />
-        <span id="navBrandText">HKBP Ressort Hutaraja</span>
+        <img id="navLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:34px;width:34px;object-fit:contain;" referrerpolicy="no-referrer" />
+        <span id="navBrandText" style="font-size:1.05rem;">HKBP Ressort Hutaraja</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Menu Navigasi">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav mx-auto gap-lg-1">
-          <li class="nav-item"><a class="nav-link active text-nowrap" href="#beranda" data-nav="beranda">Beranda</a></li>
-          <li class="nav-item"><a class="nav-link text-nowrap" href="#jadwal" data-nav="jadwal">Jadwal</a></li>
-          <li class="nav-item"><a class="nav-link text-nowrap" href="#warta" data-nav="warta">Warta</a></li>
-          <li class="nav-item"><a class="nav-link text-nowrap" href="#parhalado" data-nav="parhalado">Parhalado</a></li>
-          <li class="nav-item"><a class="nav-link text-nowrap" href="#layanan" data-nav="layanan">Layanan</a></li>
-          <li class="nav-item"><a class="nav-link text-nowrap" href="#keuangan" data-nav="keuangan">Keuangan</a></li>
-          <li class="nav-item"><a class="nav-link text-nowrap" href="#galeri" data-nav="galeri">Galeri</a></li>
+        <ul class="navbar-nav mx-auto align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link active text-nowrap" href="#beranda" data-nav="beranda">Beranda</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#profil" data-nav="profil" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profil</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#profil-sejarah" data-nav="profil" data-sub="sejarah">Sejarah HKBP &amp; Jemaat Lokal</a></li>
+              <li><a class="dropdown-item" href="#profil-visi" data-nav="profil" data-sub="visi">Visi, Misi &amp; Konfesi HKBP</a></li>
+              <li><a class="dropdown-item" href="#profil-parhalado" data-nav="profil" data-sub="parhalado">Pimpinan, Sintua &amp; Fungsionaris</a></li>
+              <li><a class="dropdown-item" href="#profil-pagaran" data-nav="profil" data-sub="pagaran">Huria Pagaran / Pos Pelayanan</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#ibadah" data-nav="ibadah" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ibadah</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#ibadah-minggu" data-nav="ibadah" data-sub="minggu">Jadwal Ibadah Minggu &amp; Pekanan</a></li>
+              <li><a class="dropdown-item" href="#ibadah-petugas" data-nav="ibadah" data-sub="petugas">Jadwal Petugas (Parhombar Marhobas)</a></li>
+              <li><a class="dropdown-item" href="#ibadah-livestream" data-nav="ibadah" data-sub="livestream">Live Streaming &amp; Arsip Video</a></li>
+              <li><a class="dropdown-item" href="#ibadah-sopo" data-nav="ibadah" data-sub="sopo">Gedung Sopo Godang &amp; Ruangan</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#dewan" data-nav="dewan" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dewan</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#dewan-koinonia" data-nav="dewan" data-sub="Dewan Koinonia">Dewan Koinonia (Persekutuan)</a></li>
+              <li><a class="dropdown-item" href="#dewan-marturia" data-nav="dewan" data-sub="Dewan Marturia">Dewan Marturia (Kesaksian &amp; Musik)</a></li>
+              <li><a class="dropdown-item" href="#dewan-diakonia" data-nav="dewan" data-sub="Dewan Diakonia">Dewan Diakonia (Pelayanan Kasih)</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#wijk" data-nav="wijk" role="button" data-bs-toggle="dropdown" aria-expanded="false">Wijk</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#wijk-daftar" data-nav="wijk" data-sub="daftar">Daftar &amp; Wilayah 6 Wijk</a></li>
+              <li><a class="dropdown-item" href="#wijk-partangiangan" data-nav="wijk" data-sub="partangiangan">Jadwal Partangiangan Wijk</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#publikasi" data-nav="publikasi" role="button" data-bs-toggle="dropdown" aria-expanded="false">Publikasi</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#pub-warta" data-nav="publikasi" data-sub="warta">Warta Jemaat (Tingting)</a></li>
+              <li><a class="dropdown-item" href="#pub-tata" data-nav="publikasi" data-sub="tata-ibadah">Tata Ibadah Minggu (PDF)</a></li>
+              <li><a class="dropdown-item" href="#pub-renungan" data-nav="publikasi" data-sub="renungan">Renungan Harian</a></li>
+              <li><a class="dropdown-item" href="#pub-galeri" data-nav="publikasi" data-sub="galeri">Artikel, Berita &amp; Galeri</a></li>
+              <li><a class="dropdown-item" href="#pub-pustaka" data-nav="publikasi" data-sub="pustaka">Pustaka Digital HKBP</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#persembahan" data-nav="persembahan" role="button" data-bs-toggle="dropdown" aria-expanded="false">Persembahan</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#prs-saluran" data-nav="persembahan" data-sub="saluran">Saluran Persembahan &amp; QRIS</a></li>
+              <li><a class="dropdown-item" href="#prs-kas" data-nav="persembahan" data-sub="kas">Transparansi 5 Kas Gereja</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-nowrap" href="#layanan" data-nav="layanan" role="button" data-bs-toggle="dropdown" aria-expanded="false">Layanan</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#lay-update" data-nav="layanan" data-sub="perubahan-data">Usulan Perubahan Data Jemaat</a></li>
+              <li><a class="dropdown-item" href="#lay-sidi" data-nav="layanan" data-sub="katekisasi-sidi">Pendaftaran Katekisasi Sidi</a></li>
+              <li><a class="dropdown-item" href="#lay-khusus" data-nav="layanan" data-sub="pelayanan-khusus">Baptisan, Pernikahan &amp; Pembinaan</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-nowrap" href="#kontak" data-nav="kontak">Kontak</a>
+          </li>
         </ul>
         <div class="d-flex align-items-center mt-2 mt-lg-0">
           <button id="btnPortalPengurus" class="btn btn-navy btn-sm px-3 py-2 text-nowrap" type="button">
@@ -241,9 +352,9 @@
     </div>
   </nav>
 
-  <!-- ==================== PORTAL PUBLIK ==================== -->
+  <!-- ==================== PORTAL PUBLIK (9-GROUP HKBP SITEMAP) ==================== -->
   <main id="publicPortal" class="no-print">
-    <!-- 1. BERANDA -->
+    <!-- 1. BERANDA (HOME) -->
     <section id="sec-beranda" class="spa-section active">
       <div class="hero-sacred py-5">
         <div class="container py-lg-4">
@@ -258,11 +369,11 @@
                 <button type="button" class="btn btn-sm btn-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('nama_gereja','Nama Gereja')" title="Edit Nama Gereja"><i class="bi bi-pencil-fill"></i></button>
               </h1>
               <p class="text-white-50 mb-3">
-                <span id="heroDeskripsi">Melayani persekutuan, kesaksian, dan diakonia bagi seluruh ruas ni huria yang tersebar di 6 Lingkungan pelayanan Ressort Hutaraja.</span>
+                <span id="heroDeskripsi">Melayani persekutuan (Koinonia), kesaksian (Marturia), dan pelayanan kasih (Diakonia) bagi seluruh ruas ni huria yang tersebar di 6 Wijk pelayanan Ressort Hutaraja.</span>
                 <button type="button" class="btn btn-sm btn-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('hero_deskripsi','Deskripsi Hero')" title="Edit Deskripsi Hero"><i class="bi bi-pencil-fill"></i></button>
               </p>
               <div class="hero-gold-rule mb-3"></div>
-              <div class="p-3 p-md-4 rounded-3 mb-4" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);">
+              <div class="p-3 p-md-4 rounded-3 mb-3" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);">
                 <div class="small text-uppercase mb-1" style="letter-spacing: 0.1em; color: #fbbf24;">
                   Tema Tahunan HKBP <span id="heroTahun">2026</span>
                   <button type="button" class="btn btn-sm btn-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('tahun_pelayanan','Tahun Pelayanan')" title="Edit Tahun"><i class="bi bi-pencil-fill"></i></button>
@@ -276,9 +387,18 @@
                   <button type="button" class="btn btn-sm btn-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('ayat_tahun','Ayat Tahun HKBP')" title="Edit Ayat Tahun"><i class="bi bi-pencil-fill"></i></button>
                 </p>
               </div>
+              <!-- Highlight Live Streaming YouTube -->
+              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 px-3 py-2 rounded-3 mb-4 small" style="background: rgba(217,119,6,0.18); border: 1px solid rgba(251,191,36,0.35);">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-youtube text-warning fs-5"></i>
+                  <span id="heroLiveJudul" class="text-white fw-medium">Live Streaming Ibadah Minggu — Kanal YouTube HKBP Ressort Hutaraja</span>
+                  <button type="button" class="btn btn-sm btn-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('youtube_live_judul','Judul Live Streaming')" title="Edit Judul Live"><i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <button type="button" class="btn btn-sm btn-warning fw-semibold py-0 px-2" data-nav="ibadah" data-sub="livestream">Tonton Live &rarr;</button>
+              </div>
               <div class="d-flex flex-wrap gap-2">
-                <button class="btn btn-gold px-4 py-2" type="button" data-nav="jadwal">Lihat Jadwal Ibadah</button>
-                <button class="btn btn-outline-light px-4 py-2" type="button" data-nav="layanan">Update Data Jemaat</button>
+                <button class="btn btn-gold px-4 py-2" type="button" data-nav="ibadah" data-sub="minggu">Lihat Ibadah &amp; Kegiatan</button>
+                <button class="btn btn-outline-light px-4 py-2" type="button" data-nav="layanan" data-sub="perubahan-data">Layanan &amp; Formulir Jemaat</button>
               </div>
             </div>
             <div class="col-lg-5">
@@ -287,7 +407,53 @@
                   Ibadah Minggu Terdekat
                 </div>
                 <div id="heroNextSchedule"></div>
+                <div class="mt-3 pt-3 border-top d-flex justify-content-between align-items-center small">
+                  <span class="text-secondary">Jadwal lengkap &amp; petugas</span>
+                  <button type="button" class="btn btn-link btn-sm p-0 fw-semibold text-decoration-none" style="color:var(--hkbp-navy);" data-nav="ibadah" data-sub="minggu">Buka Jadwal &rarr;</button>
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Akses Cepat (Quick Links) -->
+      <div class="container pt-4">
+        <div class="row g-3">
+          <div class="col-6 col-lg-3">
+            <div class="quick-link-card p-3 h-100" data-nav="publikasi" data-sub="warta">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#eff6ff;color:var(--hkbp-navy);"><i class="bi bi-newspaper fs-5"></i></span>
+                <div class="fw-bold small text-dark">Warta Jemaat</div>
+              </div>
+              <div class="small text-secondary">Baca Tingting mingguan &amp; unduh PDF resmi huria.</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="quick-link-card p-3 h-100" data-nav="publikasi" data-sub="tata-ibadah">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#fef3c7;color:#b45309;"><i class="bi bi-file-earmark-text fs-5"></i></span>
+                <div class="fw-bold small text-dark">Tata Ibadah Minggu</div>
+              </div>
+              <div class="small text-secondary">Unduh liturgi kebaktian Bhs. Batak &amp; Bhs. Indonesia.</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="quick-link-card p-3 h-100" data-nav="persembahan" data-sub="saluran">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#ecfdf5;color:#047857;"><i class="bi bi-qr-code-scan fs-5"></i></span>
+                <div class="fw-bold small text-dark">Persembahan &amp; QRIS</div>
+              </div>
+              <div class="small text-secondary">Saluran kolekte, QRIS resmi, rekening &amp; 5 kas gereja.</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="quick-link-card p-3 h-100" data-nav="publikasi" data-sub="renungan">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#f5f3ff;color:#6d28d9;"><i class="bi bi-book fs-5"></i></span>
+                <div class="fw-bold small text-dark">Renungan Harian</div>
+              </div>
+              <div class="small text-secondary">Firman Kehidupan &amp; bahan saat teduh jemaat setiap hari.</div>
             </div>
           </div>
         </div>
@@ -313,7 +479,7 @@
                 </p>
                 <h2 class="h4 mb-3">Skala Pelayanan Ressort</h2>
                 <p class="small text-secondary mb-4">
-                  Dihitung otomatis dari Database Induk Jemaat berstatus keanggotaan <strong>Aktif</strong> di 6 Lingkungan.
+                  Dihitung otomatis dari Database Induk Jemaat berstatus keanggotaan <strong>Aktif</strong> di 6 Wijk.
                 </p>
               </div>
               <div class="row g-3 pt-3 border-top">
@@ -331,7 +497,7 @@
           <div class="col-lg-8">
             <div class="surface-card p-4 h-100">
               <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="h5 mb-0">Sebaran Jemaat per 6 Lingkungan</h3>
+                <h3 class="h5 mb-0">Sebaran Jemaat di 6 Wijk / Lingkungan</h3>
                 <span class="small text-secondary">Letare &middot; Exaudi &middot; Judika &middot; Galatia &middot; Efesus &middot; Jeremia</span>
               </div>
               <div id="statLingkunganBars" class="vstack gap-3"></div>
@@ -363,62 +529,277 @@
             <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Tingting Huria</p>
             <h2 class="h3 mb-0">Warta Jemaat Terbaru</h2>
           </div>
-          <button class="btn btn-link text-decoration-none fw-semibold" style="color: var(--hkbp-navy);" type="button" data-nav="warta">
-            Semua Warta &rarr;
+          <button class="btn btn-link text-decoration-none fw-semibold" style="color: var(--hkbp-navy);" type="button" data-nav="publikasi" data-sub="warta">
+            Buka Publikasi &amp; Warta &rarr;
           </button>
         </div>
         <div class="row g-4" id="berandaWartaList"></div>
       </div>
     </section>
 
-    <!-- 2. JADWAL IBADAH -->
-    <section id="sec-jadwal" class="spa-section py-5">
+    <!-- 2. PROFIL / TENTANG KAMI -->
+    <section id="sec-profil" class="spa-section py-5">
+      <div class="container">
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Info Huria &middot; Profil Gereja</p>
+          <h2 class="h2 mb-2">Profil &amp; Struktur HKBP Ressort Hutaraja</h2>
+          <p class="text-secondary mb-3">Sejarah penginjilan HKBP &amp; jemaat lokal, visi-misi &amp; konfesi, direktori Parhalado, fungsionaris gereja, serta Huria Pagaran.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="sub-pill-btn active" data-sub-tab="profil" data-sub-key="sejarah" onclick="setSectionSubTab('profil','sejarah')">Sejarah</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="profil" data-sub-key="visi" onclick="setSectionSubTab('profil','visi')">Visi, Misi &amp; Konfesi</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="profil" data-sub-key="parhalado" onclick="setSectionSubTab('profil','parhalado')">Pimpinan, Sintua &amp; Fungsionaris</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="profil" data-sub-key="pagaran" onclick="setSectionSubTab('profil','pagaran')">Huria Pagaran</button>
+          </div>
+        </div>
+
+        <!-- Sub: Sejarah -->
+        <div id="profil-pane-sejarah" class="sub-pane-profil">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="surface-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h3 class="h5 mb-0" style="color:var(--hkbp-navy);">Sejarah Singkat HKBP Umum (RMG &amp; I.L. Nommensen)</h3>
+                  <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('sejarah_hkbp_umum','Sejarah HKBP Umum')"><i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <p id="txtSejarahHkbpUmum" class="small text-secondary mb-0" style="white-space:pre-line;line-height:1.75;"></p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="surface-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h3 class="h5 mb-0" style="color:var(--hkbp-navy);">Sejarah Jemaat Lokal HKBP Ressort Hutaraja</h3>
+                  <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('sejarah_jemaat_lokal','Sejarah Jemaat Lokal')"><i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <p id="txtSejarahJemaatLokal" class="small text-secondary mb-0" style="white-space:pre-line;line-height:1.75;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub: Visi Misi & Konfesi -->
+        <div id="profil-pane-visi" class="sub-pane-profil d-none">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="surface-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h3 class="h5 mb-0" style="color:var(--hkbp-navy);">Visi Gereja</h3>
+                  <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('visi_gereja','Visi Gereja')"><i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <p id="txtVisiGereja" class="small text-secondary mb-0" style="white-space:pre-line;line-height:1.75;"></p>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="surface-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h3 class="h5 mb-0" style="color:var(--hkbp-navy);">Misi Gereja</h3>
+                  <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('misi_gereja','Misi Gereja')"><i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <p id="txtMisiGereja" class="small text-secondary mb-0" style="white-space:pre-line;line-height:1.75;"></p>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="surface-card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h3 class="h5 mb-0" style="color:var(--hkbp-navy);">Pengajaran &amp; Konfesi HKBP</h3>
+                  <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('pengajaran_konfesi','Pengajaran & Konfesi HKBP')"><i class="bi bi-pencil-fill"></i></button>
+                </div>
+                <p id="txtPengajaranKonfesi" class="small text-secondary mb-0" style="white-space:pre-line;line-height:1.75;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub: Parhalado, Sintua & Fungsionaris -->
+        <div id="profil-pane-parhalado" class="sub-pane-profil d-none">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-3">
+            <div>
+              <h3 class="h4 mb-1">Pimpinan, Pendeta, Sintua &amp; Fungsionaris Gereja</h3>
+              <p class="small text-secondary mb-0">Parhalado Na Gok Tingki (Fulltimer), Parhalado Partohonan (Sintua Aktif &amp; Emeritus), dan Fungsionaris (Sekretaris, Bendahara, Parartaon, Audit).</p>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <input type="search" id="filterParhaladoSearch" class="form-control form-control-sm" style="max-width:210px;" placeholder="Cari nama atau jabatan..." aria-label="Cari Parhalado" />
+              <select id="filterParhaladoJenis" class="form-select form-select-sm" style="max-width:220px;" aria-label="Filter Jenis Kepengurusan">
+                <option value="Semua">Semua Jenis Kepengurusan</option>
+              </select>
+            </div>
+          </div>
+          <div id="containerParhaladoPublic" class="vstack gap-4"></div>
+        </div>
+
+        <!-- Sub: Huria Pagaran -->
+        <div id="profil-pane-pagaran" class="sub-pane-profil d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h4 mb-0">Huria Pagaran / Pos Pelayanan</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('huria_pagaran_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Huria Pagaran</button>
+          </div>
+          <div class="row g-3" id="gridHuriaPagaran"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. IBADAH & KEGIATAN -->
+    <section id="sec-ibadah" class="spa-section py-5">
+      <div class="container">
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Kalender Gerejawi HKBP</p>
+          <h2 class="h2 mb-2">Ibadah &amp; Kegiatan Gerejawi</h2>
+          <p class="text-secondary mb-3">Jadwal Ibadah Minggu &amp; Kegiatan Rutin Pekanan, Petugas Ibadah (Parhombar Marhobas), Live Streaming YouTube, serta Jadwal Gedung Sopo Godang.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="sub-pill-btn active" data-sub-tab="ibadah" data-sub-key="minggu" onclick="setSectionSubTab('ibadah','minggu')">Jadwal Ibadah &amp; Pekanan</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="ibadah" data-sub-key="petugas" onclick="setSectionSubTab('ibadah','petugas')">Petugas (Parhombar Marhobas)</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="ibadah" data-sub-key="livestream" onclick="setSectionSubTab('ibadah','livestream')">Live Streaming &amp; Video</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="ibadah" data-sub-key="sopo" onclick="setSectionSubTab('ibadah','sopo')">Gedung Sopo Godang</button>
+          </div>
+        </div>
+
+        <!-- Sub: Jadwal Ibadah Minggu & Kegiatan Rutin Pekanan -->
+        <div id="ibadah-pane-minggu" class="sub-pane-ibadah">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+            <h3 class="h5 mb-0">Jadwal Ibadah Minggu &amp; Kegiatan Rutin Pekanan</h3>
+            <div class="d-flex flex-wrap gap-2">
+              <input type="search" id="filterJadwalSearch" class="form-control form-control-sm" style="max-width:240px;" placeholder="Cari Minggu, Parjamita, Ayat..." aria-label="Cari Jadwal" />
+              <select id="filterJadwalJenis" class="form-select form-select-sm" style="max-width:220px;" aria-label="Filter Jenis Ibadah">
+                <option value="Semua">Semua Jenis Ibadah</option>
+                <option value="Ibadah Minggu">Ibadah Minggu</option>
+                <option value="Sekolah Minggu">Sekolah Minggu</option>
+                <option value="Kegiatan Rutin Pekanan">Kegiatan Rutin Pekanan</option>
+                <option value="Partangiangan Lingkungan">Partangiangan Lingkungan</option>
+                <option value="Ibadah Pemuda / NHKBP">Ibadah Pemuda / NHKBP</option>
+              </select>
+            </div>
+          </div>
+          <div class="surface-card overflow-hidden">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Tanggal &amp; Waktu</th>
+                    <th>Nama Minggu / Kegiatan</th>
+                    <th>Ayat Khotbah &amp; Epistel</th>
+                    <th>Parjamita &amp; Paragenda</th>
+                    <th>Lokasi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyJadwalPublic"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub: Petugas Ibadah (Parhombar Marhobas) -->
+        <div id="ibadah-pane-petugas" class="sub-pane-ibadah d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Jadwal Petugas / Pelayan Ibadah (Parhombar Marhobas)</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('petugas_ibadah_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Jadwal Petugas</button>
+          </div>
+          <div class="row g-3" id="gridPetugasIbadah"></div>
+        </div>
+
+        <!-- Sub: Live Streaming & Arsip Video -->
+        <div id="ibadah-pane-livestream" class="sub-pane-ibadah d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Ibadah Live Streaming &amp; Arsip Video YouTube</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('live_streaming_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Live / Arsip Video</button>
+          </div>
+          <div class="row g-3" id="gridLiveStreaming"></div>
+        </div>
+
+        <!-- Sub: Gedung Sopo Godang & Ruangan -->
+        <div id="ibadah-pane-sopo" class="sub-pane-ibadah d-none">
+          <div class="surface-card p-3 mb-3 bg-light">
+            <div class="d-flex justify-content-between align-items-start gap-2">
+              <div class="small text-secondary"><strong class="text-dark">Prosedur Peminjaman:</strong> <span id="txtSopoProsedur"></span></div>
+              <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('sopo_prosedur','Prosedur Sopo Godang')"><i class="bi bi-pencil-fill"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Jadwal Peminjaman Gedung Sopo Godang &amp; Ruangan</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('jadwal_ruangan_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Jadwal Ruangan</button>
+          </div>
+          <div class="row g-3" id="gridJadwalRuangan"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TRI TUGAS PANGGILAN GEREJA (DEWAN & PELAYANAN) -->
+    <section id="sec-dewan" class="spa-section py-5">
       <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
           <div>
-            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Kalender Gerejawi HKBP</p>
-            <h2 class="h2 mb-0">Jadwal Ibadah &amp; Pelayanan</h2>
+            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Tri Tugas Panggilan Gereja</p>
+            <h2 class="h2 mb-2">Dewan &amp; Seksi Pelayanan HKBP</h2>
+            <p class="text-secondary mb-0">Dewan Koinonia (Persekutuan), Dewan Marturia (Kesaksian &amp; Pekabaran Injil), dan Dewan Diakonia (Pelayanan Kasih).</p>
           </div>
-          <div class="d-flex gap-2">
-            <input type="search" id="filterJadwalSearch" class="form-control" placeholder="Cari Minggu, Parjamita, Ayat..." aria-label="Cari Jadwal" />
-            <select id="filterJadwalJenis" class="form-select" style="max-width: 210px;" aria-label="Filter Jenis Ibadah">
-              <option value="Semua">Semua Jenis</option>
-              <option value="Ibadah Minggu">Ibadah Minggu</option>
-              <option value="Sekolah Minggu">Sekolah Minggu</option>
-              <option value="Partangiangan Lingkungan">Partangiangan Lingkungan</option>
-              <option value="Ibadah Pemuda / NHKBP">Ibadah Pemuda / NHKBP</option>
-            </select>
+          <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('dewan_seksi_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Seksi Pelayanan</button>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <button type="button" class="sub-pill-btn active" data-dewan-tab="Dewan Koinonia" onclick="setActiveDewan('Dewan Koinonia')">Dewan Koinonia (Persekutuan)</button>
+          <button type="button" class="sub-pill-btn" data-dewan-tab="Dewan Marturia" onclick="setActiveDewan('Dewan Marturia')">Dewan Marturia (Kesaksian &amp; Musik)</button>
+          <button type="button" class="sub-pill-btn" data-dewan-tab="Dewan Diakonia" onclick="setActiveDewan('Dewan Diakonia')">Dewan Diakonia (Pelayanan Kasih)</button>
+        </div>
+        <div class="row g-3" id="gridDewanSeksi"></div>
+      </div>
+    </section>
+
+    <!-- 5. LINGKUNGAN JEMAAT (WIJK) -->
+    <section id="sec-wijk" class="spa-section py-5">
+      <div class="container">
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Wilayah Lingkungan Jemaat</p>
+          <h2 class="h2 mb-2">Lingkungan Jemaat (6 Wijk) &amp; Partangiangan</h2>
+          <p class="text-secondary mb-3">Pemetaan wilayah 6 Wijk HKBP Ressort Hutaraja, jumlah KK &amp; Jiwa aktif, kontak Sintua Wijk, serta jadwal kebaktian Partangiangan Wijk.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="sub-pill-btn active" data-sub-tab="wijk" data-sub-key="daftar" onclick="setSectionSubTab('wijk','daftar')">Daftar &amp; Wilayah 6 Wijk</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="wijk" data-sub-key="partangiangan" onclick="setSectionSubTab('wijk','partangiangan')">Jadwal Partangiangan Wijk</button>
           </div>
         </div>
-        <div class="surface-card overflow-hidden">
-          <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>Tanggal &amp; Waktu</th>
-                  <th>Nama Minggu / Ibadah</th>
-                  <th>Ayat Khotbah &amp; Epistel</th>
-                  <th>Parjamita &amp; Paragenda</th>
-                  <th>Lokasi</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyJadwalPublic"></tbody>
-            </table>
+
+        <div id="wijk-pane-daftar" class="sub-pane-wijk">
+          <div class="row g-3" id="gridWijkInfo"></div>
+        </div>
+
+        <div id="wijk-pane-partangiangan" class="sub-pane-wijk d-none">
+          <div class="surface-card overflow-hidden">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Tanggal &amp; Waktu</th>
+                    <th>Partangiangan Wijk</th>
+                    <th>Nas Firman</th>
+                    <th>Pelayan</th>
+                    <th>Tuan Rumah / Lokasi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyPartangianganWijk"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. WARTA JEMAAT (TINGTING) -->
-    <section id="sec-warta" class="spa-section py-5">
+    <!-- 6. PUBLIKASI & BAHAN ROHANI -->
+    <section id="sec-publikasi" class="spa-section py-5">
       <div class="container">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
-          <div>
-            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Publikasi Resmi Huria</p>
-            <h2 class="h2 mb-0">Warta Jemaat (Tingting)</h2>
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Publikasi &amp; Bahan Rohani</p>
+          <h2 class="h2 mb-2">Warta, Tata Ibadah, Renungan, Galeri &amp; Pustaka</h2>
+          <p class="text-secondary mb-3">Pusat informasi resmi huria: Warta Jemaat (Tingting), Tata Ibadah Minggu (PDF), Renungan Harian, Galeri Kegiatan, serta Pustaka Digital HKBP.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="sub-pill-btn active" data-sub-tab="publikasi" data-sub-key="warta" onclick="setSectionSubTab('publikasi','warta')">Warta Jemaat (Tingting)</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="publikasi" data-sub-key="tata-ibadah" onclick="setSectionSubTab('publikasi','tata-ibadah')">Tata Ibadah (PDF)</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="publikasi" data-sub-key="renungan" onclick="setSectionSubTab('publikasi','renungan')">Renungan Harian</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="publikasi" data-sub-key="galeri" onclick="setSectionSubTab('publikasi','galeri')">Artikel &amp; Galeri</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="publikasi" data-sub-key="pustaka" onclick="setSectionSubTab('publikasi','pustaka')">Pustaka Digital HKBP</button>
           </div>
-          <div class="d-flex gap-2">
-            <select id="filterWartaKategori" class="form-select" aria-label="Filter Kategori Warta">
+        </div>
+
+        <!-- Sub: Warta Jemaat -->
+        <div id="publikasi-pane-warta" class="sub-pane-publikasi">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Warta Jemaat (Tingting)</h3>
+            <select id="filterWartaKategori" class="form-select form-select-sm" style="max-width:230px;" aria-label="Filter Kategori Warta">
               <option value="Semua">Semua Kategori</option>
               <option value="Tingting Mingguan">Tingting Mingguan</option>
               <option value="Pembangunan">Pembangunan</option>
@@ -426,192 +807,351 @@
               <option value="Diakoni Sosial">Diakoni Sosial</option>
             </select>
           </div>
+          <div class="row g-4" id="gridWartaPublic"></div>
         </div>
-        <div class="row g-4" id="gridWartaPublic"></div>
+
+        <!-- Sub: Tata Ibadah PDF -->
+        <div id="publikasi-pane-tata-ibadah" class="sub-pane-publikasi d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Tata Ibadah Minggu &amp; Hari Raya Gerejawi (PDF)</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('tata_ibadah_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Tata Ibadah</button>
+          </div>
+          <div class="row g-3" id="gridTataIbadah"></div>
+        </div>
+
+        <!-- Sub: Renungan Harian -->
+        <div id="publikasi-pane-renungan" class="sub-pane-publikasi d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Renungan Harian (Firman Kehidupan / Daily Bread)</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('renungan_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Renungan</button>
+          </div>
+          <div class="row g-3" id="gridRenunganHarian"></div>
+        </div>
+
+        <!-- Sub: Artikel & Galeri -->
+        <div id="publikasi-pane-galeri" class="sub-pane-publikasi d-none">
+          <h3 class="h5 mb-3">Artikel, Berita Kegiatan &amp; Galeri Foto</h3>
+          <div class="row g-4" id="gridGaleriPublic"></div>
+        </div>
+
+        <!-- Sub: Pustaka Digital HKBP -->
+        <div id="publikasi-pane-pustaka" class="sub-pane-publikasi d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Pustaka Digital HKBP (Alkitab, Bibel Toba, Buku Ende, BN, Almanak)</h3>
+            <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('pustaka_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Pustaka</button>
+          </div>
+          <div class="row g-3" id="gridPustakaDigital"></div>
+        </div>
       </div>
     </section>
 
-    <!-- 3B. PARHALADO & PENGURUS GEREJA -->
-    <section id="sec-parhalado" class="spa-section py-5">
+    <!-- 7. PERSEMBAHAN / DONASI & TRANSPARANSI 5 KAS -->
+    <section id="sec-persembahan" class="spa-section py-5">
       <div class="container">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
-          <div>
-            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Struktur Pelayanan Huria</p>
-            <h2 class="h2 mb-0">Parhalado &amp; Pengurus Gereja</h2>
-          </div>
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Persembahan &amp; Akuntabilitas Keuangan</p>
+          <h2 class="h2 mb-2">Persembahan Digital, QRIS &amp; Laporan 5 Kas</h2>
+          <p class="text-secondary mb-3" id="infoRekeningPublic"></p>
           <div class="d-flex flex-wrap gap-2">
-            <input type="search" id="filterParhaladoSearch" class="form-control form-control-sm" style="max-width:220px;" placeholder="Cari nama atau jabatan..." aria-label="Cari Parhalado" />
-            <select id="filterParhaladoJenis" class="form-select form-select-sm" style="max-width:220px;" aria-label="Filter Jenis Kepengurusan">
-              <option value="Semua">Semua Jenis Kepengurusan</option>
-            </select>
+            <button type="button" class="sub-pill-btn active" data-sub-tab="persembahan" data-sub-key="saluran" onclick="setSectionSubTab('persembahan','saluran')">Saluran Persembahan &amp; QRIS</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="persembahan" data-sub-key="kas" onclick="setSectionSubTab('persembahan','kas')">Transparansi 5 Kas Gereja</button>
           </div>
         </div>
-        <div id="containerParhaladoPublic" class="vstack gap-4"></div>
+
+        <!-- Sub: Saluran Persembahan & QRIS -->
+        <div id="persembahan-pane-saluran" class="sub-pane-persembahan">
+          <div class="row g-4 mb-4">
+            <div class="col-lg-5">
+              <div class="surface-card p-4 h-100 text-center">
+                <div class="small text-uppercase fw-semibold text-secondary mb-2" style="letter-spacing: 0.08em;">Kode QRIS Resmi Gereja</div>
+                <div id="qrisPreviewBox" class="rounded-3 border bg-light d-flex align-items-center justify-content-center mx-auto mb-3 overflow-hidden" style="max-width:260px;min-height:220px;">
+                  <div class="small text-secondary p-3">Gambar QRIS resmi gereja belum diunggah oleh Admin.</div>
+                </div>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                  <label class="btn btn-navy btn-sm mb-0 d-none cms-edit-btn" style="cursor:pointer;">
+                    <i class="bi bi-upload me-1"></i>Upload / Ganti QRIS
+                    <input type="file" accept="image/*" class="d-none" onchange="handleQrisUploadInput(this)" />
+                  </label>
+                  <button type="button" id="btnRemoveQris" class="btn btn-outline-danger btn-sm d-none cms-edit-btn" onclick="removeQrisImage()">Hapus QRIS</button>
+                </div>
+                <a id="btnWaKonfirmasiPersembahan" href="https://wa.me/6281362110400" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm w-100">
+                  <i class="bi bi-whatsapp me-1"></i>Konfirmasi Persembahan via WhatsApp
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h5 mb-0">Saluran Persembahan &amp; Rekening Resmi</h3>
+                <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('saluran_persembahan_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Saluran</button>
+              </div>
+              <div class="vstack gap-3" id="listSaluranPersembahan"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub: Transparansi 5 Kas Gereja -->
+        <div id="persembahan-pane-kas" class="sub-pane-persembahan d-none">
+          <div class="row g-3 mb-4" id="cardsRingkasanKas"></div>
+          <div class="surface-card p-4">
+            <div class="row g-2 align-items-center mb-3">
+              <div class="col-md-4">
+                <h3 class="h5 mb-0">Rincian Transaksi 5 Jenis Kas</h3>
+              </div>
+              <div class="col-md-4">
+                <select id="filterKasPublic" class="form-select form-select-sm" aria-label="Filter Jenis Kas">
+                  <option value="Semua">Semua 5 Jenis Kas</option>
+                  <option value="Kas Huria">Kas Huria</option>
+                  <option value="Kas Pembangunan">Kas Pembangunan</option>
+                  <option value="Kas Diakoni Sosial">Kas Diakoni Sosial</option>
+                  <option value="Kas Sentralisasi (BPSK)">Kas Sentralisasi (BPSK)</option>
+                  <option value="Kas Transitoris">Kas Transitoris</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select id="filterBulanPublic" class="form-select form-select-sm" aria-label="Filter Bulan">
+                  <option value="Semua">Semua Bulan/Tahun</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Jenis Kas</th>
+                    <th>Uraian &amp; Keterangan</th>
+                    <th>Tipe</th>
+                    <th class="text-end">Jumlah (Rp)</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyKeuanganPublic"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 4. LAYANAN PERMOHONAN UPDATE DATA JEMAAT -->
+    <!-- 8. LAYANAN JEMAAT & FORMULIR -->
     <section id="sec-layanan" class="spa-section py-5">
       <div class="container">
         <div class="mb-4">
-          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Administrasi Digital Ruas</p>
-          <h2 class="h2 mb-1">Layanan Permohonan Update Database Jemaat</h2>
-          <p class="text-secondary mb-0">Permohonan jemaat akan diverifikasi terlebih dahulu oleh Sintua Lingkungan sebelum disetujui Sekretaris Huria/Admin.</p>
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Layanan Jemaat &amp; Formulir Digital</p>
+          <h2 class="h2 mb-2">Administrasi Jemaat, Katekisasi Sidi &amp; Pelayanan Khusus</h2>
+          <p class="text-secondary mb-3">Usulan perubahan data anggota keluarga/jemaat (verifikasi Sintua Wijk &rarr; Sekretaris/Admin), pendaftaran Katekisasi Sidi, serta Baptisan, Pernikahan &amp; Pembinaan.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="sub-pill-btn active" data-sub-tab="layanan" data-sub-key="perubahan-data" onclick="setSectionSubTab('layanan','perubahan-data')">Usulan Perubahan Data Jemaat</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="layanan" data-sub-key="katekisasi-sidi" onclick="setSectionSubTab('layanan','katekisasi-sidi')">Pendaftaran Katekisasi Sidi</button>
+            <button type="button" class="sub-pill-btn" data-sub-tab="layanan" data-sub-key="pelayanan-khusus" onclick="setSectionSubTab('layanan','pelayanan-khusus')">Pelayanan Khusus (Baptis / Nikah / Retreat)</button>
+          </div>
         </div>
 
-        <div class="row g-4">
-          <div class="col-lg-7">
-            <div class="surface-card p-4">
-              <h3 class="h5 mb-3">Formulir Pengajuan Pembaruan Data</h3>
-              <form id="formPermohonanPublic" novalidate>
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqJenis">Jenis Permohonan <span class="text-danger">*</span></label>
-                    <select class="form-select" id="reqJenis" required>
-                      <option value="Tambah Anggota/Anak Lahir">Tambah Anggota / Anak Lahir</option>
-                      <option value="Perbaikan Biodata">Perbaikan Biodata (Multi-Perubahan)</option>
-                      <option value="Pindah/Mutasi">Pindah / Mutasi</option>
-                      <option value="Meninggal">Meninggal</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqLingkungan">Wijk / Lingkungan <span class="text-danger">*</span></label>
-                    <select class="form-select" id="reqLingkungan" required>
-                      <option value="">-- Pilih Wijk / Lingkungan --</option>
-                      <option value="Letare">Letare</option>
-                      <option value="Exaudi">Exaudi</option>
-                      <option value="Judika">Judika</option>
-                      <option value="Galatia">Galatia</option>
-                      <option value="Efesus">Efesus</option>
-                      <option value="Jeremia">Jeremia</option>
-                    </select>
-                  </div>
+        <!-- Sub: Usulan Perubahan Data Jemaat (Form Multi-Anak & Multi-Biodata + Cek Status) -->
+        <div id="layanan-pane-perubahan-data" class="sub-pane-layanan">
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <div class="surface-card p-4">
+                <h3 class="h5 mb-3">Formulir Pengajuan Pembaruan Data Jemaat</h3>
+                <form id="formPermohonanPublic" novalidate>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-medium" for="reqJenis">Jenis Permohonan <span class="text-danger">*</span></label>
+                      <select class="form-select" id="reqJenis" required>
+                        <option value="Tambah Anggota/Anak Lahir">Tambah Anggota / Anak Lahir</option>
+                        <option value="Perbaikan Biodata">Perbaikan Biodata (Multi-Perubahan)</option>
+                        <option value="Pindah/Mutasi">Pindah / Mutasi</option>
+                        <option value="Meninggal">Meninggal</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-medium" for="reqLingkungan">Wijk / Lingkungan <span class="text-danger">*</span></label>
+                      <select class="form-select" id="reqLingkungan" required>
+                        <option value="">-- Pilih Wijk / Lingkungan --</option>
+                        <option value="Letare">Letare</option>
+                        <option value="Exaudi">Exaudi</option>
+                        <option value="Judika">Judika</option>
+                        <option value="Galatia">Galatia</option>
+                        <option value="Efesus">Efesus</option>
+                        <option value="Jeremia">Jeremia</option>
+                      </select>
+                    </div>
 
-                  <!-- Blok Identitas Keluarga Khusus Tambah Anggota -->
-                  <div class="col-12" id="blockIdentitasTambahAnggota">
-                    <div class="p-3 rounded-3 border bg-light">
-                      <div class="small text-uppercase fw-semibold text-secondary mb-3" style="letter-spacing: 0.08em;">Identitas Keluarga</div>
-                      <div class="row g-3">
-                        <div class="col-md-6">
-                          <label class="form-label small fw-semibold" for="reqNamaSuami">Nama Suami <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control form-control-sm" id="reqNamaSuami" placeholder="Nama lengkap suami / kepala keluarga" />
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label small fw-semibold" for="reqNamaIstri">Nama Istri</label>
-                          <input type="text" class="form-control form-control-sm" id="reqNamaIstri" placeholder="Nama lengkap istri" />
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label small fw-semibold" for="reqEmail">Email</label>
-                          <input type="email" class="form-control form-control-sm" id="reqEmail" placeholder="nama@email.com (opsional)" />
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label small fw-semibold" for="reqAlamat">Alamat <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control form-control-sm" id="reqAlamat" placeholder="Alamat lengkap tempat tinggal" />
+                    <div class="col-12" id="blockIdentitasTambahAnggota">
+                      <div class="p-3 rounded-3 border bg-light">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-3" style="letter-spacing: 0.08em;">Identitas Keluarga</div>
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label class="form-label small fw-semibold" for="reqNamaSuami">Nama Suami <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="reqNamaSuami" placeholder="Nama lengkap suami / kepala keluarga" />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small fw-semibold" for="reqNamaIstri">Nama Istri</label>
+                            <input type="text" class="form-control form-control-sm" id="reqNamaIstri" placeholder="Nama lengkap istri" />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small fw-semibold" for="reqEmail">Email</label>
+                            <input type="email" class="form-control form-control-sm" id="reqEmail" placeholder="nama@email.com (opsional)" />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small fw-semibold" for="reqAlamat">Alamat <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="reqAlamat" placeholder="Alamat lengkap tempat tinggal" />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Blok Nama Pemohon untuk Jenis Selain Tambah Anggota -->
-                  <div class="col-md-6 d-none" id="wrapNamaPemohonUmum">
-                    <label class="form-label fw-medium" for="reqNamaPemohon">Nama Pemohon / Kepala Keluarga <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="reqNamaPemohon" placeholder="Nama lengkap kepala keluarga/pemohon" />
-                  </div>
-
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqNoKK">No. Kartu Keluarga (KK) <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control font-mono-num" id="reqNoKK" placeholder="Contoh: 1211011405820001" required minlength="6" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqVerif">Tgl Lahir / NIK Verifikasi <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="reqVerif" placeholder="YYYY-MM-DD atau 6 digit terakhir NIK" required />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqNoHp">HP / WhatsApp Aktif <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control font-mono-num" id="reqNoHp" placeholder="0813xxxxxxxx" required minlength="9" />
-                  </div>
-
-                  <!-- Daftar Anggota Keluarga (Repeatable Multi-Anak) -->
-                  <div class="col-12" id="blockDaftarAnggota">
-                    <div class="d-flex justify-content-between align-items-center mb-2 pt-2 border-top">
-                      <div>
-                        <div class="small text-uppercase fw-semibold text-secondary" style="letter-spacing: 0.08em;">Daftar Anggota Keluarga</div>
-                        <div class="small text-secondary">Dapat menambahkan lebih dari 1 data anak / anggota dalam satu permohonan.</div>
-                      </div>
-                      <button type="button" class="btn btn-outline-secondary btn-sm" id="btnAddAnggotaRow">
-                        <i class="bi bi-plus-lg me-1"></i>Tambah Anak / Anggota
-                      </button>
+                    <div class="col-md-6 d-none" id="wrapNamaPemohonUmum">
+                      <label class="form-label fw-medium" for="reqNamaPemohon">Nama Pemohon / Kepala Keluarga <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="reqNamaPemohon" placeholder="Nama lengkap kepala keluarga/pemohon" />
                     </div>
-                    <div id="listAnggotaRows" class="vstack gap-2"></div>
-                  </div>
 
-                  <!-- Kelengkapan Administrasi (5 Upload Opsional) -->
-                  <div class="col-12" id="blockKelengkapanAdmin">
-                    <div class="p-3 rounded-3 border bg-light">
-                      <div class="small text-uppercase fw-semibold text-secondary mb-1" style="letter-spacing: 0.08em;">Kelengkapan Administrasi (Opsional)</div>
-                      <div class="small text-secondary mb-3">Unggah pindaian PDF / foto (maks. 8 MB per berkas) untuk mempercepat verifikasi Sintua Wijk.</div>
-                      <div class="row g-2">
-                        <div class="col-md-6">
-                          <label class="form-label small fw-medium mb-1" for="docSuratGereja">Surat Keterangan Gereja</label>
-                          <input type="file" class="form-control form-control-sm" id="docSuratGereja" data-doc-key="surat_keterangan_gereja" accept=".pdf,image/*" />
+                    <div class="col-md-6">
+                      <label class="form-label fw-medium" for="reqNoKK">No. Kartu Keluarga (KK) <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control font-mono-num" id="reqNoKK" placeholder="Contoh: 1211011405820001" required minlength="6" />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-medium" for="reqVerif">Tgl Lahir / NIK Verifikasi <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="reqVerif" placeholder="YYYY-MM-DD atau 6 digit terakhir NIK" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-medium" for="reqNoHp">HP / WhatsApp Aktif <span class="text-danger">*</span></label>
+                      <input type="tel" class="form-control font-mono-num" id="reqNoHp" placeholder="0813xxxxxxxx" required minlength="9" />
+                    </div>
+
+                    <div class="col-12" id="blockDaftarAnggota">
+                      <div class="d-flex justify-content-between align-items-center mb-2 pt-2 border-top">
+                        <div>
+                          <div class="small text-uppercase fw-semibold text-secondary" style="letter-spacing: 0.08em;">Daftar Anggota Keluarga</div>
+                          <div class="small text-secondary">Dapat menambahkan lebih dari 1 data anak / anggota dalam satu permohonan.</div>
                         </div>
-                        <div class="col-md-6">
-                          <label class="form-label small fw-medium mb-1" for="docAkteNikah">Akte Pernikahan</label>
-                          <input type="file" class="form-control form-control-sm" id="docAkteNikah" data-doc-key="akte_pernikahan" accept=".pdf,image/*" />
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label small fw-medium mb-1" for="docAkteBaptis">Akte Baptis</label>
-                          <input type="file" class="form-control form-control-sm" id="docAkteBaptis" data-doc-key="akte_baptis" accept=".pdf,image/*" />
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label small fw-medium mb-1" for="docAkteSidi">Akte Sidi</label>
-                          <input type="file" class="form-control form-control-sm" id="docAkteSidi" data-doc-key="akte_sidi" accept=".pdf,image/*" />
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label small fw-medium mb-1" for="docSuratSintua">Surat Pengantar Sintua Wijk</label>
-                          <input type="file" class="form-control form-control-sm" id="docSuratSintua" data-doc-key="surat_pengantar_sintua_wijk" accept=".pdf,image/*" />
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnAddAnggotaRow">
+                          <i class="bi bi-plus-lg me-1"></i>Tambah Anak / Anggota
+                        </button>
+                      </div>
+                      <div id="listAnggotaRows" class="vstack gap-2"></div>
+                    </div>
+
+                    <div class="col-12" id="blockKelengkapanAdmin">
+                      <div class="p-3 rounded-3 border bg-light">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-1" style="letter-spacing: 0.08em;">Kelengkapan Administrasi (Opsional)</div>
+                        <div class="small text-secondary mb-3">Unggah pindaian PDF / foto (maks. 8 MB per berkas) untuk mempercepat verifikasi Sintua Wijk.</div>
+                        <div class="row g-2">
+                          <div class="col-md-6">
+                            <label class="form-label small fw-medium mb-1" for="docSuratGereja">Surat Keterangan Gereja</label>
+                            <input type="file" class="form-control form-control-sm" id="docSuratGereja" data-doc-key="surat_keterangan_gereja" accept=".pdf,image/*" />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small fw-medium mb-1" for="docAkteNikah">Akte Pernikahan</label>
+                            <input type="file" class="form-control form-control-sm" id="docAkteNikah" data-doc-key="akte_pernikahan" accept=".pdf,image/*" />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small fw-medium mb-1" for="docAkteBaptis">Akte Baptis</label>
+                            <input type="file" class="form-control form-control-sm" id="docAkteBaptis" data-doc-key="akte_baptis" accept=".pdf,image/*" />
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small fw-medium mb-1" for="docAkteSidi">Akte Sidi</label>
+                            <input type="file" class="form-control form-control-sm" id="docAkteSidi" data-doc-key="akte_sidi" accept=".pdf,image/*" />
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label small fw-medium mb-1" for="docSuratSintua">Surat Pengantar Sintua Wijk</label>
+                            <input type="file" class="form-control form-control-sm" id="docSuratSintua" data-doc-key="surat_pengantar_sintua_wijk" accept=".pdf,image/*" />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Daftar Perubahan Biodata (Repeatable Multi-Field) -->
-                  <div class="col-12 d-none" id="blockPerbaikanBiodata">
-                    <div class="d-flex justify-content-between align-items-center mb-2 pt-2 border-top">
-                      <div>
-                        <div class="small text-uppercase fw-semibold text-secondary" style="letter-spacing: 0.08em;">Daftar Data yang Hendak Diubah</div>
-                        <div class="small text-secondary">Pilih kolom yang salah, tuliskan data lama dan data yang benar (dapat mengajukan beberapa perubahan sekaligus).</div>
+                    <div class="col-12 d-none" id="blockPerbaikanBiodata">
+                      <div class="d-flex justify-content-between align-items-center mb-2 pt-2 border-top">
+                        <div>
+                          <div class="small text-uppercase fw-semibold text-secondary" style="letter-spacing: 0.08em;">Daftar Data yang Hendak Diubah</div>
+                          <div class="small text-secondary">Pilih kolom yang salah, tuliskan data lama dan data yang benar.</div>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="btnAddPerubahanRow">
+                          <i class="bi bi-plus-lg me-1"></i>Tambah Perubahan
+                        </button>
                       </div>
-                      <button type="button" class="btn btn-outline-secondary btn-sm" id="btnAddPerubahanRow">
-                        <i class="bi bi-plus-lg me-1"></i>Tambah Perubahan
-                      </button>
+                      <div id="listPerubahanRows" class="vstack gap-2"></div>
                     </div>
-                    <div id="listPerubahanRows" class="vstack gap-2"></div>
-                  </div>
 
-                  <!-- Rincian Umum / Catatan Tambahan -->
-                  <div class="col-12">
-                    <label class="form-label fw-medium" for="reqDetail" id="lblReqDetail">Catatan Tambahan (Opsional)</label>
-                    <textarea class="form-control" id="reqDetail" rows="3" placeholder="Tuliskan keterangan tambahan bila diperlukan..."></textarea>
+                    <div class="col-12">
+                      <label class="form-label fw-medium" for="reqDetail" id="lblReqDetail">Catatan Tambahan (Opsional)</label>
+                      <textarea class="form-control" id="reqDetail" rows="3" placeholder="Tuliskan keterangan tambahan bila diperlukan..."></textarea>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-navy px-4 py-2">Kirim Permohonan Update</button>
+                    </div>
                   </div>
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-navy px-4 py-2">Kirim Permohonan Update</button>
-                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="surface-card p-4 h-100">
+                <h3 class="h5 mb-2">Cek Status Permohonan</h3>
+                <p class="small text-secondary mb-3">Masukkan Nomor KK atau ID Pengajuan (misal <code>REQ-2026-001</code>) untuk memantau progres verifikasi Sintua &amp; Admin.</p>
+                <form id="formCekStatus" class="input-group mb-4">
+                  <input type="text" class="form-control font-mono-num" id="inputCekStatus" placeholder="No. KK atau ID Pengajuan..." required />
+                  <button class="btn btn-gold" type="submit">Cek Status</button>
+                </form>
+                <div id="hasilCekStatus">
+                  <p class="small text-secondary mb-0">Hasil pelacakan permohonan akan tampil di sini.</p>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-lg-5">
-            <div class="surface-card p-4 h-100">
-              <h3 class="h5 mb-2">Cek Status Permohonan</h3>
-              <p class="small text-secondary mb-3">Masukkan Nomor KK atau ID Pengajuan (misal <code>REQ-2026-001</code>) untuk memantau progres verifikasi Sintua &amp; Admin.</p>
-              <form id="formCekStatus" class="input-group mb-4">
-                <input type="text" class="form-control font-mono-num" id="inputCekStatus" placeholder="No. KK atau ID Pengajuan..." required />
-                <button class="btn btn-gold" type="submit">Cek Status</button>
-              </form>
-              <div id="hasilCekStatus">
-                <p class="small text-secondary mb-0">Hasil pelacakan permohonan akan tampil di sini.</p>
+        <!-- Sub: Pendaftaran Katekisasi Sidi -->
+        <div id="layanan-pane-katekisasi-sidi" class="sub-pane-layanan d-none">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="surface-card p-4">
+                <h3 class="h5 mb-2">Formulir Pendaftaran Katekisasi Sidi (Marguru Malua)</h3>
+                <p class="small text-secondary mb-3">Daftarkan calon peserta katekisasi sidi HKBP Ressort Hutaraja untuk jadwal kelas pembinaan gereja.</p>
+                <form id="formDaftarSidi" class="row g-3">
+                  <input type="hidden" name="jenis_layanan" value="Katekisasi Sidi" />
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Nama Lengkap Peserta *</label><input class="form-control form-control-sm" name="nama_lengkap" required /></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Wijk / Lingkungan *</label><select class="form-select form-select-sm" name="lingkungan" required><option value="Letare">Letare</option><option value="Exaudi">Exaudi</option><option value="Judika">Judika</option><option value="Galatia">Galatia</option><option value="Efesus">Efesus</option><option value="Jeremia">Jeremia</option></select></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">No. KK Keluarga</label><input class="form-control form-control-sm font-mono-num" name="no_kk" /></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">No. HP / WhatsApp *</label><input class="form-control form-control-sm font-mono-num" name="no_hp" required /></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Rencana Tahun / Angkatan</label><input class="form-control form-control-sm" name="tanggal_rencana" placeholder="Contoh: Angkatan 2026/2027" /></div>
+                  <div class="col-12"><label class="form-label small fw-semibold">Catatan / Nama Orang Tua</label><textarea class="form-control form-control-sm" rows="2" name="catatan" placeholder="Nama orang tua, tanggal baptis, dll."></textarea></div>
+                  <div class="col-12"><button type="submit" class="btn btn-navy btn-sm px-4">Kirim Pendaftaran Sidi</button></div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="surface-card p-4 h-100">
+                <h3 class="h5 mb-3">Daftar Pendaftar Katekisasi Sidi</h3>
+                <div id="listPendaftaranSidi" class="vstack gap-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub: Pelayanan Khusus -->
+        <div id="layanan-pane-pelayanan-khusus" class="sub-pane-layanan d-none">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="surface-card p-4">
+                <h3 class="h5 mb-2">Formulir Pendaftaran Pelayanan Khusus</h3>
+                <p class="small text-secondary mb-3">Pendaftaran Baptisan Kudus (Tardidi), Pernikahan Kudus (Pamasumasuon), atau Retreat / Pembinaan Jemaat.</p>
+                <form id="formDaftarKhusus" class="row g-3">
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Jenis Pelayanan *</label><select class="form-select form-select-sm" name="jenis_layanan" required><option value="Baptisan Kudus">Baptisan Kudus (Tardidi)</option><option value="Pernikahan (Pamasumasuon)">Pernikahan Kudus (Pamasumasuon)</option><option value="Retreat / Pembinaan">Retreat / Pembinaan Jemaat</option></select></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Wijk / Lingkungan *</label><select class="form-select form-select-sm" name="lingkungan" required><option value="Letare">Letare</option><option value="Exaudi">Exaudi</option><option value="Judika">Judika</option><option value="Galatia">Galatia</option><option value="Efesus">Efesus</option><option value="Jeremia">Jeremia</option></select></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Nama Lengkap Pemohon / Peserta *</label><input class="form-control form-control-sm" name="nama_lengkap" required /></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">No. HP / WhatsApp *</label><input class="form-control form-control-sm font-mono-num" name="no_hp" required /></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">No. KK</label><input class="form-control form-control-sm font-mono-num" name="no_kk" /></div>
+                  <div class="col-md-6"><label class="form-label small fw-semibold">Rencana Tanggal Pelaksanaan</label><input type="date" class="form-control form-control-sm" name="tanggal_rencana" /></div>
+                  <div class="col-12"><label class="form-label small fw-semibold">Keterangan Tambahan</label><textarea class="form-control form-control-sm" rows="2" name="catatan" placeholder="Nama calon mempelai / orang tua anak / keterangan lain"></textarea></div>
+                  <div class="col-12"><button type="submit" class="btn btn-navy btn-sm px-4">Kirim Pendaftaran Layanan</button></div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="surface-card p-4 h-100">
+                <h3 class="h5 mb-3">Daftar Pendaftaran Pelayanan Khusus</h3>
+                <div id="listPendaftaranKhusus" class="vstack gap-2"></div>
               </div>
             </div>
           </div>
@@ -619,64 +1159,47 @@
       </div>
     </section>
 
-    <!-- 5. LAPORAN KEUANGAN TRANSPARAN -->
-    <section id="sec-keuangan" class="spa-section py-5">
+    <!-- 9. KONTAK & HUBUNGI KAMI -->
+    <section id="sec-kontak" class="spa-section py-5">
       <div class="container">
         <div class="mb-4">
-          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Akuntabilitas Perbendaharaan</p>
-          <h2 class="h2 mb-1">Laporan Keuangan Transparan (5 Jenis Kas)</h2>
-          <p class="text-secondary mb-0" id="infoRekeningPublic"></p>
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Kontak &amp; Hubungi Kami</p>
+          <h2 class="h2 mb-2">Sekretariat, Peta Lokasi &amp; Layanan Pelayan</h2>
+          <p class="text-secondary mb-0">Informasi alamat kantor gereja, jam operasional sekretariat, serta kontak WhatsApp resmi pelayan HKBP Ressort Hutaraja.</p>
         </div>
-
-        <div class="row g-3 mb-4" id="cardsRingkasanKas"></div>
-
-        <div class="surface-card p-4">
-          <div class="row g-2 align-items-center mb-3">
-            <div class="col-md-4">
-              <h3 class="h5 mb-0">Rincian Transaksi Kas</h3>
-            </div>
-            <div class="col-md-4">
-              <select id="filterKasPublic" class="form-select form-select-sm" aria-label="Filter Jenis Kas">
-                <option value="Semua">Semua 5 Jenis Kas</option>
-                <option value="Kas Huria">Kas Huria</option>
-                <option value="Kas Pembangunan">Kas Pembangunan</option>
-                <option value="Kas Diakoni Sosial">Kas Diakoni Sosial</option>
-                <option value="Kas Sentralisasi (BPSK)">Kas Sentralisasi (BPSK)</option>
-                <option value="Kas Transitoris">Kas Transitoris</option>
-              </select>
-            </div>
-            <div class="col-md-4">
-              <select id="filterBulanPublic" class="form-select form-select-sm" aria-label="Filter Bulan">
-                <option value="Semua">Semua Bulan/Tahun</option>
-              </select>
+        <div class="row g-4 mb-4">
+          <div class="col-lg-6">
+            <div class="surface-card p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="h5 mb-0" style="color:var(--hkbp-navy);"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Alamat Kantor &amp; Peta Lokasi</h3>
+                <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('alamat_gereja','Alamat Gereja')"><i class="bi bi-pencil-fill"></i></button>
+              </div>
+              <p id="txtKontakAlamat" class="small text-secondary mb-3"></p>
+              <div class="d-flex flex-wrap gap-2">
+                <a id="btnBukaPetaLokasi" href="https://maps.google.com/?q=Hutaraja+Siempat+Nempu+Dairi+Sumatera+Utara" target="_blank" rel="noopener noreferrer" class="btn btn-navy btn-sm">
+                  <i class="bi bi-map me-1"></i>Buka di Google Maps
+                </a>
+                <button type="button" class="btn btn-outline-warning btn-sm d-none cms-edit-btn" onclick="inlineEditSetting('peta_lokasi_url','Link Google Maps')"><i class="bi bi-pencil-fill me-1"></i>Edit Link Peta</button>
+              </div>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>Tanggal</th>
-                  <th>Jenis Kas</th>
-                  <th>Uraian &amp; Keterangan</th>
-                  <th>Tipe</th>
-                  <th class="text-end">Jumlah (Rp)</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyKeuanganPublic"></tbody>
-            </table>
+          <div class="col-lg-6">
+            <div class="surface-card p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="h5 mb-0" style="color:var(--hkbp-navy);"><i class="bi bi-clock-fill text-warning me-2"></i>Jam Operasional Sekretariat</h3>
+                <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 d-none cms-edit-btn" onclick="inlineEditSetting('jam_operasional_sekretariat','Jam Operasional Sekretariat')"><i class="bi bi-pencil-fill"></i></button>
+              </div>
+              <p id="txtKontakJamOps" class="small text-secondary mb-2"></p>
+              <div class="small text-dark fw-semibold"><i class="bi bi-telephone me-1"></i><span id="txtKontakSekretariat"></span></div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 6. GALERI KEGIATAN -->
-    <section id="sec-galeri" class="spa-section py-5">
-      <div class="container">
-        <div class="mb-4">
-          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Dokumentasi Pelayanan</p>
-          <h2 class="h2 mb-0">Galeri Kegiatan Gereja</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="h5 mb-0">Call Center &amp; WhatsApp Sekretariat / Pelayan</h3>
+          <button type="button" class="btn btn-navy btn-sm d-none cms-edit-btn" onclick="openJsonItemModal('kontak_pelayan_json')"><i class="bi bi-plus-lg me-1"></i>Tambah Kontak Pelayan</button>
         </div>
-        <div class="row g-4" id="gridGaleriPublic"></div>
+        <div class="row g-3" id="gridKontakPelayan"></div>
       </div>
     </section>
   </main>
@@ -704,31 +1227,56 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-white border-top py-4 mt-5 no-print">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 small text-secondary">
-      <div class="d-flex align-items-center gap-2">
-        <img id="footerLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:34px;width:34px;object-fit:contain;" referrerpolicy="no-referrer" />
-        <div>
-          <div>
-            <strong class="text-dark" id="footerJudul">HKBP Ressort Hutaraja — Distrik VI Dairi</strong>
-            <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('footer_judul','Judul Footer')"><i class="bi bi-pencil-fill"></i></button>
+  <!-- Footer (3-Column HKBP Sitemap) -->
+  <footer class="bg-white border-top py-5 mt-5 no-print">
+    <div class="container small text-secondary">
+      <div class="row g-4 pb-4 border-bottom">
+        <div class="col-lg-5">
+          <div class="d-flex align-items-start gap-2 mb-2">
+            <img id="footerLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:36px;width:36px;object-fit:contain;" referrerpolicy="no-referrer" />
+            <div>
+              <strong class="text-dark fs-6 font-serif" id="footerJudul">HKBP Ressort Hutaraja — Distrik VI Dairi</strong>
+              <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('footer_judul','Judul Footer')"><i class="bi bi-pencil-fill"></i></button>
+            </div>
           </div>
-          <div>
+          <div class="mb-1">
             <span id="footerAlamat"></span>
             <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('alamat_gereja','Alamat Gereja')"><i class="bi bi-pencil-fill"></i></button>
           </div>
+          <div>
+            <span id="footerKontak"></span>
+            <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('kontak_sekretariat','Kontak Sekretariat')"><i class="bi bi-pencil-fill"></i></button>
+          </div>
+        </div>
+        <div class="col-6 col-lg-4">
+          <div class="fw-bold text-dark text-uppercase mb-2" style="letter-spacing:0.08em;font-size:0.75rem;">Peta Situs HKBP</div>
+          <div class="row g-1">
+            <div class="col-6"><a href="#beranda" data-nav="beranda" class="text-secondary text-decoration-none">Beranda</a></div>
+            <div class="col-6"><a href="#profil" data-nav="profil" class="text-secondary text-decoration-none">Profil &amp; Parhalado</a></div>
+            <div class="col-6"><a href="#ibadah" data-nav="ibadah" class="text-secondary text-decoration-none">Ibadah &amp; Kegiatan</a></div>
+            <div class="col-6"><a href="#dewan" data-nav="dewan" class="text-secondary text-decoration-none">Dewan &amp; Pelayanan</a></div>
+            <div class="col-6"><a href="#wijk" data-nav="wijk" class="text-secondary text-decoration-none">Lingkungan (Wijk)</a></div>
+            <div class="col-6"><a href="#publikasi" data-nav="publikasi" class="text-secondary text-decoration-none">Publikasi &amp; Pustaka</a></div>
+            <div class="col-6"><a href="#persembahan" data-nav="persembahan" class="text-secondary text-decoration-none">Persembahan &amp; 5 Kas</a></div>
+            <div class="col-6"><a href="#layanan" data-nav="layanan" class="text-secondary text-decoration-none">Layanan &amp; Formulir</a></div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="fw-bold text-dark text-uppercase mb-2" style="letter-spacing:0.08em;font-size:0.75rem;">Akses Cepat</div>
+          <div class="vstack gap-1">
+            <a href="#publikasi" data-nav="publikasi" data-sub="warta" class="text-secondary text-decoration-none">Warta Jemaat Pekan Ini</a>
+            <a href="#persembahan" data-nav="persembahan" data-sub="saluran" class="text-secondary text-decoration-none">QRIS &amp; Rekening Persembahan</a>
+            <a href="#kontak" data-nav="kontak" class="text-secondary text-decoration-none">Kontak &amp; Peta Lokasi</a>
+            <button type="button" class="btn btn-link btn-sm p-0 text-start text-decoration-none fw-semibold" style="color:var(--hkbp-navy);" onclick="openAdminDashboard()">Portal Pengurus &rarr;</button>
+          </div>
         </div>
       </div>
-      <div class="text-md-end">
-        <div>
-          <span id="footerKontak"></span>
-          <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('kontak_sekretariat','Kontak Sekretariat')"><i class="bi bi-pencil-fill"></i></button>
-        </div>
+      <div class="pt-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div>
           <span id="footerHakCipta">&copy; 2026 HKBP Ressort Hutaraja</span>
           <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('footer_hak_cipta','Hak Cipta Footer')"><i class="bi bi-pencil-fill"></i></button>
         </div>
+        <div class="text-secondary">Koinonia &middot; Marturia &middot; Diakonia</div>
       </div>
     </div>
   </footer>
@@ -909,11 +1457,21 @@
       user: null,
       editMode: false,
       activePublicTab: 'beranda',
+      activeSubTabs: {
+        profil: 'sejarah',
+        ibadah: 'minggu',
+        wijk: 'daftar',
+        publikasi: 'warta',
+        persembahan: 'saluran',
+        layanan: 'perubahan-data'
+      },
+      activeDewan: 'Dewan Koinonia',
       activeAdminTab: '',
       pengaturan: {},
       jadwal: [],
       warta: [],
       parhalado: [],
+      pendaftaran_layanan: [],
       statistik: {
         totalJiwa: 0,
         totalKK: 0,
@@ -939,6 +1497,212 @@
       editingGaleriId: '',
       editingUserId: '',
       editingParhaladoId: ''
+    };
+
+    const DEFAULT_SITEMAP_DATA = {
+      sejarah_hkbp_umum: 'Huria Kristen Batak Protestan (HKBP) lahir dari karya pekabaran Injil di Tanah Batak oleh para penginjil Rhenish Missionary Society (RMG) dari Jerman, yang berpuncak pada penetapan berdirinya HKBP pada 7 Oktober 1861 di Sipirok dan pelayanan Dr. Ingwer Ludwig Nommensen (Apostel ni Halak Batak).',
+      sejarah_jemaat_lokal: 'HKBP Ressort Hutaraja (Distrik VI Dairi) berdiri dari semangat persekutuan warga Kristen Batak di wilayah Siempat Nempu, Kabupaten Dairi. Jemaat berkembang melayani 6 Wijk (Letare, Exaudi, Judika, Galatia, Efesus, dan Jeremia) dalam semangat Koinonia, Marturia, dan Diakonia.',
+      visi_gereja: 'Menjadi jemaat yang berakar teguh di dalam Kristus, bertumbuh dalam persekutuan yang inklusif, dan menjadi berkat bagi dunia melalui kesaksian dan pelayanan kasih.',
+      misi_gereja: '1. Meningkatkan mutu peribadahan, pembinaan iman, dan persekutuan lintas usia di seluruh Wijk.\n2. Memperlengkapi warga jemaat dalam kesaksian Injil, musik gerejawi, dan media digital.\n3. Mewujudkan kepedulian sosial (Diakonia), pendidikan, kesehatan, dan kemasyarakatan.\n4. Menyelenggarakan tata kelola administrasi dan keuangan huria yang transparan serta akuntabel.',
+      pengajaran_konfesi: 'HKBP Ressort Hutaraja berlandaskan Alkitab (PL & PB), Pengakuan Iman Rasuli, Niceanum, Athanasianum, Konfesi Augsburg, Katekismus Kecil Dr. Martin Luther, Konfesi HKBP 1951 & 1996, serta Aturan Peraturan (AP) HKBP.',
+      sopo_prosedur: 'Penggunaan ruang rapat, Aula Serbaguna, dan Gedung Sopo Godang dikoordinasikan melalui Sekretariat Huria dan Parartaon minimal 14 hari sebelum pelaksanaan.',
+      jam_operasional_sekretariat: 'Selasa – Sabtu: 08.30 – 16.00 WIB · Minggu: 07.30 – 13.00 WIB (Senin Libur Sekretariat)',
+      peta_lokasi_url: 'https://maps.google.com/?q=Hutaraja+Siempat+Nempu+Dairi+Sumatera+Utara',
+      youtube_live_judul: 'Live Streaming Ibadah Minggu — Kanal YouTube HKBP Ressort Hutaraja',
+      whatsapp_konfirmasi_persembahan: '6281362110400',
+      huria_pagaran_json: [
+        { id: 'PGR-001', nama: 'HKBP Pagaran Sosor Dolok', alamat: 'Dusun Sosor Dolok, Kec. Siempat Nempu, Kab. Dairi', jadwal_ibadah: 'Minggu, 10:00 WIB (Bahasa Batak Toba)', pelayan: 'Parhalado Ressort Hutaraja', keterangan: 'Huria Pagaran di bawah naungan HKBP Ressort Hutaraja.' }
+      ],
+      petugas_ibadah_json: [
+        { id: 'PTG-001', tanggal: '2026-11-29', sesi_ibadah: 'Kebaktian Pagi 08:00 WIB (Bahasa Batak)', pengkhotbah: 'Pdt. Parlindungan Simanjuntak, S.Th.', liturgis: 'St. Hotman Sihombing', pemusik: 'Organis: Bpk. R. Manullang', song_leader: 'Ny. S. br. Siahaan & Sdri. Ester br. Manullang', pengumpul_persembahan: 'St. Parlindungan Manullang, St. Saut Nababan', multimedia: 'Tim IT & Multimedia NHKBP' },
+        { id: 'PTG-002', tanggal: '2026-11-29', sesi_ibadah: 'Kebaktian Siang 10:30 WIB (Bahasa Indonesia)', pengkhotbah: 'Pdt. Parlindungan Simanjuntak, S.Th.', liturgis: 'St. Mangatas Situmorang', pemusik: 'Tim Musik & Saxophone Marturia', song_leader: 'Tim Pujian NHKBP Hutaraja', pengumpul_persembahan: 'St. Sahat Marbun, St. Poltak Siregar', multimedia: 'Tim IT & Multimedia NHKBP' }
+      ],
+      live_streaming_json: [
+        { id: 'LIV-001', tanggal: '2026-11-29', judul: 'Live Ibadah Minggu Advent I — HKBP Ressort Hutaraja (08:00 & 10:30 WIB)', youtube_url: 'https://www.youtube.com', status: 'Akan Datang', keterangan: 'Siaran langsung dari Gereja Induk melalui kanal YouTube resmi gereja.' },
+        { id: 'LIV-002', tanggal: '2026-11-22', judul: 'Arsip Ibadah Minggu Ujung Tahun Gerejawi', youtube_url: 'https://www.youtube.com', status: 'Arsip', keterangan: 'Rekaman lengkap Ibadah Minggu Parningotan di angka na Monding 2026.' }
+      ],
+      jadwal_ruangan_json: [
+        { id: 'SOP-001', tanggal: '2026-11-28', waktu: '16:00 – 18:30 WIB', ruangan: 'Gedung Sopo Godang (Aula Serbaguna)', kegiatan: 'Rapat Koordinasi Panitia Natal Ressort 2026', pemohon: 'Panitia Natal & Pengurus Seksi', status: 'Terjadwal', keterangan: 'Penggunaan internal gereja.' },
+        { id: 'SOP-002', tanggal: '2026-12-05', waktu: '09:00 – 15:00 WIB', ruangan: 'Gedung Sopo Godang (Aula Serbaguna)', kegiatan: 'Tersedia untuk Peminjaman Kegiatan Adat / Pertemuan Jemaat', pemohon: 'Terbuka (Hubungi Sekretariat)', status: 'Tersedia', keterangan: 'Koordinasi melalui Sekretariat Huria & Parartaon.' }
+      ],
+      dewan_seksi_json: [
+        { id: 'DWN-001', dewan: 'Dewan Koinonia', nama_seksi: 'Seksi Sekolah Minggu (SSM)', deskripsi: 'Pembinaan iman anak usia 0–12 tahun melalui kebaktian Sekolah Minggu dan cerita Alkitab.', jadwal_kegiatan: 'Minggu, 08:00 WIB · Sermon GSM Selasa 17:00 WIB', koordinator: 'Pengurus Seksi Sekolah Minggu', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-002', dewan: 'Dewan Koinonia', nama_seksi: 'Seksi Pra-Remaja & Seksi Remaja', deskripsi: 'Persekutuan dan pendalaman Alkitab remaja gereja persiapan Katekisasi Sidi.', jadwal_kegiatan: 'Sabtu, 17:00 WIB di Ruang Pembinaan', koordinator: 'Pengurus Seksi Remaja', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-003', dewan: 'Dewan Koinonia', nama_seksi: 'Seksi Naposobulung / Pemuda HKBP (NHKBP)', deskripsi: 'Wadah persekutuan, PA, koor pemuda, dan pelayanan kreatif generasi muda gereja.', jadwal_kegiatan: 'Sabtu, 19:00 WIB di Gedung Sopo Godang', koordinator: 'Pengurus NHKBP Hutaraja', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-004', dewan: 'Dewan Koinonia', nama_seksi: 'Seksi Parompuan Huria (SPH) & Punguan Koor Ibu', deskripsi: 'Persekutuan kaum ibu melalui PHD Parompuan dan latihan koor ibu.', jadwal_kegiatan: 'Jumat, 16:00 WIB di Gereja Induk', koordinator: 'Pengurus Parompuan Huria', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-005', dewan: 'Dewan Koinonia', nama_seksi: 'Seksi Ama (Kaum Bapak) & Koor Ama', deskripsi: 'Persekutuan kaum bapak dalam pendalaman firman, latihan koor Ama, dan pelayanan sosial.', jadwal_kegiatan: 'Kamis malam / Sabtu', koordinator: 'Pengurus Punguan Ama', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-006', dewan: 'Dewan Koinonia', nama_seksi: 'Seksi Lansia', deskripsi: 'Persekutuan doa, cek kesehatan berkala, dan kunjungan kasih warga lansia (>= 60 thn).', jadwal_kegiatan: 'Rabu minggu ke-2 setiap bulan, 09:00 WIB', koordinator: 'Pengurus Seksi Lansia', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-007', dewan: 'Dewan Marturia', nama_seksi: 'Seksi Pekabaran Injil / Zending', deskripsi: 'Pelayanan pekabaran Injil, kunjungan pos pelayanan / huria pagaran, dan misi kesaksian.', jadwal_kegiatan: 'Kunjungan bulanan & Pekan Zending HKBP', koordinator: 'Pengurus Seksi Zending', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-008', dewan: 'Dewan Marturia', nama_seksi: 'Seksi Musik & Liturgi (Koor, Organis, Orkestra/Saxophone)', deskripsi: 'Koordinasi paduan suara huria, jadwal organis/pemusik, song leader, dan musik liturgi HKBP.', jadwal_kegiatan: 'Latihan rutin Jumat & Sabtu 19:00 WIB', koordinator: 'Pengurus Seksi Musik & Liturgi', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-009', dewan: 'Dewan Marturia', nama_seksi: 'Tim IT & Multimedia', deskripsi: 'Pengelolaan live streaming YouTube, tata suara, proyektor ibadah, dan portal digital huria.', jadwal_kegiatan: 'Setiap Ibadah Minggu & Hari Raya', koordinator: 'Tim Multimedia HKBP Hutaraja', kontak: 'sekretariat@hkbphutaraja.or.id' },
+        { id: 'DWN-010', dewan: 'Dewan Diakonia', nama_seksi: 'Seksi Diakoni Sosial', deskripsi: 'Penyaluran santunan jemaat sakit, duka cita, paket kasih lansia, dan tanggap bencana.', jadwal_kegiatan: 'Kunjungan pastoral berkala di 6 Wijk', koordinator: 'Pengurus Diakoni Sosial', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-011', dewan: 'Dewan Diakonia', nama_seksi: 'Seksi Pendidikan & Yayasan Kasih', deskripsi: 'Program beasiswa pelajar berprestasi dan pembinaan pendidikan karakter anak gereja.', jadwal_kegiatan: 'Evaluasi semesteran & Pekan Pendidikan', koordinator: 'Pengurus Seksi Pendidikan', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-012', dewan: 'Dewan Diakonia', nama_seksi: 'Seksi Kesehatan', deskripsi: 'Cek kesehatan gratis jemaat & lansia, donor darah, dan edukasi hidup sehat.', jadwal_kegiatan: 'Triwulanan di halaman Gereja Induk', koordinator: 'Pengurus Seksi Kesehatan', kontak: 'Sekretariat Huria' },
+        { id: 'DWN-013', dewan: 'Dewan Diakonia', nama_seksi: 'Seksi Kemasyarakatan', deskripsi: 'Hubungan harmonis lintas masyarakat, pemerintahan desa, dan kepedulian lingkungan hidup.', jadwal_kegiatan: 'Bakti sosial & gotong royong lingkungan', koordinator: 'Pengurus Seksi Kemasyarakatan', kontak: 'Sekretariat Huria' }
+      ],
+      wijk_info_json: [
+        { id: 'WJK-01', nama_wijk: 'Letare', cakupan_wilayah: 'Dusun I Hutaraja & Jl. Gereja Induk', koordinator_sintua: 'St. Hotman Sihombing', kontak_sintua: '0813-6211-0401', jadwal_partangiangan: 'Setiap Kamis, 19:30 WIB', lokasi_partangiangan_berikutnya: 'Diinformasikan di Warta Mingguan', catatan: 'Koordinasi verifikasi data & kunjungan pastoral Wijk Letare.' },
+        { id: 'WJK-02', nama_wijk: 'Exaudi', cakupan_wilayah: 'Dusun II Sosor Dolok & sekitarnya', koordinator_sintua: 'St. Parlindungan Manullang', kontak_sintua: '0813-6211-0402', jadwal_partangiangan: 'Setiap Kamis, 19:30 WIB', lokasi_partangiangan_berikutnya: 'Rumah Jemaat Wijk Exaudi, Hutaraja', catatan: 'Koordinasi partangiangan Wijk Exaudi.' },
+        { id: 'WJK-03', nama_wijk: 'Judika', cakupan_wilayah: 'Dusun III Hutaraja Utara & simpang jalan raya', koordinator_sintua: 'St. Mangatas Situmorang', kontak_sintua: '0813-6211-0403', jadwal_partangiangan: 'Setiap Kamis, 19:30 WIB', lokasi_partangiangan_berikutnya: 'Diinformasikan di Warta Mingguan', catatan: 'Koordinasi persekutuan keluarga Wijk Judika.' },
+        { id: 'WJK-04', nama_wijk: 'Galatia', cakupan_wilayah: 'Dusun IV Lumban Sihombing & area perkebunan', koordinator_sintua: 'St. Saut Nababan', kontak_sintua: '0813-6211-0404', jadwal_partangiangan: 'Setiap Kamis, 19:30 WIB', lokasi_partangiangan_berikutnya: 'Diinformasikan di Warta Mingguan', catatan: 'Koordinasi persekutuan keluarga Wijk Galatia.' },
+        { id: 'WJK-05', nama_wijk: 'Efesus', cakupan_wilayah: 'Dusun V Hutaraja Selatan', koordinator_sintua: 'St. Sahat Marbun', kontak_sintua: '0813-6211-0405', jadwal_partangiangan: 'Setiap Kamis, 19:30 WIB', lokasi_partangiangan_berikutnya: 'Diinformasikan di Warta Mingguan', catatan: 'Koordinasi persekutuan keluarga Wijk Efesus.' },
+        { id: 'WJK-06', nama_wijk: 'Jeremia', cakupan_wilayah: 'Dusun VI Perbatasan Siempat Nempu', koordinator_sintua: 'St. Poltak Siregar', kontak_sintua: '0813-6211-0406', jadwal_partangiangan: 'Setiap Kamis, 19:30 WIB', lokasi_partangiangan_berikutnya: 'Diinformasikan di Warta Mingguan', catatan: 'Koordinasi persekutuan keluarga Wijk Jeremia.' }
+      ],
+      tata_ibadah_json: [
+        { id: 'TTI-001', tanggal: '2026-11-29', nama_minggu: 'Tata Ibadah Minggu Advent I (Bahasa Batak Toba)', sesi_bahasa: 'Kebaktian Pagi 08:00 WIB · Bahasa Batak', link_pdf: '', catatan: 'Dilengkapi nomor Buku Ende (BE) dan urutan Liturgi Minggu Advent I.' },
+        { id: 'TTI-002', tanggal: '2026-11-29', nama_minggu: 'Tata Ibadah Minggu Advent I (Bahasa Indonesia)', sesi_bahasa: 'Kebaktian Siang 10:30 WIB · Bahasa Indonesia', link_pdf: '', catatan: 'Dilengkapi nomor Buku Nyanyian HKBP (BN) dan respons jemaat.' }
+      ],
+      renungan_json: [
+        { id: 'RNG-001', tanggal: '2026-11-22', tajuk: 'Firman Kehidupan', judul: 'Berakar Teguh dan Melimpah dengan Syukur', ayat_nas: 'Kolose 2:7', penulis: 'Pdt. Parlindungan Simanjuntak, S.Th.', isi: 'Pohon yang mampu bertahan menghadapi badai bukanlah pohon yang paling tinggi, melainkan yang akarnya menghunjam paling dalam. Ketika kita berakar di dalam Kristus melalui doa, firman, dan persekutuan huria, hati kita akan selalu dipenuhi ucapan syukur.', link_media: '' }
+      ],
+      pustaka_json: [
+        { id: 'PST-001', kategori: 'Alkitab & Bibel', judul: 'Alkitab Bahasa Indonesia & Bibel Bahasa Batak Toba', deskripsi: 'Akses bacaan Alkitab PL & PB beserta terjemahan Bibel Bahasa Batak Toba.', url: 'https://alkitab.sabda.org' },
+        { id: 'PST-002', kategori: 'Buku Ende (BE)', judul: 'Buku Ende HKBP (BE)', deskripsi: 'Kumpulan nyanyian jemaat berbahasa Batak Toba untuk peribadahan HKBP.', url: 'https://hkbp.or.id' },
+        { id: 'PST-003', kategori: 'Buku Nyanyian HKBP (BN)', judul: 'Buku Nyanyian HKBP (BN) & Kidung Jemaat (KJ)', deskripsi: 'Lirik pujian resmi berbahasa Indonesia untuk kebaktian Minggu dan kategorial.', url: 'https://hkbp.or.id' },
+        { id: 'PST-004', kategori: 'Almanak HKBP', judul: 'Almanak HKBP & Petunjuk Liturgi Tahunan', deskripsi: 'Daftar nama Minggu gerejawi, nas Khotbah/Epistel, ayat harian, dan kalender pelayanan HKBP.', url: 'https://hkbp.or.id' }
+      ],
+      saluran_persembahan_json: [
+        { id: 'PRS-001', kategori: 'Kolekte Ibadah Minggu (Pelean I A, I B, II)', deskripsi: 'Persembahan syukur jemaat dalam kebaktian Minggu pagi, siang, dan Sekolah Minggu.', rekening_tujuan: 'Bank Sumut Cab. Sidikalang · 220-02-04-018842-1', atas_nama: 'HKBP Ressort Hutaraja' },
+        { id: 'PRS-002', kategori: 'Persembahan Partangiangan Wijk & Ucapan Syukur', deskripsi: 'Persembahan kebaktian keluarga lingkungan (Wijk) dan ucapan syukur (Hamauliateon).', rekening_tujuan: 'Bank Sumut Cab. Sidikalang · 220-02-04-018842-1', atas_nama: 'HKBP Ressort Hutaraja' },
+        { id: 'PRS-003', kategori: 'Janji Iman (Tumpak) & Dana Pembangunan', deskripsi: 'Dukungan jemaat bagi renovasi Gedung Sekolah Minggu dan Sopo Godang.', rekening_tujuan: 'BRI Unit Hutaraja · 3512-01-024418-53-9', atas_nama: 'Panitia Pembangunan HKBP Ressort Hutaraja' },
+        { id: 'PRS-004', kategori: 'Aksi Sosial & Diakonia', deskripsi: 'Persembahan khusus santunan warga lansia, jemaat sakit, dan solidaritas kemanusiaan.', rekening_tujuan: 'Bank Sumut Cab. Sidikalang · 220-02-04-018842-1 (Berita: Diakonia)', atas_nama: 'HKBP Ressort Hutaraja' }
+      ],
+      kontak_pelayan_json: [
+        { id: 'KTK-001', jabatan: 'Pendeta Ressort', nama: 'Pdt. Parlindungan Simanjuntak, S.Th.', telepon_wa: '0813-6211-0400', email: 'pendeta@hkbphutaraja.or.id', keterangan: 'Layanan pastoral, konseling jemaat, dan jadwal sakramen.' },
+        { id: 'KTK-002', jabatan: 'Sekretariat Huria & Tata Usaha', nama: 'St. Togar Lumbantobing', telepon_wa: '0813-6211-0410', email: 'sekretariat@hkbphutaraja.or.id', keterangan: 'Administrasi surat keterangan, warta jemaat, database, dan Sopo Godang.' },
+        { id: 'KTK-003', jabatan: 'Bendahara Huria', nama: 'St. Tiurma br. Simanjuntak', telepon_wa: '0813-6211-0420', email: 'bendahara@hkbphutaraja.or.id', keterangan: 'Konfirmasi transfer persembahan, janji iman, dan laporan kas.' }
+      ]
+    };
+
+    const SITEMAP_MODAL_SCHEMAS = {
+      huria_pagaran_json: {
+        title: 'Huria Pagaran / Pos Pelayanan',
+        prefix: 'PGR',
+        fields: [
+          { key: 'nama', label: 'Nama Huria Pagaran *', required: true },
+          { key: 'alamat', label: 'Alamat Lokasi', required: false },
+          { key: 'jadwal_ibadah', label: 'Jadwal Ibadah', required: false },
+          { key: 'pelayan', label: 'Pelayan / Koordinator', required: false },
+          { key: 'keterangan', label: 'Keterangan', type: 'textarea' }
+        ]
+      },
+      petugas_ibadah_json: {
+        title: 'Jadwal Petugas Ibadah (Parhombar Marhobas)',
+        prefix: 'PTG',
+        fields: [
+          { key: 'tanggal', label: 'Tanggal Ibadah *', type: 'date', required: true },
+          { key: 'sesi_ibadah', label: 'Sesi Ibadah *', required: true },
+          { key: 'pengkhotbah', label: 'Pengkhotbah (Parjamita)', required: false },
+          { key: 'liturgis', label: 'Liturgis (Paragenda)', required: false },
+          { key: 'pemusik', label: 'Pemusik / Organis', required: false },
+          { key: 'song_leader', label: 'Song Leader', required: false },
+          { key: 'pengumpul_persembahan', label: 'Kolektan (Papungu Pelean)', required: false },
+          { key: 'multimedia', label: 'Tim Multimedia / Penerima Tamu', required: false }
+        ]
+      },
+      live_streaming_json: {
+        title: 'Live Streaming / Arsip Video YouTube',
+        prefix: 'LIV',
+        fields: [
+          { key: 'tanggal', label: 'Tanggal *', type: 'date', required: true },
+          { key: 'judul', label: 'Judul Siaran / Video *', required: true },
+          { key: 'youtube_url', label: 'Link YouTube (https://...) *', required: true },
+          { key: 'status', label: 'Status', type: 'select', options: ['Live Sekarang', 'Akan Datang', 'Arsip'] },
+          { key: 'keterangan', label: 'Keterangan', type: 'textarea' }
+        ]
+      },
+      jadwal_ruangan_json: {
+        title: 'Jadwal Gedung Sopo Godang / Ruangan',
+        prefix: 'SOP',
+        fields: [
+          { key: 'tanggal', label: 'Tanggal *', type: 'date', required: true },
+          { key: 'waktu', label: 'Waktu *', required: true },
+          { key: 'ruangan', label: 'Nama Ruangan / Gedung *', required: true },
+          { key: 'kegiatan', label: 'Kegiatan *', required: true },
+          { key: 'pemohon', label: 'Pemohon / Seksi', required: false },
+          { key: 'status', label: 'Status', type: 'select', options: ['Tersedia', 'Terjadwal', 'Menunggu Konfirmasi'] },
+          { key: 'keterangan', label: 'Keterangan', type: 'textarea' }
+        ]
+      },
+      dewan_seksi_json: {
+        title: 'Seksi Pelayanan Dewan',
+        prefix: 'DWN',
+        fields: [
+          { key: 'dewan', label: 'Dewan *', type: 'select', options: ['Dewan Koinonia', 'Dewan Marturia', 'Dewan Diakonia'], required: true },
+          { key: 'nama_seksi', label: 'Nama Seksi *', required: true },
+          { key: 'jadwal_kegiatan', label: 'Jadwal Kegiatan', required: false },
+          { key: 'koordinator', label: 'Koordinator / Ketua Seksi', required: false },
+          { key: 'kontak', label: 'Kontak', required: false },
+          { key: 'deskripsi', label: 'Deskripsi Pelayanan', type: 'textarea' }
+        ]
+      },
+      wijk_info_json: {
+        title: 'Informasi Lingkungan (Wijk)',
+        prefix: 'WJK',
+        fields: [
+          { key: 'nama_wijk', label: 'Nama Wijk *', type: 'select', options: LINGKUNGAN_LIST, required: true },
+          { key: 'cakupan_wilayah', label: 'Cakupan Wilayah', required: false },
+          { key: 'koordinator_sintua', label: 'Koordinator Sintua', required: false },
+          { key: 'kontak_sintua', label: 'Kontak Sintua (HP/WA)', required: false },
+          { key: 'jadwal_partangiangan', label: 'Jadwal Rutin Partangiangan', required: false },
+          { key: 'lokasi_partangiangan_berikutnya', label: 'Lokasi Partangiangan Berikutnya', required: false },
+          { key: 'catatan', label: 'Catatan', type: 'textarea' }
+        ]
+      },
+      tata_ibadah_json: {
+        title: 'Tata Ibadah Minggu / Hari Raya (PDF)',
+        prefix: 'TTI',
+        fields: [
+          { key: 'tanggal', label: 'Tanggal *', type: 'date', required: true },
+          { key: 'nama_minggu', label: 'Nama Minggu / Hari Raya *', required: true },
+          { key: 'sesi_bahasa', label: 'Sesi & Bahasa', required: false },
+          { key: 'link_pdf', label: 'Link PDF Google Drive (https://...)', required: false },
+          { key: 'catatan', label: 'Catatan', type: 'textarea' }
+        ]
+      },
+      renungan_json: {
+        title: 'Renungan Harian',
+        prefix: 'RNG',
+        fields: [
+          { key: 'tanggal', label: 'Tanggal *', type: 'date', required: true },
+          { key: 'tajuk', label: 'Tajuk (Firman Kehidupan / Daily Bread)', required: false },
+          { key: 'judul', label: 'Judul Renungan *', required: true },
+          { key: 'ayat_nas', label: 'Ayat Nas Alkitab *', required: true },
+          { key: 'penulis', label: 'Penulis', required: false },
+          { key: 'isi', label: 'Isi Renungan *', type: 'textarea', required: true }
+        ]
+      },
+      pustaka_json: {
+        title: 'Pustaka Digital HKBP',
+        prefix: 'PST',
+        fields: [
+          { key: 'kategori', label: 'Kategori *', type: 'select', options: ['Alkitab & Bibel', 'Buku Ende (BE)', 'Kidung Jemaat (KJ)', 'Buku Nyanyian HKBP (BN)', 'Almanak HKBP', 'Dokumen HKBP'], required: true },
+          { key: 'judul', label: 'Judul Pustaka *', required: true },
+          { key: 'url', label: 'Tautan URL (https://...) *', required: true },
+          { key: 'deskripsi', label: 'Deskripsi', type: 'textarea' }
+        ]
+      },
+      saluran_persembahan_json: {
+        title: 'Saluran Persembahan / Donasi',
+        prefix: 'PRS',
+        fields: [
+          { key: 'kategori', label: 'Jenis / Saluran Persembahan *', required: true },
+          { key: 'rekening_tujuan', label: 'Rekening Tujuan *', required: true },
+          { key: 'atas_nama', label: 'Atas Nama *', required: true },
+          { key: 'deskripsi', label: 'Deskripsi', type: 'textarea' }
+        ]
+      },
+      kontak_pelayan_json: {
+        title: 'Kontak Sekretariat / Pelayan',
+        prefix: 'KTK',
+        fields: [
+          { key: 'jabatan', label: 'Jabatan / Unit *', required: true },
+          { key: 'nama', label: 'Nama Pelayan *', required: true },
+          { key: 'telepon_wa', label: 'Nomor Telepon / WhatsApp *', required: true },
+          { key: 'email', label: 'Email', required: false },
+          { key: 'keterangan', label: 'Keterangan Layanan', type: 'textarea' }
+        ]
+      }
     };
 
     // ===================== SANITASI & HELPER =====================
@@ -1016,19 +1780,158 @@
     }
 
     // ===================== RENDER PORTAL PUBLIK =====================
-    function switchPublicTab(tab) {
-      state.activePublicTab = tab;
+    function getSettingText(key) {
+      const v = state.pengaturan && state.pengaturan[key];
+      if (v !== undefined && v !== null && String(v).trim() !== '') return String(v);
+      return DEFAULT_SITEMAP_DATA[key] || '';
+    }
+
+    function getSitemapList(key) {
+      const raw = state.pengaturan ? state.pengaturan[key] : undefined;
+      if (raw !== undefined && raw !== null && String(raw).trim() !== '') {
+        const parsed = parseJsonList(raw);
+        return parsed;
+      }
+      return Array.isArray(DEFAULT_SITEMAP_DATA[key]) ? DEFAULT_SITEMAP_DATA[key].slice() : [];
+    }
+
+    function switchPublicTab(tab, sub) {
+      const validTabs = ['beranda', 'profil', 'ibadah', 'dewan', 'wijk', 'publikasi', 'persembahan', 'layanan', 'kontak'];
+      const targetTab = validTabs.indexOf(tab) !== -1 ? tab : 'beranda';
+      state.activePublicTab = targetTab;
       document.getElementById('adminDashboard').classList.add('d-none');
       document.getElementById('publicPortal').classList.remove('d-none');
       document.querySelectorAll('.spa-section').forEach(function (s) {
-        s.classList.toggle('active', s.id === 'sec-' + tab);
+        s.classList.toggle('active', s.id === 'sec-' + targetTab);
       });
-      document.querySelectorAll('[data-nav]').forEach(function (a) {
-        if (a.classList.contains('nav-link')) {
-          a.classList.toggle('active', a.getAttribute('data-nav') === tab);
+      document.querySelectorAll('.navbar-hkbp .nav-link[data-nav]').forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('data-nav') === targetTab);
+      });
+      if (sub) {
+        if (targetTab === 'dewan') {
+          setActiveDewan(sub);
+        } else {
+          setSectionSubTab(targetTab, sub);
         }
-      });
+      }
+      // Tutup navbar mobile setelah klik
+      const navCollapse = document.getElementById('mainNav');
+      if (navCollapse && navCollapse.classList.contains('show')) {
+        bootstrap.Collapse.getOrCreateInstance(navCollapse).hide();
+      }
+      syncSuperAdminEditUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setSectionSubTab(section, subKey) {
+      state.activeSubTabs[section] = subKey;
+      document.querySelectorAll('.sub-pane-' + section).forEach(function (pane) {
+        pane.classList.toggle('d-none', pane.id !== section + '-pane-' + subKey);
+      });
+      document.querySelectorAll('[data-sub-tab="' + section + '"]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-sub-key') === subKey);
+      });
+    }
+
+    function setActiveDewan(dewanName) {
+      state.activeDewan = dewanName;
+      document.querySelectorAll('[data-dewan-tab]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-dewan-tab') === dewanName);
+      });
+      renderDewanSeksi();
+    }
+
+    async function handleQrisUploadInput(inputEl) {
+      const file = inputEl && inputEl.files && inputEl.files[0];
+      if (!file) return;
+      try {
+        setLoading(true, 'Mengunggah gambar QRIS resmi...');
+        const fileUpload = await readFileAsBase64(file);
+        await apiPost('updatePengaturan', { qrisFileUpload: fileUpload });
+        await refreshAllData();
+        showToast('Gambar QRIS resmi gereja berhasil diunggah.', 'success');
+      } catch (err) {
+        showToast(err.message, 'danger');
+      } finally {
+        setLoading(false);
+        inputEl.value = '';
+      }
+    }
+
+    async function removeQrisImage() {
+      try {
+        setLoading(true, 'Menghapus gambar QRIS...');
+        await apiPost('updatePengaturan', { qris_image_url: '' });
+        await refreshAllData();
+        showToast('Gambar QRIS dihapus.', 'success');
+      } catch (err) {
+        showToast(err.message, 'danger');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    function openJsonItemModal(settingKey, editId) {
+      const schema = SITEMAP_MODAL_SCHEMAS[settingKey];
+      if (!schema) return;
+      const list = getSitemapList(settingKey);
+      const existing = editId ? list.find(function (x) { return x.id === editId; }) : null;
+      let modalEl = document.getElementById('modalJsonSitemapItem');
+      if (!modalEl) {
+        const div = document.createElement('div');
+        div.innerHTML = '<div class="modal fade" id="modalJsonSitemapItem" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"><div class="modal-content">' +
+          '<div class="modal-header"><h5 class="modal-title font-serif" id="modalJsonItemTitle">Edit Data</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>' +
+          '<form id="formJsonSitemapItem"><div class="modal-body vstack gap-2" id="modalJsonItemFields"></div>' +
+          '<div class="modal-footer"><button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Batal</button><button type="submit" class="btn btn-navy btn-sm">Simpan Data</button></div></form>' +
+          '</div></div></div>';
+        document.body.appendChild(div.firstChild);
+        modalEl = document.getElementById('modalJsonSitemapItem');
+      }
+      document.getElementById('modalJsonItemTitle').textContent = (existing ? 'Edit ' : 'Tambah ') + schema.title;
+      document.getElementById('modalJsonItemFields').innerHTML = schema.fields.map(function (f) {
+        const val = existing ? (existing[f.key] || '') : (f.key === 'dewan' ? state.activeDewan : '');
+        const req = f.required ? ' required' : '';
+        if (f.type === 'textarea') {
+          return '<div><label class="form-label small fw-semibold mb-1">' + esc(f.label) + '</label><textarea class="form-control form-control-sm" rows="3" name="' + esc(f.key) + '"' + req + '>' + esc(val) + '</textarea></div>';
+        }
+        if (f.type === 'select') {
+          return '<div><label class="form-label small fw-semibold mb-1">' + esc(f.label) + '</label><select class="form-select form-select-sm" name="' + esc(f.key) + '"' + req + '>' +
+            (f.options || []).map(function (o) { return '<option value="' + esc(o) + '"' + (o === val ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') +
+            '</select></div>';
+        }
+        return '<div><label class="form-label small fw-semibold mb-1">' + esc(f.label) + '</label><input type="' + esc(f.type || 'text') + '" class="form-control form-control-sm" name="' + esc(f.key) + '" value="' + esc(val) + '"' + req + ' /></div>';
+      }).join('');
+
+      document.getElementById('formJsonSitemapItem').onsubmit = async function (e) {
+        e.preventDefault();
+        const fd = Object.fromEntries(new FormData(e.target).entries());
+        const item = Object.assign({ id: existing ? existing.id : (schema.prefix + '-' + Date.now()) }, fd);
+        const nextList = existing
+          ? list.map(function (x) { return x.id === existing.id ? item : x; })
+          : list.concat([item]);
+        bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+        try {
+          setLoading(true, 'Menyimpan perubahan...');
+          const patch = {};
+          patch[settingKey] = JSON.stringify(nextList);
+          await apiPost('updatePengaturan', patch);
+          await refreshAllData();
+          showToast(schema.title + ' berhasil disimpan.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      };
+      bootstrap.Modal.getOrCreateInstance(modalEl).show();
+    }
+
+    async function deleteJsonItem(settingKey, id) {
+      const list = getSitemapList(settingKey).filter(function (x) { return x.id !== id; });
+      try {
+        setLoading(true, 'Menghapus item...');
+        const patch = {};
+        patch[settingKey] = JSON.stringify(list);
+        await apiPost('updatePengaturan', patch);
+        await refreshAllData();
+        showToast('Item berhasil dihapus.', 'success');
+      } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
     }
 
     function safeImgUrl(url) {
@@ -1299,12 +2202,240 @@
           '</div></div>';
       }).join('');
 
+      const liveJudulEl = document.getElementById('heroLiveJudul');
+      if (liveJudulEl) liveJudulEl.textContent = getSettingText('youtube_live_judul');
+
       renderJadwalTable();
       renderWartaGrid();
       renderParhaladoPublic();
       renderKeuanganPublic();
       renderGaleriPublic();
+      renderSitemapSections();
       syncSuperAdminEditUI();
+    }
+
+    function adminCrudBtns(settingKey, id, allowDelete) {
+      const isSuperEdit = Boolean(state.user && state.user.role === 'Super Admin' && state.editMode);
+      if (!isSuperEdit) return '';
+      return '<div class="d-flex gap-1 flex-shrink-0">' +
+        '<button type="button" class="btn btn-outline-secondary btn-sm py-0 px-1" onclick="openJsonItemModal(\'' + esc(settingKey) + '\',\'' + esc(id) + '\')" title="Edit"><i class="bi bi-pencil-fill"></i></button>' +
+        (allowDelete === false ? '' : '<button type="button" class="btn btn-outline-danger btn-sm py-0 px-1" onclick="deleteJsonItem(\'' + esc(settingKey) + '\',\'' + esc(id) + '\')" title="Hapus"><i class="bi bi-trash"></i></button>') +
+        '</div>';
+    }
+
+    function renderSitemapSections() {
+      // 2. Profil: Sejarah, Visi-Misi, Konfesi, Huria Pagaran
+      document.getElementById('txtSejarahHkbpUmum').textContent = getSettingText('sejarah_hkbp_umum');
+      document.getElementById('txtSejarahJemaatLokal').textContent = getSettingText('sejarah_jemaat_lokal');
+      document.getElementById('txtVisiGereja').textContent = getSettingText('visi_gereja');
+      document.getElementById('txtMisiGereja').textContent = getSettingText('misi_gereja');
+      document.getElementById('txtPengajaranKonfesi').textContent = getSettingText('pengajaran_konfesi');
+
+      const pagaran = getSitemapList('huria_pagaran_json');
+      document.getElementById('gridHuriaPagaran').innerHTML = pagaran.length ? pagaran.map(function (g) {
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100">' +
+          '<div class="d-flex justify-content-between align-items-start gap-2 mb-2">' +
+          '<h4 class="h6 fw-bold mb-0" style="color:var(--hkbp-navy);">' + esc(g.nama) + '</h4>' +
+          adminCrudBtns('huria_pagaran_json', g.id) + '</div>' +
+          '<div class="small text-secondary mb-1"><i class="bi bi-geo-alt me-1"></i>' + esc(g.alamat) + '</div>' +
+          '<div class="small text-dark mb-1"><strong>Jadwal:</strong> ' + esc(g.jadwal_ibadah) + '</div>' +
+          '<div class="small text-secondary mb-1"><strong>Pelayan:</strong> ' + esc(g.pelayan) + '</div>' +
+          (g.keterangan ? '<div class="small text-secondary mt-2">' + esc(g.keterangan) + '</div>' : '') +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada data Huria Pagaran.</div></div>';
+
+      // 3. Ibadah: Petugas, Live Streaming, Sopo Godang
+      const petugas = getSitemapList('petugas_ibadah_json');
+      document.getElementById('gridPetugasIbadah').innerHTML = petugas.length ? petugas.map(function (pt) {
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100">' +
+          '<div class="d-flex justify-content-between align-items-start gap-2 mb-2">' +
+          '<div><div class="small font-mono-num text-secondary">' + esc(pt.tanggal) + '</div><h4 class="h6 fw-bold mb-0" style="color:var(--hkbp-navy);">' + esc(pt.sesi_ibadah) + '</h4></div>' +
+          adminCrudBtns('petugas_ibadah_json', pt.id) + '</div>' +
+          '<div class="vstack gap-1 small">' +
+          '<div><strong>Parjamita:</strong> ' + esc(pt.pengkhotbah) + '</div>' +
+          '<div><strong>Paragenda:</strong> ' + esc(pt.liturgis) + '</div>' +
+          '<div><strong>Pemusik:</strong> ' + esc(pt.pemusik) + '</div>' +
+          '<div><strong>Song Leader:</strong> ' + esc(pt.song_leader) + '</div>' +
+          '<div><strong>Kolektan:</strong> ' + esc(pt.pengumpul_persembahan) + '</div>' +
+          '<div><strong>Multimedia:</strong> ' + esc(pt.multimedia) + '</div>' +
+          '</div></div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada jadwal petugas ibadah.</div></div>';
+
+      const lives = getSitemapList('live_streaming_json');
+      document.getElementById('gridLiveStreaming').innerHTML = lives.length ? lives.map(function (lv) {
+        const yt = safeUrl(lv.youtube_url);
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">' +
+          '<div><div class="d-flex justify-content-between align-items-start gap-2 mb-2">' +
+          '<span class="small fw-semibold px-2 py-1 rounded bg-light border">' + esc(lv.status || 'Arsip') + ' &middot; ' + esc(lv.tanggal) + '</span>' +
+          adminCrudBtns('live_streaming_json', lv.id) + '</div>' +
+          '<h4 class="h6 fw-bold mb-2">' + esc(lv.judul) + '</h4>' +
+          '<p class="small text-secondary mb-3">' + esc(lv.keterangan) + '</p></div>' +
+          (yt ? '<a href="' + esc(yt) + '" target="_blank" rel="noopener noreferrer" class="btn btn-danger btn-sm align-self-start"><i class="bi bi-youtube me-1"></i>Tonton di YouTube</a>' : '') +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada tautan Live Streaming / Arsip Video.</div></div>';
+
+      document.getElementById('txtSopoProsedur').textContent = getSettingText('sopo_prosedur');
+      const ruangan = getSitemapList('jadwal_ruangan_json');
+      document.getElementById('gridJadwalRuangan').innerHTML = ruangan.length ? ruangan.map(function (r) {
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100">' +
+          '<div class="d-flex justify-content-between align-items-start gap-2 mb-2">' +
+          '<div><div class="small font-mono-num text-secondary">' + esc(r.tanggal) + ' &middot; ' + esc(r.waktu) + '</div><h4 class="h6 fw-bold mb-0" style="color:var(--hkbp-navy);">' + esc(r.ruangan) + '</h4></div>' +
+          adminCrudBtns('jadwal_ruangan_json', r.id) + '</div>' +
+          '<div class="small fw-semibold mb-1">' + esc(r.kegiatan) + '</div>' +
+          '<div class="small text-secondary mb-1"><strong>Pemohon:</strong> ' + esc(r.pemohon) + ' &middot; <strong>Status:</strong> ' + esc(r.status) + '</div>' +
+          (r.keterangan ? '<div class="small text-secondary">' + esc(r.keterangan) + '</div>' : '') +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada jadwal ruangan.</div></div>';
+
+      // 4. Dewan & Pelayanan
+      renderDewanSeksi();
+
+      // 5. Wijk (6 Lingkungan + live stats + Partangiangan)
+      const wijkList = getSitemapList('wijk_info_json');
+      const statPerLing = state.statistik.perLingkungan || [];
+      document.getElementById('gridWijkInfo').innerHTML = wijkList.map(function (w) {
+        const st = statPerLing.find(function (x) { return x.lingkungan === w.nama_wijk; }) || { jiwa: 0, kk: 0 };
+        return '<div class="col-md-6 col-lg-4"><div class="surface-card p-4 h-100">' +
+          '<div class="d-flex justify-content-between align-items-start gap-2 mb-2">' +
+          '<div><div class="small text-uppercase fw-semibold" style="color:var(--hkbp-gold);letter-spacing:0.08em;">Wijk / Lingkungan</div><h4 class="h5 mb-0" style="color:var(--hkbp-navy);">' + esc(w.nama_wijk) + '</h4></div>' +
+          adminCrudBtns('wijk_info_json', w.id, false) + '</div>' +
+          '<div class="d-flex gap-3 py-2 my-2 border-top border-bottom small font-mono-num">' +
+          '<div><strong style="color:var(--hkbp-navy);">' + st.kk + '</strong> KK</div>' +
+          '<div><strong style="color:var(--hkbp-gold);">' + st.jiwa + '</strong> Jiwa Aktif</div></div>' +
+          '<div class="small text-secondary mb-1"><strong>Wilayah:</strong> ' + esc(w.cakupan_wilayah) + '</div>' +
+          '<div class="small text-secondary mb-1"><strong>Sintua:</strong> ' + esc(w.koordinator_sintua) + ' (' + esc(w.kontak_sintua) + ')</div>' +
+          '<div class="small text-secondary mb-1"><strong>Partangiangan:</strong> ' + esc(w.jadwal_partangiangan) + '</div>' +
+          '<div class="small text-secondary"><strong>Lokasi Berikutnya:</strong> ' + esc(w.lokasi_partangiangan_berikutnya) + '</div>' +
+          '</div></div>';
+      }).join('');
+
+      const partangiangan = (state.jadwal || []).filter(function (j) { return j.jenis_ibadah === 'Partangiangan Lingkungan'; });
+      document.getElementById('tbodyPartangianganWijk').innerHTML = partangiangan.length ? partangiangan.map(function (j) {
+        return '<tr><td class="font-mono-num small"><strong>' + esc(j.hari_tanggal) + '</strong><br><span class="text-secondary">' + esc(j.waktu) + '</span></td>' +
+          '<td class="small fw-semibold">' + esc(j.nama_minggu_hkbp) + '</td>' +
+          '<td class="small">' + esc(j.ayat_khotbah_epistel) + '</td>' +
+          '<td class="small">' + esc(j.parjamita) + ' / ' + esc(j.paragenda) + '</td>' +
+          '<td class="small text-secondary">' + esc(j.lokasi) + '</td></tr>';
+      }).join('') : '<tr><td colspan="5" class="text-center small text-secondary py-4">Belum ada jadwal Partangiangan Wijk tercatat.</td></tr>';
+
+      // 6. Publikasi: Tata Ibadah, Renungan, Pustaka
+      const tataList = getSitemapList('tata_ibadah_json');
+      document.getElementById('gridTataIbadah').innerHTML = tataList.length ? tataList.map(function (t) {
+        const pdf = safeUrl(t.link_pdf);
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">' +
+          '<div><div class="d-flex justify-content-between align-items-start gap-2 mb-1">' +
+          '<span class="small font-mono-num text-secondary">' + esc(t.tanggal) + '</span>' + adminCrudBtns('tata_ibadah_json', t.id) + '</div>' +
+          '<h4 class="h6 fw-bold mb-1" style="color:var(--hkbp-navy);">' + esc(t.nama_minggu) + '</h4>' +
+          '<div class="small fw-medium text-warning mb-2">' + esc(t.sesi_bahasa) + '</div>' +
+          '<p class="small text-secondary mb-3">' + esc(t.catatan) + '</p></div>' +
+          (pdf ? '<a href="' + esc(pdf) + '" target="_blank" rel="noopener noreferrer" class="btn btn-navy btn-sm align-self-start"><i class="bi bi-file-earmark-pdf me-1"></i>Unduh Tata Ibadah PDF</a>' : '<span class="small text-secondary fst-italic">Tautan PDF belum diunggah admin.</span>') +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada arsip Tata Ibadah.</div></div>';
+
+      const renungan = getSitemapList('renungan_json');
+      document.getElementById('gridRenunganHarian').innerHTML = renungan.length ? renungan.map(function (rn) {
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100">' +
+          '<div class="d-flex justify-content-between align-items-start gap-2 mb-1">' +
+          '<span class="small fw-semibold" style="color:var(--hkbp-gold);">' + esc(rn.tajuk || 'Renungan Harian') + ' &middot; ' + esc(rn.tanggal) + '</span>' +
+          adminCrudBtns('renungan_json', rn.id) + '</div>' +
+          '<h4 class="h5 mb-1" style="color:var(--hkbp-navy);">' + esc(rn.judul) + '</h4>' +
+          '<div class="small fw-semibold text-secondary mb-2">Nas: ' + esc(rn.ayat_nas) + (rn.penulis ? (' &middot; ' + esc(rn.penulis)) : '') + '</div>' +
+          '<p class="small text-secondary mb-0" style="white-space:pre-line;line-height:1.7;">' + esc(rn.isi) + '</p>' +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada renungan harian.</div></div>';
+
+      const pustaka = getSitemapList('pustaka_json');
+      document.getElementById('gridPustakaDigital').innerHTML = pustaka.length ? pustaka.map(function (ps) {
+        const link = safeUrl(ps.url);
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">' +
+          '<div><div class="d-flex justify-content-between align-items-start gap-2 mb-1">' +
+          '<span class="small fw-semibold text-secondary">' + esc(ps.kategori) + '</span>' + adminCrudBtns('pustaka_json', ps.id) + '</div>' +
+          '<h4 class="h6 fw-bold mb-2" style="color:var(--hkbp-navy);">' + esc(ps.judul) + '</h4>' +
+          '<p class="small text-secondary mb-3">' + esc(ps.deskripsi) + '</p></div>' +
+          (link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm align-self-start">Buka Pustaka &rarr;</a>' : '') +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada pustaka digital.</div></div>';
+
+      // 7. Persembahan & QRIS
+      const qrisSrc = safeImgUrl(state.pengaturan.qris_image_url);
+      const qrisBox = document.getElementById('qrisPreviewBox');
+      if (qrisSrc) {
+        qrisBox.innerHTML = '<img src="' + esc(qrisSrc) + '" alt="Kode QRIS Resmi Gereja" class="img-fluid p-2" style="max-height:240px;object-fit:contain;" referrerpolicy="no-referrer" />';
+      } else {
+        qrisBox.innerHTML = '<div class="small text-secondary p-3">Gambar QRIS resmi gereja belum diunggah oleh Admin.</div>';
+      }
+      const btnRmQris = document.getElementById('btnRemoveQris');
+      if (btnRmQris) btnRmQris.style.display = qrisSrc ? '' : 'none';
+      const waNum = String(getSettingText('whatsapp_konfirmasi_persembahan')).replace(/[^0-9]/g, '') || '6281362110400';
+      document.getElementById('btnWaKonfirmasiPersembahan').href = 'https://wa.me/' + waNum + '?text=' + encodeURIComponent('Syalom Bendahara HKBP Ressort Hutaraja, saya ingin mengonfirmasi bukti transfer persembahan.');
+
+      const saluran = getSitemapList('saluran_persembahan_json');
+      document.getElementById('listSaluranPersembahan').innerHTML = saluran.map(function (s) {
+        return '<div class="surface-card p-3"><div class="d-flex justify-content-between align-items-start gap-2 mb-1">' +
+          '<h4 class="h6 fw-bold mb-0" style="color:var(--hkbp-navy);">' + esc(s.kategori) + '</h4>' +
+          adminCrudBtns('saluran_persembahan_json', s.id) + '</div>' +
+          '<p class="small text-secondary mb-2">' + esc(s.deskripsi) + '</p>' +
+          '<div class="small font-mono-num bg-light border rounded px-2 py-1"><strong>' + esc(s.rekening_tujuan) + '</strong> &middot; a.n. ' + esc(s.atas_nama) + '</div></div>';
+      }).join('');
+
+      // 8. Layanan: Daftar Pendaftaran Katekisasi Sidi & Pelayanan Khusus
+      renderPendaftaranLayananLists();
+
+      // 9. Kontak & Hubungi Kami
+      document.getElementById('txtKontakAlamat').textContent = state.pengaturan.alamat_gereja || '';
+      document.getElementById('txtKontakJamOps').textContent = getSettingText('jam_operasional_sekretariat');
+      document.getElementById('txtKontakSekretariat').textContent = state.pengaturan.kontak_sekretariat || '';
+      const mapsUrl = safeUrl(getSettingText('peta_lokasi_url')) || 'https://maps.google.com/?q=Hutaraja+Dairi';
+      document.getElementById('btnBukaPetaLokasi').href = mapsUrl;
+
+      const kontaks = getSitemapList('kontak_pelayan_json');
+      document.getElementById('gridKontakPelayan').innerHTML = kontaks.map(function (k) {
+        const cleanWa = String(k.telepon_wa || '').replace(/[^0-9]/g, '').replace(/^0/, '62');
+        return '<div class="col-md-4"><div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">' +
+          '<div><div class="d-flex justify-content-between align-items-start gap-2 mb-1">' +
+          '<span class="small fw-semibold" style="color:var(--hkbp-gold);">' + esc(k.jabatan) + '</span>' + adminCrudBtns('kontak_pelayan_json', k.id) + '</div>' +
+          '<h4 class="h6 fw-bold mb-1" style="color:var(--hkbp-navy);">' + esc(k.nama) + '</h4>' +
+          '<div class="small font-mono-num text-dark mb-1">' + esc(k.telepon_wa) + '</div>' +
+          (k.email ? '<div class="small text-secondary mb-2">' + esc(k.email) + '</div>' : '') +
+          '<p class="small text-secondary mb-3">' + esc(k.keterangan) + '</p></div>' +
+          (cleanWa ? '<a href="https://wa.me/' + esc(cleanWa) + '" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success btn-sm align-self-start"><i class="bi bi-whatsapp me-1"></i>Hubungi WhatsApp</a>' : '') +
+          '</div></div>';
+      }).join('');
+    }
+
+    function renderDewanSeksi() {
+      const list = getSitemapList('dewan_seksi_json').filter(function (d) { return d.dewan === state.activeDewan; });
+      const el = document.getElementById('gridDewanSeksi');
+      if (!el) return;
+      el.innerHTML = list.length ? list.map(function (d) {
+        return '<div class="col-md-6 col-lg-4"><div class="surface-card p-4 h-100">' +
+          '<div class="d-flex justify-content-between align-items-start gap-2 mb-2">' +
+          '<h4 class="h6 fw-bold mb-0" style="color:var(--hkbp-navy);">' + esc(d.nama_seksi) + '</h4>' +
+          adminCrudBtns('dewan_seksi_json', d.id) + '</div>' +
+          '<p class="small text-secondary mb-2">' + esc(d.deskripsi) + '</p>' +
+          '<div class="small text-dark mb-1"><strong>Jadwal:</strong> ' + esc(d.jadwal_kegiatan) + '</div>' +
+          '<div class="small text-secondary"><strong>Koordinator:</strong> ' + esc(d.koordinator) + (d.kontak ? (' &middot; ' + esc(d.kontak)) : '') + '</div>' +
+          '</div></div>';
+      }).join('') : '<div class="col-12"><div class="surface-card p-4 text-center small text-secondary">Belum ada seksi tercatat untuk ' + esc(state.activeDewan) + '.</div></div>';
+    }
+
+    function renderPendaftaranLayananLists() {
+      const all = Array.isArray(state.pendaftaran_layanan) ? state.pendaftaran_layanan : [];
+      const sidi = all.filter(function (x) { return x.jenis_layanan === 'Katekisasi Sidi'; });
+      const khusus = all.filter(function (x) { return x.jenis_layanan !== 'Katekisasi Sidi'; });
+      const renderRows = function (items, emptyMsg) {
+        if (!items.length) return '<div class="small text-secondary py-2">' + emptyMsg + '</div>';
+        return items.slice(0, 12).map(function (r) {
+          return '<div class="border rounded-3 p-2 small d-flex justify-content-between align-items-center gap-2">' +
+            '<div><div class="fw-semibold text-dark">' + esc(r.nama_lengkap) + '</div>' +
+            '<div class="text-secondary">' + esc(r.jenis_layanan) + ' &middot; Wijk ' + esc(r.lingkungan) + (r.tanggal_rencana ? (' &middot; ' + esc(r.tanggal_rencana)) : '') + '</div></div>' +
+            '<span class="badge bg-light text-dark border">' + esc(r.status || 'Menunggu Konfirmasi') + '</span></div>';
+        }).join('');
+      };
+      const elSidi = document.getElementById('listPendaftaranSidi');
+      const elKhusus = document.getElementById('listPendaftaranKhusus');
+      if (elSidi) elSidi.innerHTML = renderRows(sidi, 'Belum ada pendaftar Katekisasi Sidi yang masuk.');
+      if (elKhusus) elKhusus.innerHTML = renderRows(khusus, 'Belum ada pendaftaran pelayanan khusus yang masuk.');
     }
 
     function renderParhaladoPublic() {
@@ -2390,6 +3521,7 @@
         { id: 'WRT-001', tanggal: '2026-11-22', judul: 'Tingting Mingguan — Persiapan Ibadah Advent I & Natal 2026', kategori: 'Tingting Mingguan', isi_artikel: 'Syalom jemaat HKBP Ressort Hutaraja. Ibadah Minggu Advent I dimulai pukul 08.00 WIB (Bahasa Indonesia) dan 10.30 WIB (Bahasa Batak Toba).', link_pdf_drive: '' }
       ],
       parhalado: [],
+      pendaftaran_layanan: [],
       jemaat: [],
       permohonan: [],
       keuangan: [
@@ -2444,6 +3576,7 @@
         jadwal: demoStore.jadwal,
         warta: demoStore.warta,
         parhalado: demoStore.parhalado,
+        pendaftaran_layanan: demoStore.pendaftaran_layanan,
         statistik: {
           totalJiwa: aktif.length,
           totalKK: kkSet.size,
@@ -2519,11 +3652,24 @@
           })
         };
       }
+      if (action === 'submitPendaftaranLayanan') {
+        const rec = Object.assign({
+          id: 'PDFT-' + Date.now(),
+          tanggal_daftar: new Date().toISOString().slice(0, 10),
+          status: 'Menunggu Konfirmasi'
+        }, payload);
+        demoStore.pendaftaran_layanan.unshift(rec);
+        return { success: true, data: rec };
+      }
       if (action === 'updatePengaturan') {
         const next = Object.assign({}, payload);
         if (next.logoFileUpload && next.logoFileUpload.base64) {
           next.logo_url = 'data:' + (next.logoFileUpload.mimeType || 'image/png') + ';base64,' + next.logoFileUpload.base64;
           delete next.logoFileUpload;
+        }
+        if (next.qrisFileUpload && next.qrisFileUpload.base64) {
+          next.qris_image_url = 'data:' + (next.qrisFileUpload.mimeType || 'image/png') + ';base64,' + next.qrisFileUpload.base64;
+          delete next.qrisFileUpload;
         }
         Object.assign(demoStore.pengaturan, next);
         return { success: true };
@@ -2621,8 +3767,31 @@
     document.addEventListener('DOMContentLoaded', async function () {
       document.querySelectorAll('[data-nav]').forEach(function (el) {
         el.addEventListener('click', function (e) {
+          if (el.classList.contains('dropdown-toggle') && window.innerWidth < 992) {
+            return; // biarkan Bootstrap membuka dropdown accordion di mobile
+          }
           e.preventDefault();
-          switchPublicTab(el.getAttribute('data-nav'));
+          switchPublicTab(el.getAttribute('data-nav'), el.getAttribute('data-sub') || '');
+        });
+      });
+
+      ['formDaftarSidi', 'formDaftarKhusus'].forEach(function (formId) {
+        const frm = document.getElementById(formId);
+        if (!frm) return;
+        frm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const payload = Object.fromEntries(new FormData(frm).entries());
+          try {
+            setLoading(true, 'Mengirim pendaftaran layanan...');
+            await apiPost('submitPendaftaranLayanan', payload);
+            frm.reset();
+            await refreshAllData();
+            showToast('Pendaftaran layanan berhasil dikirim ke Sekretariat Huria.', 'success');
+          } catch (err) {
+            showToast(err.message, 'danger');
+          } finally {
+            setLoading(false);
+          }
         });
       });
 
