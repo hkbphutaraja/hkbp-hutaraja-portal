@@ -291,6 +291,24 @@
           </div>
         </div>
 
+        <!-- Demografi Kategorial HKBP & Ulang Tahun Minggu Ini -->
+        <div class="row g-4 align-items-stretch mb-5">
+          <div class="col-lg-7">
+            <div class="surface-card p-4 h-100">
+              <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Pelayanan Kategorial</p>
+              <h3 class="h5 mb-3">Demografi Kategorial HKBP</h3>
+              <div class="row g-3" id="statKategorialGrid"></div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="surface-card p-4 h-100">
+              <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Persekutuan &amp; Doa Syukur</p>
+              <h3 class="h5 mb-3">Ulang Tahun Jemaat Minggu Ini</h3>
+              <div id="berandaBirthdayList" class="vstack gap-2"></div>
+            </div>
+          </div>
+        </div>
+
         <!-- Ringkasan Warta Terbaru -->
         <div class="d-flex justify-content-between align-items-end mb-3">
           <div>
@@ -381,9 +399,18 @@
               <form id="formPermohonanPublic" novalidate>
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqLingkungan">Lingkungan <span class="text-danger">*</span></label>
+                    <label class="form-label fw-medium" for="reqJenis">Jenis Permohonan <span class="text-danger">*</span></label>
+                    <select class="form-select" id="reqJenis" required>
+                      <option value="Tambah Anggota/Anak Lahir">Tambah Anggota / Anak Lahir</option>
+                      <option value="Perbaikan Biodata">Perbaikan Biodata (Multi-Perubahan)</option>
+                      <option value="Pindah/Mutasi">Pindah / Mutasi</option>
+                      <option value="Meninggal">Meninggal</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqLingkungan">Wijk / Lingkungan <span class="text-danger">*</span></label>
                     <select class="form-select" id="reqLingkungan" required>
-                      <option value="">-- Pilih Lingkungan --</option>
+                      <option value="">-- Pilih Wijk / Lingkungan --</option>
                       <option value="Letare">Letare</option>
                       <option value="Exaudi">Exaudi</option>
                       <option value="Judika">Judika</option>
@@ -392,34 +419,113 @@
                       <option value="Jeremia">Jeremia</option>
                     </select>
                   </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqJenis">Jenis Permohonan <span class="text-danger">*</span></label>
-                    <select class="form-select" id="reqJenis" required>
-                      <option value="Tambah Anggota/Anak Lahir">Tambah Anggota/Anak Lahir</option>
-                      <option value="Perbaikan Biodata">Perbaikan Biodata</option>
-                      <option value="Pindah/Mutasi">Pindah/Mutasi</option>
-                      <option value="Meninggal">Meninggal</option>
-                    </select>
+
+                  <!-- Blok Identitas Keluarga Khusus Tambah Anggota -->
+                  <div class="col-12" id="blockIdentitasTambahAnggota">
+                    <div class="p-3 rounded-3 border bg-light">
+                      <div class="small text-uppercase fw-semibold text-secondary mb-3" style="letter-spacing: 0.08em;">Identitas Keluarga</div>
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="form-label small fw-semibold" for="reqNamaSuami">Nama Suami <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control form-control-sm" id="reqNamaSuami" placeholder="Nama lengkap suami / kepala keluarga" />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label small fw-semibold" for="reqNamaIstri">Nama Istri</label>
+                          <input type="text" class="form-control form-control-sm" id="reqNamaIstri" placeholder="Nama lengkap istri" />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label small fw-semibold" for="reqEmail">Email</label>
+                          <input type="email" class="form-control form-control-sm" id="reqEmail" placeholder="nama@email.com (opsional)" />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label small fw-semibold" for="reqAlamat">Alamat <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control form-control-sm" id="reqAlamat" placeholder="Alamat lengkap tempat tinggal" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- Blok Nama Pemohon untuk Jenis Selain Tambah Anggota -->
+                  <div class="col-md-6 d-none" id="wrapNamaPemohonUmum">
+                    <label class="form-label fw-medium" for="reqNamaPemohon">Nama Pemohon / Kepala Keluarga <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="reqNamaPemohon" placeholder="Nama lengkap kepala keluarga/pemohon" />
+                  </div>
+
                   <div class="col-md-6">
                     <label class="form-label fw-medium" for="reqNoKK">No. Kartu Keluarga (KK) <span class="text-danger">*</span></label>
                     <input type="text" class="form-control font-mono-num" id="reqNoKK" placeholder="Contoh: 1211011405820001" required minlength="6" />
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqNamaPemohon">Nama Pemohon / Orang Tua <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="reqNamaPemohon" placeholder="Nama lengkap kepala keluarga/pemohon" required minlength="3" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqVerif">Tgl Lahir / NIK Verifikasi Keaslian <span class="text-danger">*</span></label>
+                    <label class="form-label fw-medium" for="reqVerif">Tgl Lahir / NIK Verifikasi <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="reqVerif" placeholder="YYYY-MM-DD atau 6 digit terakhir NIK" required />
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label fw-medium" for="reqNoHp">No. WhatsApp Aktif <span class="text-danger">*</span></label>
+                    <label class="form-label fw-medium" for="reqNoHp">HP / WhatsApp Aktif <span class="text-danger">*</span></label>
                     <input type="tel" class="form-control font-mono-num" id="reqNoHp" placeholder="0813xxxxxxxx" required minlength="9" />
                   </div>
+
+                  <!-- Daftar Anggota Keluarga (Repeatable Multi-Anak) -->
+                  <div class="col-12" id="blockDaftarAnggota">
+                    <div class="d-flex justify-content-between align-items-center mb-2 pt-2 border-top">
+                      <div>
+                        <div class="small text-uppercase fw-semibold text-secondary" style="letter-spacing: 0.08em;">Daftar Anggota Keluarga</div>
+                        <div class="small text-secondary">Dapat menambahkan lebih dari 1 data anak / anggota dalam satu permohonan.</div>
+                      </div>
+                      <button type="button" class="btn btn-outline-secondary btn-sm" id="btnAddAnggotaRow">
+                        <i class="bi bi-plus-lg me-1"></i>Tambah Anak / Anggota
+                      </button>
+                    </div>
+                    <div id="listAnggotaRows" class="vstack gap-2"></div>
+                  </div>
+
+                  <!-- Kelengkapan Administrasi (5 Upload Opsional) -->
+                  <div class="col-12" id="blockKelengkapanAdmin">
+                    <div class="p-3 rounded-3 border bg-light">
+                      <div class="small text-uppercase fw-semibold text-secondary mb-1" style="letter-spacing: 0.08em;">Kelengkapan Administrasi (Opsional)</div>
+                      <div class="small text-secondary mb-3">Unggah pindaian PDF / foto (maks. 8 MB per berkas) untuk mempercepat verifikasi Sintua Wijk.</div>
+                      <div class="row g-2">
+                        <div class="col-md-6">
+                          <label class="form-label small fw-medium mb-1" for="docSuratGereja">Surat Keterangan Gereja</label>
+                          <input type="file" class="form-control form-control-sm" id="docSuratGereja" data-doc-key="surat_keterangan_gereja" accept=".pdf,image/*" />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label small fw-medium mb-1" for="docAkteNikah">Akte Pernikahan</label>
+                          <input type="file" class="form-control form-control-sm" id="docAkteNikah" data-doc-key="akte_pernikahan" accept=".pdf,image/*" />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label small fw-medium mb-1" for="docAkteBaptis">Akte Baptis</label>
+                          <input type="file" class="form-control form-control-sm" id="docAkteBaptis" data-doc-key="akte_baptis" accept=".pdf,image/*" />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label small fw-medium mb-1" for="docAkteSidi">Akte Sidi</label>
+                          <input type="file" class="form-control form-control-sm" id="docAkteSidi" data-doc-key="akte_sidi" accept=".pdf,image/*" />
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label small fw-medium mb-1" for="docSuratSintua">Surat Pengantar Sintua Wijk</label>
+                          <input type="file" class="form-control form-control-sm" id="docSuratSintua" data-doc-key="surat_pengantar_sintua_wijk" accept=".pdf,image/*" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Daftar Perubahan Biodata (Repeatable Multi-Field) -->
+                  <div class="col-12 d-none" id="blockPerbaikanBiodata">
+                    <div class="d-flex justify-content-between align-items-center mb-2 pt-2 border-top">
+                      <div>
+                        <div class="small text-uppercase fw-semibold text-secondary" style="letter-spacing: 0.08em;">Daftar Data yang Hendak Diubah</div>
+                        <div class="small text-secondary">Pilih kolom yang salah, tuliskan data lama dan data yang benar (dapat mengajukan beberapa perubahan sekaligus).</div>
+                      </div>
+                      <button type="button" class="btn btn-outline-secondary btn-sm" id="btnAddPerubahanRow">
+                        <i class="bi bi-plus-lg me-1"></i>Tambah Perubahan
+                      </button>
+                    </div>
+                    <div id="listPerubahanRows" class="vstack gap-2"></div>
+                  </div>
+
+                  <!-- Rincian Umum / Catatan Tambahan -->
                   <div class="col-12">
-                    <label class="form-label fw-medium" for="reqDetail">Rincian Perubahan Data <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="reqDetail" rows="4" placeholder="Tuliskan nama lengkap anggota baru, tanggal lahir, atau biodata yang perlu diperbaiki..." required minlength="10"></textarea>
+                    <label class="form-label fw-medium" for="reqDetail" id="lblReqDetail">Catatan Tambahan (Opsional)</label>
+                    <textarea class="form-control" id="reqDetail" rows="3" placeholder="Tuliskan keterangan tambahan bila diperlukan..."></textarea>
                   </div>
                   <div class="col-12">
                     <button type="submit" class="btn btn-navy px-4 py-2">Kirim Permohonan Update</button>
@@ -612,6 +718,58 @@
     </div>
   </div>
 
+  <!-- Modal Pratinjau Import Excel (.xlsx) Database Jemaat -->
+  <div class="modal fade" id="modalImportExcel" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <div class="small text-uppercase text-secondary fw-semibold" style="letter-spacing: 0.08em;">Import Database Jemaat (.xlsx)</div>
+            <h5 class="modal-title font-serif">Pratinjau &amp; Validasi File Excel</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="modalImportExcelBody"></div>
+        <div class="modal-footer justify-content-between">
+          <div class="d-flex align-items-center gap-3 small">
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="radio" name="importModeExcel" id="importModeAppend" value="append" checked />
+              <label class="form-check-label" for="importModeAppend">Tambahkan ke data yang ada</label>
+            </div>
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="radio" name="importModeExcel" id="importModeReplace" value="replace" />
+              <label class="form-check-label text-danger fw-semibold" for="importModeReplace">Ganti seluruh data lama</label>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Batal</button>
+            <button type="button" class="btn btn-navy btn-sm" id="btnConfirmImportExcel">Konfirmasi Import</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Kosongkan Database Jemaat -->
+  <div class="modal fade" id="modalConfirmClearJemaat" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-serif text-danger">Kosongkan Database Jemaat?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body small text-secondary">
+          Seluruh baris data jemaat pada tab <code>Jemaat</code> di Google Sheets akan dihapus (baris header kolom tetap utuh). Tindakan ini ideal untuk membersihkan sisa data uji coba sebelum mengimpor file <code>.xlsx</code> jemaat resmi.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger btn-sm" id="btnExecuteClearJemaat">Ya, Kosongkan Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     /**
@@ -666,14 +824,26 @@
       pengaturan: {},
       jadwal: [],
       warta: [],
-      statistik: { totalJiwa: 0, totalKK: 0, perLingkungan: [] },
+      statistik: {
+        totalJiwa: 0,
+        totalKK: 0,
+        totalLakiLaki: 0,
+        totalPerempuan: 0,
+        perLingkungan: [],
+        kategorial: { sekolahMinggu: 0, remajaNhkbp: 0, punguanAma: 0, punguanIna: 0, lansia: 0, sudahBaptis: 0, sudahSidi: 0, sudahMenikah: 0 },
+        ulangTahunMingguIni: []
+      },
       keuangan: [],
       ringkasanKas: [],
       galeri: [],
       jemaat: [],
       permohonan: [],
       users: [],
-      selectedWarta: null
+      selectedWarta: null,
+      jemaatViewMode: 'jiwa',
+      jemaatSearch: '',
+      jemaatFilterLing: 'Semua',
+      pendingImportRecords: []
     };
 
     // ===================== SANITASI & HELPER =====================
@@ -789,18 +959,61 @@
       }
 
       // Statistik Jemaat Aktif
-      document.getElementById('statTotalJiwa').textContent = Number(state.statistik.totalJiwa || 0).toLocaleString('id-ID');
-      document.getElementById('statTotalKK').textContent = Number(state.statistik.totalKK || 0).toLocaleString('id-ID');
+      const totalJiwa = Number(state.statistik.totalJiwa || 0);
+      const totalKK = Number(state.statistik.totalKK || 0);
+      document.getElementById('statTotalJiwa').textContent = totalJiwa.toLocaleString('id-ID');
+      document.getElementById('statTotalKK').textContent = totalKK.toLocaleString('id-ID');
       const barsEl = document.getElementById('statLingkunganBars');
-      barsEl.innerHTML = (state.statistik.perLingkungan || []).map(function (item) {
-        return '<div>' +
-          '<div class="d-flex justify-content-between small mb-1">' +
-          '<span class="fw-semibold">Lingkungan ' + esc(item.lingkungan) + '</span>' +
-          '<span class="font-mono-num text-secondary">' + item.jiwa + ' jiwa &middot; ' + item.kk + ' KK (' + item.persentase + '%)</span>' +
-          '</div>' +
-          '<div class="progress progress-thin"><div class="progress-bar" style="width:' + Math.min(100, item.persentase * 4) + '%"></div></div>' +
+      if (totalJiwa === 0) {
+        barsEl.innerHTML = '<div class="p-4 rounded-3 bg-light border text-center small text-secondary">' +
+          'Belum ada data jemaat terdaftar di database. Pengurus dapat mengunduh <strong>Template Excel (.xlsx)</strong> dan mengimpor database jemaat resmi melalui <strong>Portal Pengurus &rarr; Database Jemaat</strong>.' +
           '</div>';
+      } else {
+        const maxJiwa = Math.max.apply(null, (state.statistik.perLingkungan || []).map(function (x) { return x.jiwa || 0; }).concat([1]));
+        barsEl.innerHTML = (state.statistik.perLingkungan || []).map(function (item) {
+          const w = Math.round(((item.jiwa || 0) / maxJiwa) * 100);
+          return '<div>' +
+            '<div class="d-flex justify-content-between small mb-1">' +
+            '<span class="fw-semibold">Lingkungan ' + esc(item.lingkungan) + '</span>' +
+            '<span class="font-mono-num text-secondary">' + item.jiwa + ' jiwa &middot; ' + item.kk + ' KK (' + item.persentase + '%)</span>' +
+            '</div>' +
+            '<div class="progress progress-thin"><div class="progress-bar" style="width:' + w + '%"></div></div>' +
+            '</div>';
+        }).join('');
+      }
+
+      // Demografi Kategorial HKBP
+      const kat = state.statistik.kategorial || {};
+      const katItems = [
+        { label: 'Sekolah Minggu (0-12 thn)', val: kat.sekolahMinggu || 0 },
+        { label: 'Remaja / NHKBP (13-25 thn)', val: kat.remajaNhkbp || 0 },
+        { label: 'Punguan Ama', val: kat.punguanAma || 0 },
+        { label: 'Punguan Ina', val: kat.punguanIna || 0 },
+        { label: 'Lansia (>= 60 thn)', val: kat.lansia || 0 },
+        { label: 'Sudah Sidi / Malua', val: kat.sudahSidi || 0 }
+      ];
+      document.getElementById('statKategorialGrid').innerHTML = katItems.map(function (k) {
+        return '<div class="col-6 col-sm-4"><div class="p-3 rounded-3 border bg-light h-100">' +
+          '<div class="small text-secondary mb-1">' + esc(k.label) + '</div>' +
+          '<div class="fs-5 fw-bold font-mono-num" style="color:var(--hkbp-navy);">' + Number(k.val).toLocaleString('id-ID') + '</div>' +
+          '</div></div>';
       }).join('');
+
+      // Ulang Tahun Jemaat Minggu Ini
+      const bdays = state.statistik.ulangTahunMingguIni || [];
+      const bdayEl = document.getElementById('berandaBirthdayList');
+      if (!bdays.length) {
+        bdayEl.innerHTML = '<div class="small text-secondary py-2">' + (totalJiwa === 0 ? 'Daftar ulang tahun akan tampil otomatis setelah data jemaat beserta tanggal lahir diimpor.' : 'Tidak ada jemaat yang berulang tahun dalam 7 hari ke depan.') + '</div>';
+      } else {
+        bdayEl.innerHTML = bdays.slice(0, 6).map(function (b) {
+          const when = b.hariLagi === 0 ? 'Hari Ini' : ('+' + b.hariLagi + ' hari');
+          return '<div class="d-flex justify-content-between align-items-center py-2 border-bottom">' +
+            '<div><div class="small fw-semibold text-dark">' + esc(b.nama_lengkap) + '</div>' +
+            '<div class="small text-secondary">Lingkungan ' + esc(b.lingkungan) + ' &middot; ke-' + esc(b.usiaBaru) + ' thn</div></div>' +
+            '<div class="text-end font-mono-num small"><div class="fw-semibold" style="color:var(--hkbp-gold);">' + esc(b.tanggalLabel) + '</div><div class="text-secondary">' + esc(when) + '</div></div>' +
+            '</div>';
+        }).join('');
+      }
 
       // Beranda Warta Terbaru
       document.getElementById('berandaWartaList').innerHTML = state.warta.slice(0, 3).map(function (w) {
@@ -1112,9 +1325,287 @@
       };
     }
 
+    const JEMAAT_EXCEL_HEADERS = [
+      'no_kk', 'nama_lengkap', 'status_keluarga', 'jenis_kelamin',
+      'tempat_lahir', 'tanggal_lahir', 'lingkungan', 'alamat',
+      'no_hp', 'tanggal_baptis', 'tanggal_sidi', 'tanggal_menikah', 'status_keanggotaan'
+    ];
+
+    function normalizeExcelDateStr(val) {
+      if (val === null || val === undefined || val === '') return '';
+      if (typeof val === 'number' && val > 1 && val < 100000) {
+        const d = new Date(Date.UTC(1899, 11, 30) + Math.floor(val) * 86400000);
+        if (!isNaN(d.getTime())) {
+          return String(d.getUTCFullYear()).padStart(4, '0') + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
+        }
+      }
+      const s = String(val).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+      const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+      if (m) return m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');
+      return s;
+    }
+
+    function cleanImportCell(val) {
+      let s = String(val === null || val === undefined ? '' : val).replace(/[<>]/g, '').trim();
+      if (/^[=+\-@]/.test(s)) s = s.replace(/^[=+\-@]+/, '').trim();
+      return s;
+    }
+
+    function downloadJemaatTemplateXlsx() {
+      if (typeof XLSX === 'undefined') { showToast('Library Excel belum termuat. Muat ulang halaman.', 'danger'); return; }
+      const wb = XLSX.utils.book_new();
+      const wsData = XLSX.utils.aoa_to_sheet([JEMAAT_EXCEL_HEADERS]);
+      wsData['!cols'] = [
+        { wch: 20 }, { wch: 28 }, { wch: 16 }, { wch: 14 }, { wch: 18 }, { wch: 15 },
+        { wch: 14 }, { wch: 30 }, { wch: 16 }, { wch: 15 }, { wch: 15 }, { wch: 16 }, { wch: 18 }
+      ];
+      XLSX.utils.book_append_sheet(wb, wsData, 'Template_Jemaat');
+      const guide = [
+        ['Kolom', 'Wajib?', 'Format / Nilai Valid', 'Keterangan'],
+        ['no_kk', 'Wajib', 'Teks 16 digit (awali petik satu di Excel agar tidak jadi 1,21E+15)', 'Nomor Kartu Keluarga'],
+        ['nama_lengkap', 'Wajib', 'Nama lengkap jemaat', 'Boleh menyertakan St. atau marga'],
+        ['status_keluarga', 'Wajib', 'Ama/Suami | Ina/Istri | Anak', 'Untuk kategorial Ama, Ina, dan Kelompok KK'],
+        ['jenis_kelamin', 'Wajib', 'Laki-laki | Perempuan (atau L / P)', 'Otomatis dinormalisasi'],
+        ['tempat_lahir', 'Opsional', 'Nama kota/desa', 'Contoh: Sidikalang, Hutaraja'],
+        ['tanggal_lahir', 'Opsional', 'YYYY-MM-DD atau DD/MM/YYYY', 'Untuk Sekolah Minggu, NHKBP, Lansia & Ulang Tahun'],
+        ['lingkungan', 'Wajib', 'Letare | Exaudi | Judika | Galatia | Efesus | Jeremia', 'Harus sesuai salah satu dari 6 Lingkungan'],
+        ['alamat', 'Opsional', 'Alamat rumah / dusun', 'Alamat tempat tinggal'],
+        ['no_hp', 'Opsional', '08xxxxxxxxxx', 'Nomor HP / WhatsApp'],
+        ['tanggal_baptis', 'Opsional', 'YYYY-MM-DD', 'Tanggal Baptis Kudus (Tardidi)'],
+        ['tanggal_sidi', 'Opsional', 'YYYY-MM-DD', 'Tanggal Naik Sidi (Malua)'],
+        ['tanggal_menikah', 'Opsional', 'YYYY-MM-DD', 'Tanggal Pemberkatan Nikah'],
+        ['status_keanggotaan', 'Wajib', 'Aktif | Pindah | Meninggal', 'Hanya status Aktif dihitung di statistik utama']
+      ];
+      const wsGuide = XLSX.utils.aoa_to_sheet(guide);
+      wsGuide['!cols'] = [{ wch: 20 }, { wch: 10 }, { wch: 48 }, { wch: 46 }];
+      XLSX.utils.book_append_sheet(wb, wsGuide, 'Panduan_Pengisian');
+      XLSX.writeFile(wb, 'Template_Database_Jemaat_HKBP_Hutaraja.xlsx');
+      showToast('Template Excel (.xlsx) berhasil diunduh.', 'success');
+    }
+
+    function exportJemaatXlsx() {
+      if (typeof XLSX === 'undefined') { showToast('Library Excel belum termuat.', 'danger'); return; }
+      if (!state.jemaat.length) { showToast('Belum ada data jemaat untuk diekspor.', 'danger'); return; }
+      const wb = XLSX.utils.book_new();
+      const rows = [['id'].concat(JEMAAT_EXCEL_HEADERS)].concat(state.jemaat.map(function (m) {
+        return [
+          m.id || '', m.no_kk || '', m.nama_lengkap || '', m.status_keluarga || '',
+          m.jenis_kelamin || '', m.tempat_lahir || '', m.tanggal_lahir || '',
+          m.lingkungan || '', m.alamat || '', m.no_hp || '',
+          m.tanggal_baptis || '', m.tanggal_sidi || '', m.tanggal_menikah || '',
+          m.status_keanggotaan || 'Aktif'
+        ];
+      }));
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+      XLSX.utils.book_append_sheet(wb, ws, 'Database_Jemaat');
+      const suffix = state.user && state.user.role === 'Sintua Lingkungan' ? ('_' + state.user.lingkungan_tugas) : '';
+      XLSX.writeFile(wb, 'Database_Jemaat_HKBP_Hutaraja' + suffix + '_' + new Date().toISOString().slice(0, 10) + '.xlsx');
+      showToast('Export Excel (' + state.jemaat.length + ' baris) berhasil diunduh.', 'success');
+    }
+
+    function handleExcelImportFile(file) {
+      if (!file) return;
+      if (typeof XLSX === 'undefined') { showToast('Library Excel belum termuat.', 'danger'); return; }
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        try {
+          const wb = XLSX.read(ev.target.result, { type: 'array', cellDates: false });
+          const sheet = wb.Sheets[wb.SheetNames[0]];
+          const rawRows = XLSX.utils.sheet_to_json(sheet, { defval: '', raw: true });
+          const valid = [];
+          const errors = [];
+
+          const aliasMap = {
+            no_kk: 'no_kk', 'no kk': 'no_kk', 'no. kk': 'no_kk', 'nomor kk': 'no_kk', nokk: 'no_kk',
+            nama_lengkap: 'nama_lengkap', nama: 'nama_lengkap', 'nama lengkap': 'nama_lengkap', 'nama jemaat': 'nama_lengkap',
+            status_keluarga: 'status_keluarga', 'status keluarga': 'status_keluarga', hubungan: 'status_keluarga',
+            jenis_kelamin: 'jenis_kelamin', 'jenis kelamin': 'jenis_kelamin', jk: 'jenis_kelamin',
+            tempat_lahir: 'tempat_lahir', 'tempat lahir': 'tempat_lahir',
+            tanggal_lahir: 'tanggal_lahir', 'tanggal lahir': 'tanggal_lahir', 'tgl lahir': 'tanggal_lahir', tgl_lahir: 'tanggal_lahir',
+            lingkungan: 'lingkungan', wijk: 'lingkungan', sektor: 'lingkungan',
+            alamat: 'alamat',
+            no_hp: 'no_hp', 'no hp': 'no_hp', 'no. hp': 'no_hp', hp: 'no_hp', whatsapp: 'no_hp',
+            tanggal_baptis: 'tanggal_baptis', 'tanggal baptis': 'tanggal_baptis', baptis: 'tanggal_baptis',
+            tanggal_sidi: 'tanggal_sidi', 'tanggal sidi': 'tanggal_sidi', sidi: 'tanggal_sidi', malua: 'tanggal_sidi',
+            tanggal_menikah: 'tanggal_menikah', 'tanggal menikah': 'tanggal_menikah', menikah: 'tanggal_menikah',
+            status_keanggotaan: 'status_keanggotaan', 'status keanggotaan': 'status_keanggotaan', status: 'status_keanggotaan'
+          };
+
+          rawRows.forEach(function (raw, idx) {
+            const mapped = {};
+            Object.keys(raw).forEach(function (k) {
+              const norm = String(k).trim().toLowerCase().replace(/\s+/g, ' ');
+              const target = aliasMap[norm] || aliasMap[norm.replace(/[^a-z0-9]/g, '')];
+              if (target && (mapped[target] === undefined || mapped[target] === '')) mapped[target] = raw[k];
+            });
+            const hasAny = Object.keys(mapped).some(function (k) { return String(mapped[k] || '').trim() !== ''; });
+            if (!hasAny) return;
+
+            const noKK = cleanImportCell(mapped.no_kk);
+            const nama = cleanImportCell(mapped.nama_lengkap);
+            const lingRaw = cleanImportCell(mapped.lingkungan).replace(/^lingkungan\s+/i, '').trim();
+            const lingMatch = LINGKUNGAN_LIST.find(function (l) { return l.toLowerCase() === lingRaw.toLowerCase(); });
+
+            const rowErrs = [];
+            if (!noKK) rowErrs.push('No. KK kosong');
+            if (!nama) rowErrs.push('Nama Lengkap kosong');
+            if (!lingMatch) rowErrs.push('Lingkungan "' + lingRaw + '" tidak valid');
+            if (rowErrs.length) {
+              errors.push({ rowNumber: idx + 2, nama: nama || '(Tanpa Nama)', reason: rowErrs.join('; ') });
+              return;
+            }
+
+            const skRaw = cleanImportCell(mapped.status_keluarga).toLowerCase();
+            let statusKel = 'Anak';
+            if (skRaw.indexOf('ama') !== -1 || skRaw.indexOf('suami') !== -1 || skRaw.indexOf('kepala') !== -1) statusKel = 'Ama/Suami';
+            else if (skRaw.indexOf('ina') !== -1 || skRaw.indexOf('istri') !== -1) statusKel = 'Ina/Istri';
+
+            const jkRaw = cleanImportCell(mapped.jenis_kelamin).toLowerCase();
+            const jk = (jkRaw === 'p' || jkRaw.indexOf('perempuan') === 0 || jkRaw.indexOf('wanita') === 0) ? 'Perempuan' : 'Laki-laki';
+
+            const stRaw = cleanImportCell(mapped.status_keanggotaan).toLowerCase();
+            let statusKeanggotaan = 'Aktif';
+            if (stRaw.indexOf('pindah') !== -1) statusKeanggotaan = 'Pindah';
+            else if (stRaw.indexOf('meninggal') !== -1) statusKeanggotaan = 'Meninggal';
+
+            valid.push({
+              no_kk: noKK,
+              nama_lengkap: nama,
+              status_keluarga: statusKel,
+              jenis_kelamin: jk,
+              tempat_lahir: cleanImportCell(mapped.tempat_lahir),
+              tanggal_lahir: normalizeExcelDateStr(mapped.tanggal_lahir),
+              lingkungan: lingMatch,
+              alamat: cleanImportCell(mapped.alamat),
+              no_hp: cleanImportCell(mapped.no_hp),
+              tanggal_baptis: normalizeExcelDateStr(mapped.tanggal_baptis),
+              tanggal_sidi: normalizeExcelDateStr(mapped.tanggal_sidi),
+              tanggal_menikah: normalizeExcelDateStr(mapped.tanggal_menikah),
+              status_keanggotaan: statusKeanggotaan
+            });
+          });
+
+          state.pendingImportRecords = valid;
+          const bodyEl = document.getElementById('modalImportExcelBody');
+          bodyEl.innerHTML =
+            '<div class="row g-2 mb-3">' +
+            '<div class="col-4"><div class="p-3 rounded-3 border bg-light"><div class="small text-secondary">Baris Valid</div><div class="fs-4 fw-bold font-mono-num text-success">' + valid.length + '</div></div></div>' +
+            '<div class="col-4"><div class="p-3 rounded-3 border bg-light"><div class="small text-secondary">Baris Dilewati</div><div class="fs-4 fw-bold font-mono-num text-danger">' + errors.length + '</div></div></div>' +
+            '<div class="col-4"><div class="p-3 rounded-3 border bg-light"><div class="small text-secondary">Nama File</div><div class="small fw-semibold text-truncate">' + esc(file.name) + '</div></div></div>' +
+            '</div>' +
+            (errors.length ? '<div class="alert alert-warning small"><strong>Catatan Validasi (maks 8 baris):</strong><ul class="mb-0 mt-1">' +
+              errors.slice(0, 8).map(function (er) { return '<li>Baris ' + er.rowNumber + ' (' + esc(er.nama) + '): ' + esc(er.reason) + '</li>'; }).join('') +
+              '</ul></div>' : '') +
+            (valid.length ? '<div class="small fw-semibold mb-2">Pratinjau 5 Baris Pertama:</div><div class="table-responsive"><table class="table table-sm table-bordered small mb-0"><thead class="table-light"><tr><th>No. KK</th><th>Nama Lengkap</th><th>Status Kel.</th><th>Lingkungan</th><th>Status</th></tr></thead><tbody>' +
+              valid.slice(0, 5).map(function (r) {
+                return '<tr><td class="font-mono-num">' + esc(r.no_kk) + '</td><td>' + esc(r.nama_lengkap) + '</td><td>' + esc(r.status_keluarga) + '</td><td>' + esc(r.lingkungan) + '</td><td>' + esc(r.status_keanggotaan) + '</td></tr>';
+              }).join('') + '</tbody></table></div>' : '<div class="alert alert-danger small mb-0">Tidak ada baris valid yang dapat diimpor. Pastikan menggunakan header dari Template .xlsx.</div>');
+
+          document.getElementById('btnConfirmImportExcel').disabled = valid.length === 0;
+          bootstrap.Modal.getOrCreateInstance(document.getElementById('modalImportExcel')).show();
+        } catch (err) {
+          showToast('Gagal membaca file Excel: ' + err.message, 'danger');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    async function executeBulkImportExcel() {
+      const records = state.pendingImportRecords || [];
+      if (!records.length) return;
+      const modeEl = document.querySelector('input[name="importModeExcel"]:checked');
+      const mode = modeEl ? modeEl.value : 'append';
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalImportExcel')).hide();
+
+      const CHUNK_SIZE = 500;
+      try {
+        for (let i = 0; i < records.length; i += CHUNK_SIZE) {
+          const chunk = records.slice(i, i + CHUNK_SIZE);
+          const chunkMode = (i === 0 && mode === 'replace') ? 'replace' : 'append';
+          setLoading(true, 'Mengimpor data jemaat (' + Math.min(i + CHUNK_SIZE, records.length) + ' / ' + records.length + ')...');
+          await apiPost('bulkImportJemaat', { records: chunk, mode: chunkMode });
+        }
+        state.pendingImportRecords = [];
+        await refreshAllData();
+        showToast('Berhasil mengimpor ' + records.length + ' data jemaat ke Google Sheets.', 'success');
+      } catch (err) {
+        showToast(err.message, 'danger');
+      } finally {
+        setLoading(false);
+      }
+    }
+
     function renderAdminJemaat(el) {
       const isSuperAdmin = state.user.role === 'Super Admin';
-      el.innerHTML = '<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h4 mb-0">Database Jemaat' + (isSuperAdmin ? '' : ' — Lingkungan ' + esc(state.user.lingkungan_tugas)) + '</h2><span class="small text-secondary font-mono-num">' + state.jemaat.length + ' data tampil</span></div>' +
+      const q = (state.jemaatSearch || '').toLowerCase();
+      const fLing = state.jemaatFilterLing || 'Semua';
+
+      const filtered = state.jemaat.filter(function (m) {
+        if (isSuperAdmin && fLing !== 'Semua' && m.lingkungan !== fLing) return false;
+        if (q) {
+          const hay = (String(m.nama_lengkap || '') + ' ' + String(m.no_kk || '') + ' ' + String(m.alamat || '') + ' ' + String(m.lingkungan || '')).toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+
+      const aktifRows = state.jemaat.filter(function (m) { return String(m.status_keanggotaan || '').toLowerCase() === 'aktif'; });
+      const baptisCount = aktifRows.filter(function (m) { return String(m.tanggal_baptis || '').trim() !== ''; }).length;
+      const sidiCount = aktifRows.filter(function (m) { return String(m.tanggal_sidi || '').trim() !== ''; }).length;
+      const nikahCount = aktifRows.filter(function (m) { return String(m.tanggal_menikah || '').trim() !== ''; }).length;
+
+      let tableHtml = '';
+      if (!filtered.length) {
+        tableHtml = '<div class="p-5 text-center small text-secondary">' +
+          (state.jemaat.length === 0
+            ? 'Database Jemaat masih kosong (tanpa data dummy). Klik <strong>Unduh Template .xlsx</strong> untuk mengisi data resmi lalu klik <strong>Import .xlsx</strong>.'
+            : 'Tidak ada data jemaat yang cocok dengan filter pencarian.') +
+          '</div>';
+      } else if (state.jemaatViewMode === 'kk') {
+        const kkMap = {};
+        filtered.forEach(function (m) {
+          const key = String(m.no_kk || 'TANPA-KK');
+          if (!kkMap[key]) kkMap[key] = [];
+          kkMap[key].push(m);
+        });
+        const kkKeys = Object.keys(kkMap);
+        tableHtml = '<div class="p-3 vstack gap-3">' + kkKeys.slice(0, 80).map(function (kk) {
+          const members = kkMap[kk];
+          const head = members.find(function (x) { return x.status_keluarga === 'Ama/Suami'; }) || members[0];
+          return '<div class="border rounded-3 p-3">' +
+            '<div class="d-flex justify-content-between flex-wrap gap-2 pb-2 mb-2 border-bottom">' +
+            '<div><span class="font-mono-num small text-secondary">KK ' + esc(kk) + '</span> &middot; <strong class="small">' + esc(head.nama_lengkap) + '</strong></div>' +
+            '<div class="small text-secondary">Lingkungan ' + esc(head.lingkungan) + ' &middot; ' + members.length + ' anggota</div>' +
+            '</div>' +
+            '<div class="vstack gap-1 small">' + members.map(function (m) {
+              return '<div class="d-flex justify-content-between"><span>' + esc(m.nama_lengkap) + ' <span class="text-secondary">(' + esc(m.status_keluarga) + ')</span></span><span class="text-secondary font-mono-num">' + esc(m.tanggal_lahir || '-') + '</span></div>';
+            }).join('') + '</div></div>';
+        }).join('') + '</div>';
+      } else {
+        tableHtml = '<div class="table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>No. KK</th><th>Nama Lengkap</th><th>Status Kel.</th><th>Lingkungan</th><th>Status</th>' + (isSuperAdmin ? '<th>Aksi</th>' : '') + '</tr></thead><tbody>' +
+          filtered.slice(0, 150).map(function (j) {
+            return '<tr><td class="font-mono-num small">' + esc(j.no_kk) + '</td><td class="small fw-semibold">' + esc(j.nama_lengkap) + '</td><td class="small">' + esc(j.status_keluarga) + '</td><td class="small">' + esc(j.lingkungan) + '</td><td class="small">' + esc(j.status_keanggotaan) + '</td>' +
+              (isSuperAdmin ? '<td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteJemaat\',\'' + esc(j.id) + '\')">Hapus</button></td>' : '') + '</tr>';
+          }).join('') + '</tbody></table></div>';
+      }
+
+      el.innerHTML =
+        '<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">' +
+        '<div><h2 class="h4 mb-0">Database Jemaat' + (isSuperAdmin ? '' : ' — Lingkungan ' + esc(state.user.lingkungan_tugas)) + '</h2>' +
+        '<div class="small text-secondary font-mono-num">' + filtered.length + ' dari ' + state.jemaat.length + ' catatan jemaat</div></div>' +
+        '<div class="d-flex flex-wrap gap-2">' +
+        (isSuperAdmin ? '<button type="button" class="btn btn-outline-secondary btn-sm" onclick="downloadJemaatTemplateXlsx()"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Unduh Template .xlsx</button>' : '') +
+        (isSuperAdmin ? '<label class="btn btn-gold btn-sm mb-0"><i class="bi bi-upload me-1"></i>Import .xlsx<input type="file" id="inputImportJemaatXlsx" accept=".xlsx,.xls" class="d-none" /></label>' : '') +
+        '<button type="button" class="btn btn-navy btn-sm" onclick="exportJemaatXlsx()"><i class="bi bi-download me-1"></i>Export .xlsx</button>' +
+        (isSuperAdmin && state.jemaat.length ? '<button type="button" class="btn btn-outline-danger btn-sm" id="btnOpenClearJemaat"><i class="bi bi-trash me-1"></i>Kosongkan Data</button>' : '') +
+        '</div></div>' +
+        '<div class="row g-2 mb-4">' +
+        '<div class="col-6 col-md-3"><div class="surface-card p-3"><div class="small text-secondary">Jemaat Aktif</div><div class="fs-5 fw-bold font-mono-num" style="color:var(--hkbp-navy);">' + aktifRows.length + '</div></div></div>' +
+        '<div class="col-6 col-md-3"><div class="surface-card p-3"><div class="small text-secondary">Sudah Baptis</div><div class="fs-5 fw-bold font-mono-num">' + baptisCount + '</div></div></div>' +
+        '<div class="col-6 col-md-3"><div class="surface-card p-3"><div class="small text-secondary">Sudah Sidi / Malua</div><div class="fs-5 fw-bold font-mono-num">' + sidiCount + '</div></div></div>' +
+        '<div class="col-6 col-md-3"><div class="surface-card p-3"><div class="small text-secondary">Sudah Menikah</div><div class="fs-5 fw-bold font-mono-num">' + nikahCount + '</div></div></div>' +
+        '</div>' +
         (isSuperAdmin ? (
           '<div class="surface-card p-4 mb-4"><form id="formAdminJemaat" class="row g-2">' +
           '<div class="col-md-3"><input class="form-control form-control-sm font-mono-num" name="no_kk" placeholder="No. KK *" required /></div>' +
@@ -1129,11 +1620,26 @@
           '<div class="col-md-3"><button class="btn btn-navy btn-sm w-100" type="submit">Tambah Jemaat</button></div>' +
           '</form></div>'
         ) : '') +
-        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>No. KK</th><th>Nama Lengkap</th><th>Status Kel.</th><th>Lingkungan</th><th>Status</th>' + (isSuperAdmin ? '<th>Aksi</th>' : '') + '</tr></thead><tbody>' +
-        state.jemaat.slice(0, 100).map(function (j) {
-          return '<tr><td class="font-mono-num small">' + esc(j.no_kk) + '</td><td class="small fw-semibold">' + esc(j.nama_lengkap) + '</td><td class="small">' + esc(j.status_keluarga) + '</td><td class="small">' + esc(j.lingkungan) + '</td><td class="small">' + esc(j.status_keanggotaan) + '</td>' +
-            (isSuperAdmin ? '<td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteJemaat\',\'' + esc(j.id) + '\')">Hapus</button></td>' : '') + '</tr>';
-        }).join('') + '</tbody></table></div>';
+        '<div class="surface-card overflow-hidden">' +
+        '<div class="p-3 border-bottom d-flex flex-wrap gap-2 align-items-center justify-content-between">' +
+        '<div class="d-flex flex-wrap gap-2 flex-grow-1">' +
+        '<input type="search" id="adminJemaatSearchInput" class="form-control form-control-sm" style="max-width:260px;" placeholder="Cari nama, No. KK, alamat..." value="' + esc(state.jemaatSearch) + '" />' +
+        (isSuperAdmin ? '<select id="adminJemaatLingSelect" class="form-select form-select-sm" style="max-width:190px;"><option value="Semua">Semua Lingkungan</option>' + LINGKUNGAN_LIST.map(function (l) { return '<option value="' + l + '"' + (fLing === l ? ' selected' : '') + '>Lingkungan ' + l + '</option>'; }).join('') + '</select>' : '') +
+        '</div>' +
+        '<div class="btn-group btn-group-sm" role="group">' +
+        '<button type="button" class="btn ' + (state.jemaatViewMode === 'jiwa' ? 'btn-navy' : 'btn-outline-secondary') + '" onclick="state.jemaatViewMode=\'jiwa\';renderAdminModule();">Daftar Jiwa</button>' +
+        '<button type="button" class="btn ' + (state.jemaatViewMode === 'kk' ? 'btn-navy' : 'btn-outline-secondary') + '" onclick="state.jemaatViewMode=\'kk\';renderAdminModule();">Kelompok per KK</button>' +
+        '</div></div>' +
+        tableHtml + '</div>';
+
+      const searchEl = document.getElementById('adminJemaatSearchInput');
+      if (searchEl) {
+        searchEl.oninput = function (e) { state.jemaatSearch = e.target.value; renderAdminModule(); };
+      }
+      const lingEl = document.getElementById('adminJemaatLingSelect');
+      if (lingEl) {
+        lingEl.onchange = function (e) { state.jemaatFilterLing = e.target.value; renderAdminModule(); };
+      }
 
       if (isSuperAdmin) {
         document.getElementById('formAdminJemaat').onsubmit = async function (e) {
@@ -1145,7 +1651,82 @@
             showToast('Data jemaat berhasil disimpan.', 'success');
           } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
         };
+        const importInput = document.getElementById('inputImportJemaatXlsx');
+        if (importInput) {
+          importInput.onchange = function (e) {
+            if (e.target.files && e.target.files[0]) {
+              handleExcelImportFile(e.target.files[0]);
+              e.target.value = '';
+            }
+          };
+        }
+        const clearBtn = document.getElementById('btnOpenClearJemaat');
+        if (clearBtn) {
+          clearBtn.onclick = function () {
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('modalConfirmClearJemaat')).show();
+          };
+        }
       }
+    }
+
+    const PERUBAHAN_FIELD_OPTIONS = [
+      { key: 'nama_lengkap', label: 'Nama Lengkap', inputType: 'text' },
+      { key: 'no_kk', label: 'No. Kartu Keluarga (KK)', inputType: 'text' },
+      { key: 'status_keluarga', label: 'Hubungan / Status Keluarga', inputType: 'select', options: ['Ama/Suami', 'Ina/Istri', 'Anak'] },
+      { key: 'jenis_kelamin', label: 'Jenis Kelamin', inputType: 'select', options: ['Laki-laki', 'Perempuan'] },
+      { key: 'tempat_lahir', label: 'Tempat Lahir', inputType: 'text' },
+      { key: 'tanggal_lahir', label: 'Tanggal Lahir', inputType: 'date' },
+      { key: 'lingkungan', label: 'Wijk / Lingkungan', inputType: 'select', options: LINGKUNGAN_LIST },
+      { key: 'alamat', label: 'Alamat', inputType: 'text' },
+      { key: 'no_hp', label: 'No. HP / WhatsApp', inputType: 'text' },
+      { key: 'tanggal_baptis', label: 'Tanggal Baptis', inputType: 'date' },
+      { key: 'tanggal_sidi', label: 'Tanggal Sidi / Malua', inputType: 'date' },
+      { key: 'tanggal_menikah', label: 'Tanggal Menikah', inputType: 'date' },
+      { key: 'status_keanggotaan', label: 'Status Keanggotaan', inputType: 'select', options: ['Aktif', 'Pindah', 'Meninggal'] }
+    ];
+
+    const KELENGKAPAN_LABELS = {
+      surat_keterangan_gereja: 'Surat Keterangan Gereja',
+      akte_pernikahan: 'Akte Pernikahan',
+      akte_baptis: 'Akte Baptis',
+      akte_sidi: 'Akte Sidi',
+      surat_pengantar_sintua_wijk: 'Surat Pengantar Sintua Wijk'
+    };
+
+    function renderPermohonanStructuredHtml(p) {
+      let html = '';
+      if (p.nama_suami || p.nama_istri || p.email_pemohon || p.alamat_pemohon) {
+        html += '<div class="small text-secondary mb-2">' +
+          (p.nama_suami ? '<strong>Suami:</strong> ' + esc(p.nama_suami) + ' &middot; ' : '') +
+          (p.nama_istri ? '<strong>Istri:</strong> ' + esc(p.nama_istri) + ' &middot; ' : '') +
+          (p.email_pemohon ? '<strong>Email:</strong> ' + esc(p.email_pemohon) + ' &middot; ' : '') +
+          (p.alamat_pemohon ? '<strong>Alamat:</strong> ' + esc(p.alamat_pemohon) : '') +
+          '</div>';
+      }
+      if (Array.isArray(p.daftar_anggota) && p.daftar_anggota.length > 0) {
+        html += '<div class="table-responsive mt-2 mb-2"><table class="table table-sm table-bordered small mb-0"><thead class="table-light"><tr><th>#</th><th>Nama Anak / Anggota</th><th>Hubungan</th><th>JK</th><th>Tempat &amp; Tgl Lahir</th></tr></thead><tbody>' +
+          p.daftar_anggota.map(function (a, idx) {
+            return '<tr><td>' + (idx + 1) + '</td><td class="fw-semibold">' + esc(a.nama_lengkap) + '</td><td>' + esc(a.status_keluarga || 'Anak') + '</td><td>' + esc(a.jenis_kelamin || '-') + '</td><td class="font-mono-num">' + esc(a.tempat_lahir || '-') + ', ' + esc(a.tanggal_lahir || '-') + '</td></tr>';
+          }).join('') + '</tbody></table></div>';
+      }
+      if (Array.isArray(p.daftar_perubahan) && p.daftar_perubahan.length > 0) {
+        html += '<div class="table-responsive mt-2 mb-2"><table class="table table-sm table-bordered small mb-0"><thead class="table-light"><tr><th>Data Diubah</th><th>Anggota</th><th>Data Lama (Salah)</th><th>Data yang Benar</th></tr></thead><tbody>' +
+          p.daftar_perubahan.map(function (c) {
+            return '<tr><td class="fw-semibold">' + esc(c.field_label || c.field) + '</td><td>' + esc(c.nama_anggota || 'Keluarga/KK') + '</td><td class="text-danger text-decoration-line-through">' + esc(c.data_lama) + '</td><td class="text-success fw-semibold">' + esc(c.data_benar) + '</td></tr>';
+          }).join('') + '</tbody></table></div>';
+      }
+      const docs = p.kelengkapan_dokumen && typeof p.kelengkapan_dokumen === 'object' ? Object.keys(p.kelengkapan_dokumen) : [];
+      if (docs.length > 0) {
+        html += '<div class="small mt-2"><strong class="text-secondary">Lampiran Administrasi:</strong> ' + docs.map(function (k) {
+          const item = p.kelengkapan_dokumen[k];
+          const label = KELENGKAPAN_LABELS[k] || k;
+          const url = item && safeUrl(item.url);
+          return url
+            ? '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer" class="me-2 text-decoration-none" style="color:var(--hkbp-navy);"><i class="bi bi-paperclip"></i> ' + esc(label) + '</a>'
+            : '<span class="me-2 text-secondary"><i class="bi bi-paperclip"></i> ' + esc(label) + ' (' + esc((item && item.fileName) || 'terlampir') + ')</span>';
+        }).join('') + '</div>';
+      }
+      return html;
     }
 
     function renderAdminPermohonan(el) {
@@ -1167,10 +1748,11 @@
           }
           return '<div class="surface-card p-4">' +
             '<div class="d-flex justify-content-between flex-wrap gap-2 mb-2">' +
-            '<div class="small font-mono-num text-secondary">' + esc(p.id) + ' &middot; ' + esc(p.tanggal_pengajuan) + ' &middot; Lingkungan ' + esc(p.lingkungan) + '</div>' +
+            '<div class="small font-mono-num text-secondary">' + esc(p.id) + ' &middot; ' + esc(p.tanggal_pengajuan) + ' &middot; Wijk ' + esc(p.lingkungan) + '</div>' +
             '<div class="small fw-bold" style="color:var(--hkbp-navy);">Status: ' + esc(p.status_verifikasi) + '</div>' +
             '</div>' +
             '<h3 class="h6 fw-bold mb-1">' + esc(p.jenis_permohonan) + ' — ' + esc(p.nama_pemohon) + ' (KK: ' + esc(p.no_kk_terkait) + ')</h3>' +
+            renderPermohonanStructuredHtml(p) +
             '<p class="small text-secondary mb-2">' + esc(p.detail_perubahan) + '</p>' +
             '<div class="small text-secondary">Verifikasi: ' + esc(p.nik_atau_tgl_lahir_verifikasi) + ' &middot; WA: ' + esc(p.no_hp_pemohon) + '</div>' +
             (p.catatan_sintua ? '<div class="small mt-2 text-success"><strong>Catatan Sintua:</strong> ' + esc(p.catatan_sintua) + '</div>' : '') +
@@ -1334,10 +1916,7 @@
       warta: [
         { id: 'WRT-001', tanggal: '2026-11-22', judul: 'Tingting Mingguan — Persiapan Ibadah Advent I & Natal 2026', kategori: 'Tingting Mingguan', isi_artikel: 'Syalom jemaat HKBP Ressort Hutaraja. Ibadah Minggu Advent I dimulai pukul 08.00 WIB (Bahasa Indonesia) dan 10.30 WIB (Bahasa Batak Toba).', link_pdf_drive: '' }
       ],
-      jemaat: [
-        { id: 'JMT-001', no_kk: '1211011405820001', nama_lengkap: 'St. Hotman Sihombing', status_keluarga: 'Ama/Suami', jenis_kelamin: 'Laki-laki', lingkungan: 'Letare', status_keanggotaan: 'Aktif' },
-        { id: 'JMT-002', no_kk: '1211012207850002', nama_lengkap: 'Parlindungan Manullang', status_keluarga: 'Ama/Suami', jenis_kelamin: 'Laki-laki', lingkungan: 'Exaudi', status_keanggotaan: 'Aktif' }
-      ],
+      jemaat: [],
       permohonan: [],
       keuangan: [
         { id: 'KEU-001', tanggal: '2026-11-01', jenis_kas: 'Kas Huria', tipe_transaksi: 'Pemasukan', uraian: 'Saldo Awal & Pelean Minggu', jumlah: 48500000, keterangan: 'November 2026' },
@@ -1358,6 +1937,34 @@
     function computeDemoPublic() {
       const aktif = demoStore.jemaat.filter(function (j) { return j.status_keanggotaan === 'Aktif'; });
       const kkSet = new Set(aktif.map(function (j) { return j.no_kk; }));
+      let sm = 0, nh = 0, ama = 0, ina = 0, lansia = 0, baptis = 0, sidi = 0, nikah = 0;
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const bulanNama = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      const bdays = [];
+      aktif.forEach(function (j) {
+        if (j.status_keluarga === 'Ama/Suami') ama++;
+        if (j.status_keluarga === 'Ina/Istri') ina++;
+        if (j.tanggal_baptis) baptis++;
+        if (j.tanggal_sidi) sidi++;
+        if (j.tanggal_menikah) nikah++;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(String(j.tanggal_lahir || ''))) {
+          const p = j.tanggal_lahir.split('-').map(Number);
+          let age = today.getFullYear() - p[0];
+          const md = (today.getMonth() + 1) - p[1];
+          if (md < 0 || (md === 0 && today.getDate() < p[2])) age--;
+          if (j.status_keluarga === 'Anak' && age >= 0) {
+            if (age <= 12) sm++; else if (age <= 25) nh++;
+          }
+          if (age >= 60) lansia++;
+          let nb = new Date(today.getFullYear(), p[1] - 1, p[2]);
+          if (nb < today) nb = new Date(today.getFullYear() + 1, p[1] - 1, p[2]);
+          const diff = Math.round((nb.getTime() - today.getTime()) / 86400000);
+          if (diff >= 0 && diff <= 6) {
+            bdays.push({ id: j.id, nama_lengkap: j.nama_lengkap, lingkungan: j.lingkungan, usiaBaru: nb.getFullYear() - p[0], hariLagi: diff, tanggalLabel: p[2] + ' ' + bulanNama[p[1] - 1] });
+          }
+        }
+      });
       return {
         pengaturan: demoStore.pengaturan,
         jadwal: demoStore.jadwal,
@@ -1368,7 +1975,9 @@
           perLingkungan: LINGKUNGAN_LIST.map(function (l) {
             const list = aktif.filter(function (j) { return j.lingkungan === l; });
             return { lingkungan: l, jiwa: list.length, kk: new Set(list.map(function (x) { return x.no_kk; })).size, persentase: aktif.length ? Number(((list.length / aktif.length) * 100).toFixed(1)) : 0 };
-          })
+          }),
+          kategorial: { sekolahMinggu: sm, remajaNhkbp: nh, punguanAma: ama, punguanIna: ina, lansia: lansia, sudahBaptis: baptis, sudahSidi: sidi, sudahMenikah: nikah },
+          ulangTahunMingguIni: bdays
         },
         keuangan: demoStore.keuangan,
         ringkasanKas: JENIS_KAS_LIST.map(function (kas) {
@@ -1383,7 +1992,21 @@
     function handleDemoApi(action, payload) {
       if (action === 'getPublicData') return { success: true, data: computeDemoPublic() };
       if (action === 'submitPermohonan') {
-        const item = Object.assign({ id: 'REQ-2026-' + String(demoStore.permohonan.length + 1).padStart(3, '0'), tanggal_pengajuan: new Date().toISOString().slice(0, 10), status_verifikasi: 'Menunggu Sintua', catatan_sintua: '', catatan_admin: '' }, payload);
+        const docs = {};
+        if (payload.kelengkapan_uploads) {
+          Object.keys(payload.kelengkapan_uploads).forEach(function (k) {
+            const u = payload.kelengkapan_uploads[k];
+            if (u && u.fileName) docs[k] = { fileName: u.fileName, url: '' };
+          });
+        }
+        const item = Object.assign({
+          id: 'REQ-2026-' + String(demoStore.permohonan.length + 1).padStart(3, '0'),
+          tanggal_pengajuan: new Date().toISOString().slice(0, 10),
+          status_verifikasi: 'Menunggu Sintua',
+          catatan_sintua: '',
+          catatan_admin: '',
+          kelengkapan_dokumen: docs
+        }, payload);
         demoStore.permohonan.unshift(item);
         return { success: true, data: item };
       }
@@ -1415,6 +2038,15 @@
       if (action === 'deleteWarta') { demoStore.warta = demoStore.warta.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
       if (action === 'saveJemaat') { demoStore.jemaat.unshift(Object.assign({ id: 'JMT-' + Date.now() }, payload)); return { success: true }; }
       if (action === 'deleteJemaat') { demoStore.jemaat = demoStore.jemaat.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'bulkImportJemaat') {
+        if (payload.mode === 'replace') demoStore.jemaat = [];
+        const recs = Array.isArray(payload.records) ? payload.records : [];
+        recs.forEach(function (r, idx) {
+          demoStore.jemaat.push(Object.assign({ id: 'JMT-' + Date.now() + '-' + idx }, r));
+        });
+        return { success: true, data: { imported: recs.length } };
+      }
+      if (action === 'clearAllJemaat') { demoStore.jemaat = []; return { success: true, data: { cleared: true } }; }
       if (action === 'saveKeuangan') { demoStore.keuangan.unshift(Object.assign({ id: 'KEU-' + Date.now(), jumlah: Number(payload.jumlah) || 0 }, payload)); return { success: true }; }
       if (action === 'deleteKeuangan') { demoStore.keuangan = demoStore.keuangan.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
       if (action === 'saveGaleri') { demoStore.galeri.unshift(Object.assign({ id: 'GLR-' + Date.now() }, payload)); return { success: true }; }
@@ -1432,7 +2064,30 @@
           p.status_verifikasi = payload.keputusan === 'Setujui' ? 'Disetujui Admin' : 'Ditolak';
           p.catatan_admin = payload.catatan_admin;
           if (payload.keputusan === 'Setujui' && p.jenis_permohonan === 'Tambah Anggota/Anak Lahir') {
-            demoStore.jemaat.unshift({ id: 'JMT-' + Date.now(), no_kk: p.no_kk_terkait, nama_lengkap: p.nama_pemohon + ' (Anggota Baru)', status_keluarga: 'Anak', jenis_kelamin: 'Laki-laki', lingkungan: p.lingkungan, status_keanggotaan: 'Aktif' });
+            const list = Array.isArray(p.daftar_anggota) && p.daftar_anggota.length ? p.daftar_anggota : [{ nama_lengkap: p.nama_pemohon, status_keluarga: 'Anak', jenis_kelamin: 'Laki-laki', tempat_lahir: '', tanggal_lahir: '' }];
+            list.forEach(function (m, idx) {
+              demoStore.jemaat.unshift({
+                id: 'JMT-' + Date.now() + '-' + idx,
+                no_kk: p.no_kk_terkait,
+                nama_lengkap: m.nama_lengkap,
+                status_keluarga: m.status_keluarga || 'Anak',
+                jenis_kelamin: m.jenis_kelamin || 'Laki-laki',
+                tempat_lahir: m.tempat_lahir || '',
+                tanggal_lahir: m.tanggal_lahir || '',
+                lingkungan: p.lingkungan,
+                alamat: p.alamat_pemohon || '',
+                no_hp: p.no_hp_pemohon || '',
+                status_keanggotaan: 'Aktif'
+              });
+            });
+          } else if (payload.keputusan === 'Setujui' && p.jenis_permohonan === 'Perbaikan Biodata' && Array.isArray(p.daftar_perubahan)) {
+            const fam = demoStore.jemaat.filter(function (j) { return j.no_kk === p.no_kk_terkait; });
+            p.daftar_perubahan.forEach(function (ch) {
+              let targets = ch.nama_anggota ? fam.filter(function (j) { return String(j.nama_lengkap || '').toLowerCase().indexOf(ch.nama_anggota.toLowerCase()) !== -1; }) : [];
+              if (!targets.length && (ch.field === 'alamat' || ch.field === 'lingkungan' || ch.field === 'no_kk')) targets = fam;
+              if (!targets.length && fam.length) targets = [fam[0]];
+              targets.forEach(function (t) { t[ch.field] = ch.data_benar; });
+            });
           }
         }
         return { success: true };
@@ -1464,27 +2119,221 @@
         );
       });
 
+      // ===================== FORM LAYANAN DINAMIS (MULTI-ANAK & MULTI-PERUBAHAN) =====================
+      function addAnggotaRow() {
+        const listEl = document.getElementById('listAnggotaRows');
+        const idx = listEl.children.length + 1;
+        const row = document.createElement('div');
+        row.className = 'p-3 rounded-3 border bg-white anggota-draft-row';
+        row.innerHTML =
+          '<div class="d-flex justify-content-between align-items-center mb-2">' +
+          '<strong class="small" style="color:var(--hkbp-navy);">Anggota #' + idx + '</strong>' +
+          '<button type="button" class="btn btn-link btn-sm text-danger p-0 text-decoration-none btn-remove-anggota">Hapus</button>' +
+          '</div>' +
+          '<div class="row g-2">' +
+          '<div class="col-md-6"><label class="form-label small mb-1">Nama Anak / Anggota *</label><input type="text" class="form-control form-control-sm inp-anggota-nama" placeholder="Nama lengkap anak/anggota" /></div>' +
+          '<div class="col-md-6"><label class="form-label small mb-1">Tempat Lahir</label><input type="text" class="form-control form-control-sm inp-anggota-tempat" placeholder="Contoh: Sidikalang" /></div>' +
+          '<div class="col-md-4"><label class="form-label small mb-1">Tgl. Lahir *</label><input type="date" class="form-control form-control-sm inp-anggota-tgl" /></div>' +
+          '<div class="col-md-4"><label class="form-label small mb-1">Jenis Kelamin</label><select class="form-select form-select-sm inp-anggota-jk"><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>' +
+          '<div class="col-md-4"><label class="form-label small mb-1">Hubungan Keluarga</label><select class="form-select form-select-sm inp-anggota-hub"><option value="Anak">Anak</option><option value="Ama/Suami">Ama/Suami</option><option value="Ina/Istri">Ina/Istri</option></select></div>' +
+          '</div>';
+        row.querySelector('.btn-remove-anggota').addEventListener('click', function () {
+          if (listEl.children.length <= 1) return;
+          row.remove();
+          renumberRows(listEl, 'Anggota #');
+        });
+        listEl.appendChild(row);
+        renumberRows(listEl, 'Anggota #');
+      }
+
+      function renderDataBenarControl(fieldKey, currentValue) {
+        const meta = PERUBAHAN_FIELD_OPTIONS.find(function (o) { return o.key === fieldKey; }) || PERUBAHAN_FIELD_OPTIONS[0];
+        if (meta.inputType === 'select' && meta.options) {
+          return '<select class="form-select form-select-sm inp-ubah-benar">' +
+            '<option value="">-- Pilih Nilai Benar --</option>' +
+            meta.options.map(function (opt) {
+              return '<option value="' + esc(opt) + '"' + (opt === currentValue ? ' selected' : '') + '>' + esc(opt) + '</option>';
+            }).join('') + '</select>';
+        }
+        if (meta.inputType === 'date') {
+          return '<input type="date" class="form-control form-control-sm inp-ubah-benar" value="' + esc(currentValue || '') + '" />';
+        }
+        return '<input type="text" class="form-control form-control-sm inp-ubah-benar" placeholder="Ketik data yang benar..." value="' + esc(currentValue || '') + '" />';
+      }
+
+      function addPerubahanRow() {
+        const listEl = document.getElementById('listPerubahanRows');
+        const idx = listEl.children.length + 1;
+        const row = document.createElement('div');
+        row.className = 'p-3 rounded-3 border bg-white perubahan-draft-row';
+        row.innerHTML =
+          '<div class="d-flex justify-content-between align-items-center mb-2">' +
+          '<strong class="small" style="color:var(--hkbp-navy);">Perubahan #' + idx + '</strong>' +
+          '<button type="button" class="btn btn-link btn-sm text-danger p-0 text-decoration-none btn-remove-ubah">Hapus</button>' +
+          '</div>' +
+          '<div class="row g-2">' +
+          '<div class="col-md-6"><label class="form-label small mb-1">Data yang Hendak Diubah *</label><select class="form-select form-select-sm inp-ubah-field">' +
+          PERUBAHAN_FIELD_OPTIONS.map(function (o) { return '<option value="' + esc(o.key) + '">' + esc(o.label) + '</option>'; }).join('') +
+          '</select></div>' +
+          '<div class="col-md-6"><label class="form-label small mb-1">Nama Anggota (Opsional)</label><input type="text" class="form-control form-control-sm inp-ubah-anggota" placeholder="Jika khusus 1 anggota di KK" /></div>' +
+          '<div class="col-md-6"><label class="form-label small mb-1 text-danger">Data Lama (Salah) *</label><input type="text" class="form-control form-control-sm inp-ubah-lama" placeholder="Tulis data yang salah saat ini" /></div>' +
+          '<div class="col-md-6"><label class="form-label small mb-1 text-success">Data yang Benar *</label><div class="wrap-ubah-benar">' + renderDataBenarControl('nama_lengkap', '') + '</div></div>' +
+          '</div>';
+        row.querySelector('.inp-ubah-field').addEventListener('change', function (ev) {
+          row.querySelector('.wrap-ubah-benar').innerHTML = renderDataBenarControl(ev.target.value, '');
+        });
+        row.querySelector('.btn-remove-ubah').addEventListener('click', function () {
+          if (listEl.children.length <= 1) return;
+          row.remove();
+          renumberRows(listEl, 'Perubahan #');
+        });
+        listEl.appendChild(row);
+        renumberRows(listEl, 'Perubahan #');
+      }
+
+      function renumberRows(container, prefix) {
+        Array.from(container.children).forEach(function (child, idx) {
+          const title = child.querySelector('strong');
+          if (title) title.textContent = prefix + (idx + 1);
+          const rmBtn = child.querySelector('button.text-danger');
+          if (rmBtn) rmBtn.classList.toggle('d-none', container.children.length <= 1);
+        });
+      }
+
+      function syncPermohonanFormMode() {
+        const jenis = document.getElementById('reqJenis').value;
+        const isTambah = jenis === 'Tambah Anggota/Anak Lahir';
+        const isUbah = jenis === 'Perbaikan Biodata';
+        document.getElementById('blockIdentitasTambahAnggota').classList.toggle('d-none', !isTambah);
+        document.getElementById('blockDaftarAnggota').classList.toggle('d-none', !isTambah);
+        document.getElementById('blockKelengkapanAdmin').classList.toggle('d-none', !isTambah);
+        document.getElementById('wrapNamaPemohonUmum').classList.toggle('d-none', isTambah);
+        document.getElementById('blockPerbaikanBiodata').classList.toggle('d-none', !isUbah);
+        document.getElementById('lblReqDetail').innerHTML = (isTambah || isUbah)
+          ? 'Catatan Tambahan (Opsional)'
+          : 'Rincian Perubahan Data <span class="text-danger">*</span>';
+      }
+
+      addAnggotaRow();
+      addPerubahanRow();
+      syncPermohonanFormMode();
+      document.getElementById('reqJenis').addEventListener('change', syncPermohonanFormMode);
+      document.getElementById('btnAddAnggotaRow').addEventListener('click', addAnggotaRow);
+      document.getElementById('btnAddPerubahanRow').addEventListener('click', addPerubahanRow);
+
       document.getElementById('formPermohonanPublic').addEventListener('submit', async function (e) {
         e.preventDefault();
         const form = e.target;
-        if (!form.checkValidity()) {
-          form.classList.add('was-validated');
-          showToast('Mohon lengkapi seluruh kolom wajib dengan benar.', 'danger');
+        const jenis = document.getElementById('reqJenis').value;
+        const lingkungan = document.getElementById('reqLingkungan').value;
+        const noKK = document.getElementById('reqNoKK').value.trim();
+        const verif = document.getElementById('reqVerif').value.trim();
+        const noHp = document.getElementById('reqNoHp').value.trim();
+        const detailManual = document.getElementById('reqDetail').value.trim();
+
+        if (!lingkungan || noKK.length < 6 || !verif || noHp.length < 9) {
+          showToast('Lengkapi Wijk/Lingkungan, No. KK, Verifikasi, dan No. HP aktif.', 'danger');
           return;
         }
+
+        const payload = {
+          lingkungan: lingkungan,
+          jenis_permohonan: jenis,
+          no_kk_terkait: noKK,
+          nik_atau_tgl_lahir_verifikasi: verif,
+          no_hp_pemohon: noHp,
+          detail_perubahan: detailManual
+        };
+
         try {
-          setLoading(true, 'Mengirim permohonan ke Sintua Lingkungan...');
-          const res = await apiPost('submitPermohonan', {
-            lingkungan: document.getElementById('reqLingkungan').value,
-            jenis_permohonan: document.getElementById('reqJenis').value,
-            no_kk_terkait: document.getElementById('reqNoKK').value.trim(),
-            nama_pemohon: document.getElementById('reqNamaPemohon').value.trim(),
-            nik_atau_tgl_lahir_verifikasi: document.getElementById('reqVerif').value.trim(),
-            no_hp_pemohon: document.getElementById('reqNoHp').value.trim(),
-            detail_perubahan: document.getElementById('reqDetail').value.trim()
-          });
+          if (jenis === 'Tambah Anggota/Anak Lahir') {
+            const namaSuami = document.getElementById('reqNamaSuami').value.trim();
+            const namaIstri = document.getElementById('reqNamaIstri').value.trim();
+            const email = document.getElementById('reqEmail').value.trim();
+            const alamat = document.getElementById('reqAlamat').value.trim();
+            if (!namaSuami || !alamat) {
+              showToast('Nama Suami dan Alamat keluarga wajib diisi.', 'danger');
+              return;
+            }
+            const anggotaRows = Array.from(document.querySelectorAll('#listAnggotaRows .anggota-draft-row')).map(function (r) {
+              return {
+                nama_lengkap: r.querySelector('.inp-anggota-nama').value.trim(),
+                tempat_lahir: r.querySelector('.inp-anggota-tempat').value.trim(),
+                tanggal_lahir: r.querySelector('.inp-anggota-tgl').value.trim(),
+                jenis_kelamin: r.querySelector('.inp-anggota-jk').value,
+                status_keluarga: r.querySelector('.inp-anggota-hub').value
+              };
+            }).filter(function (a) { return a.nama_lengkap !== ''; });
+
+            if (!anggotaRows.length || anggotaRows.some(function (a) { return !a.tanggal_lahir; })) {
+              showToast('Isi minimal 1 data anak/anggota beserta tanggal lahirnya.', 'danger');
+              return;
+            }
+
+            setLoading(true, 'Mengunggah berkas & mengirim permohonan...');
+            const uploads = {};
+            const fileInputs = Array.from(document.querySelectorAll('#blockKelengkapanAdmin input[type="file"]'));
+            for (let i = 0; i < fileInputs.length; i++) {
+              const inp = fileInputs[i];
+              if (inp.files && inp.files[0]) {
+                uploads[inp.getAttribute('data-doc-key')] = await readFileAsBase64(inp.files[0]);
+              }
+            }
+
+            payload.nama_suami = namaSuami;
+            payload.nama_istri = namaIstri;
+            payload.nama_pemohon = namaSuami;
+            payload.email_pemohon = email;
+            payload.alamat_pemohon = alamat;
+            payload.daftar_anggota = anggotaRows;
+            payload.kelengkapan_uploads = uploads;
+            if (!payload.detail_perubahan) {
+              payload.detail_perubahan = 'Penambahan ' + anggotaRows.length + ' anggota keluarga: ' + anggotaRows.map(function (a) { return a.nama_lengkap; }).join(', ');
+            }
+          } else if (jenis === 'Perbaikan Biodata') {
+            const namaPemohon = document.getElementById('reqNamaPemohon').value.trim();
+            if (!namaPemohon) {
+              showToast('Nama pemohon / kepala keluarga wajib diisi.', 'danger');
+              return;
+            }
+            const changes = Array.from(document.querySelectorAll('#listPerubahanRows .perubahan-draft-row')).map(function (r) {
+              const fKey = r.querySelector('.inp-ubah-field').value;
+              const meta = PERUBAHAN_FIELD_OPTIONS.find(function (o) { return o.key === fKey; });
+              return {
+                field: fKey,
+                field_label: meta ? meta.label : fKey,
+                nama_anggota: r.querySelector('.inp-ubah-anggota').value.trim(),
+                data_lama: r.querySelector('.inp-ubah-lama').value.trim(),
+                data_benar: r.querySelector('.inp-ubah-benar').value.trim()
+              };
+            });
+            if (!changes.length || changes.some(function (c) { return !c.data_lama || !c.data_benar; })) {
+              showToast('Lengkapi Data Lama (Salah) dan Data yang Benar pada seluruh baris perubahan.', 'danger');
+              return;
+            }
+            setLoading(true, 'Mengirim permohonan perbaikan biodata...');
+            payload.nama_pemohon = namaPemohon;
+            payload.daftar_perubahan = changes;
+            if (!payload.detail_perubahan) {
+              payload.detail_perubahan = 'Perbaikan ' + changes.length + ' data: ' + changes.map(function (c) { return c.field_label + ' (' + c.data_lama + ' -> ' + c.data_benar + ')'; }).join('; ');
+            }
+          } else {
+            const namaPemohon = document.getElementById('reqNamaPemohon').value.trim();
+            if (!namaPemohon || detailManual.length < 6) {
+              showToast('Nama pemohon dan rincian permohonan wajib diisi.', 'danger');
+              return;
+            }
+            setLoading(true, 'Mengirim permohonan ke Sintua Lingkungan...');
+            payload.nama_pemohon = namaPemohon;
+          }
+
+          const res = await apiPost('submitPermohonan', payload);
           form.reset();
-          form.classList.remove('was-validated');
+          document.getElementById('listAnggotaRows').innerHTML = '';
+          document.getElementById('listPerubahanRows').innerHTML = '';
+          addAnggotaRow();
+          addPerubahanRow();
+          syncPermohonanFormMode();
           showToast('Berhasil! ID Pengajuan Anda: ' + res.data.id + ' (Status: Menunggu Sintua)', 'success');
           document.getElementById('inputCekStatus').value = res.data.id;
           document.getElementById('formCekStatus').dispatchEvent(new Event('submit'));
@@ -1511,7 +2360,8 @@
           out.innerHTML = list.map(function (p) {
             return '<div class="border rounded-3 p-3 mb-2">' +
               '<div class="d-flex justify-content-between small mb-1"><strong class="font-mono-num">' + esc(p.id) + '</strong><span class="fw-bold" style="color:var(--hkbp-navy);">' + esc(p.status_verifikasi) + '</span></div>' +
-              '<div class="small fw-semibold">' + esc(p.jenis_permohonan) + ' &middot; Lingkungan ' + esc(p.lingkungan) + '</div>' +
+              '<div class="small fw-semibold mb-1">' + esc(p.jenis_permohonan) + ' &middot; Wijk ' + esc(p.lingkungan) + '</div>' +
+              renderPermohonanStructuredHtml(p) +
               '<div class="small text-secondary mt-1">' + esc(p.detail_perubahan) + '</div>' +
               (p.catatan_sintua ? '<div class="small text-success mt-2"><strong>Sintua:</strong> ' + esc(p.catatan_sintua) + '</div>' : '') +
               (p.catatan_admin ? '<div class="small text-primary mt-1"><strong>Admin:</strong> ' + esc(p.catatan_admin) + '</div>' : '') +
@@ -1525,6 +2375,16 @@
       });
 
       document.getElementById('btnPortalPengurus').addEventListener('click', openAdminDashboard);
+      document.getElementById('btnConfirmImportExcel').addEventListener('click', executeBulkImportExcel);
+      document.getElementById('btnExecuteClearJemaat').addEventListener('click', async function () {
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('modalConfirmClearJemaat')).hide();
+        try {
+          setLoading(true, 'Mengosongkan database jemaat...');
+          await apiPost('clearAllJemaat', {});
+          await refreshAllData();
+          showToast('Database jemaat berhasil dikosongkan.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      });
       document.getElementById('btnKembaliPublik').addEventListener('click', function () {
         switchPublicTab('beranda');
       });
