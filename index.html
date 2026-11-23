@@ -270,7 +270,7 @@
   <nav class="navbar navbar-expand-lg navbar-hkbp sticky-top py-2 no-print">
     <div class="container">
       <a class="navbar-brand text-nowrap d-inline-flex align-items-center gap-2" href="#beranda" data-nav="beranda">
-        <img id="navLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:34px;width:34px;object-fit:contain;" referrerpolicy="no-referrer" />
+        <img id="navLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:34px;width:34px;object-fit:contain;" referrerpolicy="no-referrer" onerror="handleImgErrorFallback(this)" />
         <span id="navBrandText" style="font-size:1.05rem;">HKBP Ressort Hutaraja</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Menu Navigasi">
@@ -1233,7 +1233,7 @@
       <div class="row g-4 pb-4 border-bottom">
         <div class="col-lg-5">
           <div class="d-flex align-items-start gap-2 mb-2">
-            <img id="footerLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:36px;width:36px;object-fit:contain;" referrerpolicy="no-referrer" />
+            <img id="footerLogoImg" src="" alt="Logo Gereja" class="d-none rounded" style="height:36px;width:36px;object-fit:contain;" referrerpolicy="no-referrer" onerror="handleImgErrorFallback(this)" />
             <div>
               <strong class="text-dark fs-6 font-serif" id="footerJudul">HKBP Ressort Hutaraja — Distrik VI Dairi</strong>
               <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('footer_judul','Judul Footer')"><i class="bi bi-pencil-fill"></i></button>
@@ -1841,12 +1841,66 @@
       renderDewanSeksi();
     }
 
+    function optimizeImageDataUrl(file, maxDim, maxChars) {
+      return new Promise(function (resolve) {
+        try {
+          const reader = new FileReader();
+          reader.onerror = function () { resolve(''); };
+          reader.onload = function () {
+            const rawDataUrl = String(reader.result || '');
+            if (rawDataUrl.indexOf('data:image/') === 0 && rawDataUrl.length <= maxChars) {
+              return resolve(rawDataUrl);
+            }
+            const img = new Image();
+            img.onerror = function () { resolve(''); };
+            img.onload = function () {
+              const sizes = [maxDim, Math.round(maxDim * 0.75), Math.round(maxDim * 0.55)];
+              for (let i = 0; i < sizes.length; i++) {
+                const limit = sizes[i];
+                let w = img.naturalWidth || img.width || limit;
+                let h = img.naturalHeight || img.height || limit;
+                if (w > limit || h > limit) {
+                  const ratio = Math.min(limit / w, limit / h);
+                  w = Math.max(1, Math.round(w * ratio));
+                  h = Math.max(1, Math.round(h * ratio));
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) continue;
+                ctx.clearRect(0, 0, w, h);
+                ctx.drawImage(img, 0, 0, w, h);
+                const candidates = [
+                  canvas.toDataURL('image/webp', 0.88),
+                  canvas.toDataURL('image/png'),
+                  canvas.toDataURL('image/jpeg', 0.82)
+                ];
+                for (let c = 0; c < candidates.length; c++) {
+                  if (candidates[c] && candidates[c].indexOf('data:image/') === 0 && candidates[c].length <= maxChars) {
+                    return resolve(candidates[c]);
+                  }
+                }
+              }
+              resolve('');
+            };
+            img.src = rawDataUrl;
+          };
+          reader.readAsDataURL(file);
+        } catch (e) {
+          resolve('');
+        }
+      });
+    }
+
     async function handleQrisUploadInput(inputEl) {
       const file = inputEl && inputEl.files && inputEl.files[0];
       if (!file) return;
       try {
         setLoading(true, 'Mengunggah gambar QRIS resmi...');
         const fileUpload = await readFileAsBase64(file);
+        const compactDataUrl = await optimizeImageDataUrl(file, 480, 42000);
+        if (compactDataUrl) fileUpload.dataUrl = compactDataUrl;
         await apiPost('updatePengaturan', { qrisFileUpload: fileUpload });
         await refreshAllData();
         showToast('Gambar QRIS resmi gereja berhasil diunggah.', 'success');
@@ -1934,11 +1988,37 @@
       } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
     }
 
+    function extractDriveFileId(url) {
+      const s = String(url || '').trim();
+      if (!s) return '';
+      let m = s.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{10,})/i);
+      if (m) return m[1];
+      m = s.match(/drive\.google\.com\/(?:uc|open|thumbnail)\?[^#]*\bid=([a-zA-Z0-9_-]{10,})/i);
+      if (m) return m[1];
+      m = s.match(/lh3\.googleusercontent\.com\/d\/([a-zA-Z0-9_-]{10,})/i);
+      if (m) return m[1];
+      return '';
+    }
+
     function safeImgUrl(url) {
       const s = String(url || '').trim();
       if (!s) return '';
-      if (/^https?:\/\//i.test(s) || /^data:image\/(png|jpeg|jpg|webp|svg\+xml);base64,/i.test(s)) return s;
+      if (/^data:image\/(png|jpeg|jpg|webp|gif|svg\+xml);base64,/i.test(s)) return s;
+      if (/^https?:\/\//i.test(s)) {
+        const driveId = extractDriveFileId(s);
+        if (driveId) return 'https://lh3.googleusercontent.com/d/' + driveId + '=w1200';
+        return s;
+      }
       return '';
+    }
+
+    function handleImgErrorFallback(imgEl) {
+      if (!imgEl || imgEl.dataset.fallbackTried === '1') return;
+      const driveId = extractDriveFileId(imgEl.src || '');
+      if (driveId) {
+        imgEl.dataset.fallbackTried = '1';
+        imgEl.src = 'https://drive.google.com/thumbnail?id=' + driveId + '&sz=w1200';
+      }
     }
 
     function parseJsonList(raw) {
@@ -1974,6 +2054,8 @@
       try {
         setLoading(true, 'Mengunggah logo gereja...');
         const fileUpload = await readFileAsBase64(file);
+        const compactDataUrl = await optimizeImageDataUrl(file, 240, 42000);
+        if (compactDataUrl) fileUpload.dataUrl = compactDataUrl;
         await apiPost('updatePengaturan', { logoFileUpload: fileUpload });
         await refreshAllData();
         showToast('Logo gereja berhasil diunggah.', 'success');
@@ -2090,6 +2172,7 @@
       ['navLogoImg', 'footerLogoImg'].forEach(function (elId) {
         const img = document.getElementById(elId);
         if (!img) return;
+        img.dataset.fallbackTried = '';
         if (logoSrc) { img.src = logoSrc; img.classList.remove('d-none'); }
         else { img.src = ''; img.classList.add('d-none'); }
       });
@@ -2360,7 +2443,7 @@
       const qrisSrc = safeImgUrl(state.pengaturan.qris_image_url);
       const qrisBox = document.getElementById('qrisPreviewBox');
       if (qrisSrc) {
-        qrisBox.innerHTML = '<img src="' + esc(qrisSrc) + '" alt="Kode QRIS Resmi Gereja" class="img-fluid p-2" style="max-height:240px;object-fit:contain;" referrerpolicy="no-referrer" />';
+        qrisBox.innerHTML = '<img src="' + esc(qrisSrc) + '" alt="Kode QRIS Resmi Gereja" class="img-fluid p-2" style="max-height:240px;object-fit:contain;" referrerpolicy="no-referrer" onerror="handleImgErrorFallback(this)" />';
       } else {
         qrisBox.innerHTML = '<div class="small text-secondary p-3">Gambar QRIS resmi gereja belum diunggah oleh Admin.</div>';
       }
@@ -2480,7 +2563,7 @@
             const img = safeImgUrl(p.foto_url);
             return '<div class="col-md-6 col-lg-4"><div class="surface-card p-3 h-100 d-flex gap-3 align-items-start">' +
               '<div class="rounded border bg-light d-flex align-items-center justify-content-center flex-shrink-0 overflow-hidden" style="width:52px;height:52px;">' +
-              (img ? '<img src="' + esc(img) + '" alt="' + esc(p.nama_lengkap) + '" style="width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" />' : '<i class="bi bi-person fs-4 text-secondary"></i>') +
+              (img ? '<img src="' + esc(img) + '" alt="' + esc(p.nama_lengkap) + '" style="width:100%;height:100%;object-fit:cover;" referrerpolicy="no-referrer" onerror="handleImgErrorFallback(this)" />' : '<i class="bi bi-person fs-4 text-secondary"></i>') +
               '</div><div class="flex-grow-1"><div class="fw-bold small text-dark">' + esc(p.nama_lengkap) + '</div>' +
               '<div class="small fw-semibold" style="color:var(--hkbp-gold);">' + esc(p.jabatan) + '</div>' +
               '<div class="small text-secondary">' + (p.lingkungan === 'Semua' ? 'Lingkup Ressort' : ('Wijk ' + esc(p.lingkungan))) + (p.periode_pelayanan ? (' &middot; ' + esc(p.periode_pelayanan)) : '') + '</div>' +
@@ -2627,10 +2710,10 @@
         return;
       }
       el.innerHTML = state.galeri.map(function (g) {
-        const imgUrl = safeUrl(g.url_foto_drive);
+        const imgUrl = safeImgUrl(g.url_foto_drive);
         return '<div class="col-md-6 col-lg-4"><div class="surface-card gallery-card h-100">' +
           '<div class="gallery-img-wrap">' +
-          (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(g.judul_kegiatan) + '" referrerpolicy="no-referrer" loading="lazy" />' : '<div class="h-100 d-flex align-items-center justify-content-center text-white-50"><i class="bi bi-image fs-1"></i></div>') +
+          (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(g.judul_kegiatan) + '" referrerpolicy="no-referrer" loading="lazy" onerror="handleImgErrorFallback(this)" />' : '<div class="h-100 d-flex align-items-center justify-content-center text-white-50"><i class="bi bi-image fs-1"></i></div>') +
           '</div>' +
           '<div class="p-3">' +
           '<div class="small text-secondary mb-1">' + esc(g.lingkungan_atau_seksi) + ' &middot; ' + esc(g.tanggal) + '</div>' +
@@ -2645,8 +2728,11 @@
       const g = state.galeri.find(function (x) { return x.id === id; });
       if (!g) return;
       document.getElementById('modalGaleriJudul').textContent = g.judul_kegiatan;
-      document.getElementById('modalGaleriImg').src = safeUrl(g.url_foto_drive);
-      document.getElementById('modalGaleriImg').alt = g.judul_kegiatan;
+      const modalImg = document.getElementById('modalGaleriImg');
+      modalImg.dataset.fallbackTried = '';
+      modalImg.onerror = function () { handleImgErrorFallback(modalImg); };
+      modalImg.src = safeImgUrl(g.url_foto_drive);
+      modalImg.alt = g.judul_kegiatan;
       document.getElementById('modalGaleriDesc').textContent = g.lingkungan_atau_seksi + ' · ' + g.tanggal + ' — ' + g.deskripsi;
       bootstrap.Modal.getOrCreateInstance(document.getElementById('modalGaleri')).show();
     }
@@ -2706,7 +2792,7 @@
         '<div class="surface-card p-4 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">' +
         '<div class="d-flex align-items-center gap-3">' +
         '<div class="rounded border bg-light d-flex align-items-center justify-content-center overflow-hidden" style="width:64px;height:64px;">' +
-        (logoSrc ? '<img src="' + esc(logoSrc) + '" alt="Logo" style="width:100%;height:100%;object-fit:contain;padding:4px;" />' : '<i class="bi bi-image fs-4 text-secondary"></i>') +
+        (logoSrc ? '<img src="' + esc(logoSrc) + '" alt="Logo" style="width:100%;height:100%;object-fit:contain;padding:4px;" referrerpolicy="no-referrer" onerror="handleImgErrorFallback(this)" />' : '<i class="bi bi-image fs-4 text-secondary"></i>') +
         '</div><div><div class="fw-bold small">Logo Resmi Gereja</div><div class="small text-secondary">Tampil di Header Navigasi &amp; Footer (PNG/JPG/WEBP).</div></div></div>' +
         '<div class="d-flex gap-2">' +
         '<label class="btn btn-navy btn-sm mb-0" style="cursor:pointer;"><i class="bi bi-upload me-1"></i>' + (logoSrc ? 'Ganti Logo' : 'Upload Logo') + '<input type="file" accept="image/*" class="d-none" onchange="handleLogoUploadInput(this)" /></label>' +
