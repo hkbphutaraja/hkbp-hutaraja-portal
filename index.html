@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HKBP Ressort Hutaraja — Distrik VI Dairi | Portal Publik & SIM Gereja</title>
+  <meta name="description" content="Sistem Informasi Manajemen & Portal Publik Gereja HKBP Ressort Hutaraja — Distrik VI Dairi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --hkbp-navy: #0f294a;
+      --hkbp-navy-light: #1e3a8a;
+      --hkbp-gold: #d97706;
+      --hkbp-gold-soft: #f59e0b;
+      --hkbp-bg: #f8fafc;
+      --hkbp-border: #e2e8f0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--hkbp-bg);
+      color: #0f172a;
+    }
+    h1, h2, h3, .font-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+    .navbar-hkbp {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--hkbp-border);
+    }
+    .navbar-hkbp .navbar-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--hkbp-navy);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .navbar-hkbp .nav-link {
+      color: #475569;
+      font-weight: 500;
+      font-size: 0.92rem;
+      padding: 0.5rem 0.85rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .navbar-hkbp .nav-link:hover,
+    .navbar-hkbp .nav-link.active {
+      color: var(--hkbp-navy);
+      border-bottom-color: var(--hkbp-gold);
+    }
+    .btn-navy {
+      background-color: var(--hkbp-navy);
+      color: #ffffff;
+      border: 1px solid var(--hkbp-navy);
+      font-weight: 600;
+    }
+    .btn-navy:hover {
+      background-color: var(--hkbp-navy-light);
+      color: #ffffff;
+    }
+    .btn-gold {
+      background-color: var(--hkbp-gold);
+      color: #ffffff;
+      border: 1px solid var(--hkbp-gold);
+      font-weight: 600;
+    }
+    .btn-gold:hover {
+      background-color: #b45309;
+      color: #ffffff;
+    }
+    .hero-sacred {
+      background: linear-gradient(135deg, #0a1c34 0%, #0f294a 55%, #1e3a8a 100%);
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-gold-rule {
+      width: 64px;
+      height: 2px;
+      background-color: var(--hkbp-gold-soft);
+    }
+    .surface-card {
+      background-color: #ffffff;
+      border: 1px solid var(--hkbp-border);
+      border-radius: 12px;
+    }
+    .kas-card {
+      background-color: #ffffff;
+      border: 1px solid var(--hkbp-border);
+      border-radius: 12px;
+      transition: border-color 0.18s ease;
+    }
+    .kas-card:hover {
+      border-color: var(--hkbp-navy);
+    }
+    .progress-thin {
+      height: 8px;
+      border-radius: 999px;
+      background-color: #e2e8f0;
+    }
+    .progress-thin .progress-bar {
+      background-color: var(--hkbp-navy);
+      border-radius: 999px;
+    }
+    .admin-sidebar {
+      background-color: var(--hkbp-navy);
+      color: #e2e8f0;
+      min-height: calc(100vh - 68px);
+    }
+    .admin-sidebar .nav-link {
+      color: #cbd5e1;
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .admin-sidebar .nav-link:hover,
+    .admin-sidebar .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+    .admin-sidebar .nav-link.active {
+      color: #fbbf24;
+    }
+    .gallery-img-wrap {
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(135deg, #0f294a 0%, #1e3a8a 100%);
+      overflow: hidden;
+      border-radius: 10px 10px 0 0;
+    }
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.25s ease;
+    }
+    .gallery-card:hover .gallery-img-wrap img {
+      transform: scale(1.03);
+    }
+    #loadingOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 41, 74, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 2050;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #loadingOverlay.show {
+      display: flex;
+    }
+    .spa-section {
+      display: none;
+    }
+    .spa-section.active {
+      display: block;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #ffffff !important; }
+      .print-area { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global Spinner Overlay -->
+  <div id="loadingOverlay" role="status" aria-live="polite">
+    <div class="bg-white rounded-3 p-4 shadow text-center" style="min-width: 220px;">
+      <div class="spinner-border text-primary mb-2" style="color: var(--hkbp-navy) !important;" role="status"></div>
+      <div class="small fw-semibold text-secondary" id="loadingText">Memproses data...</div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3 no-print" style="z-index: 2100;">
+    <div id="appToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fw-medium" id="appToastMessage"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Tutup"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation Bar (3-Zone Clean Contract) -->
+  <nav class="navbar navbar-expand-lg navbar-hkbp sticky-top py-2 no-print">
+    <div class="container">
+      <a class="navbar-brand text-nowrap" href="#beranda" data-nav="beranda">HKBP Ressort Hutaraja</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Menu Navigasi">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link active text-nowrap" href="#beranda" data-nav="beranda">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link text-nowrap" href="#jadwal" data-nav="jadwal">Jadwal</a></li>
+          <li class="nav-item"><a class="nav-link text-nowrap" href="#warta" data-nav="warta">Warta</a></li>
+          <li class="nav-item"><a class="nav-link text-nowrap" href="#layanan" data-nav="layanan">Layanan</a></li>
+          <li class="nav-item"><a class="nav-link text-nowrap" href="#keuangan" data-nav="keuangan">Keuangan</a></li>
+          <li class="nav-item"><a class="nav-link text-nowrap" href="#galeri" data-nav="galeri">Galeri</a></li>
+        </ul>
+        <div class="d-flex align-items-center mt-2 mt-lg-0">
+          <button id="btnPortalPengurus" class="btn btn-navy btn-sm px-3 py-2 text-nowrap" type="button">
+            Portal Pengurus
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== PORTAL PUBLIK ==================== -->
+  <main id="publicPortal" class="no-print">
+    <!-- 1. BERANDA -->
+    <section id="sec-beranda" class="spa-section active">
+      <div class="hero-sacred py-5">
+        <div class="container py-lg-4">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <p class="small text-uppercase mb-2" style="letter-spacing: 0.14em; color: #fbbf24;">
+                Distrik VI Dairi &middot; Huria Kristen Batak Protestan
+              </p>
+              <h1 class="display-5 fw-bold mb-3">HKBP Ressort Hutaraja</h1>
+              <div class="hero-gold-rule mb-3"></div>
+              <div class="p-3 p-md-4 rounded-3 mb-4" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);">
+                <div class="small text-uppercase mb-1" style="letter-spacing: 0.1em; color: #fbbf24;">
+                  Tema Tahunan HKBP <span id="heroTahun">2026</span>
+                </div>
+                <p class="fs-5 font-serif mb-2 text-white" id="heroTema"></p>
+                <p class="small mb-0 text-white-50 fst-italic" id="heroAyat"></p>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-gold px-4 py-2" type="button" data-nav="jadwal">Lihat Jadwal Ibadah</button>
+                <button class="btn btn-outline-light px-4 py-2" type="button" data-nav="layanan">Update Data Jemaat</button>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="bg-white text-dark rounded-3 p-4 shadow-sm">
+                <div class="small text-uppercase fw-semibold text-secondary mb-2" style="letter-spacing: 0.08em;">
+                  Ibadah Minggu Terdekat
+                </div>
+                <div id="heroNextSchedule"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistik Jemaat Aktif -->
+      <div class="container py-5">
+        <div class="row g-4 align-items-stretch mb-5">
+          <div class="col-lg-4">
+            <div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">
+              <div>
+                <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">
+                  Statistik Ruas Ni Huria (Aktif)
+                </p>
+                <h2 class="h4 mb-3">Skala Pelayanan Ressort</h2>
+                <p class="small text-secondary mb-4">
+                  Dihitung otomatis dari Database Induk Jemaat berstatus keanggotaan <strong>Aktif</strong> di 6 Lingkungan.
+                </p>
+              </div>
+              <div class="row g-3 pt-3 border-top">
+                <div class="col-6">
+                  <div class="small text-secondary">Total Jiwa Aktif</div>
+                  <div class="display-6 fw-bold font-mono-num" style="color: var(--hkbp-navy);" id="statTotalJiwa">0</div>
+                </div>
+                <div class="col-6">
+                  <div class="small text-secondary">Kepala Keluarga</div>
+                  <div class="display-6 fw-bold font-mono-num" style="color: var(--hkbp-gold);" id="statTotalKK">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="surface-card p-4 h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h5 mb-0">Sebaran Jemaat per 6 Lingkungan</h3>
+                <span class="small text-secondary">Letare &middot; Exaudi &middot; Judika &middot; Galatia &middot; Efesus &middot; Jeremia</span>
+              </div>
+              <div id="statLingkunganBars" class="vstack gap-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Warta Terbaru -->
+        <div class="d-flex justify-content-between align-items-end mb-3">
+          <div>
+            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Tingting Huria</p>
+            <h2 class="h3 mb-0">Warta Jemaat Terbaru</h2>
+          </div>
+          <button class="btn btn-link text-decoration-none fw-semibold" style="color: var(--hkbp-navy);" type="button" data-nav="warta">
+            Semua Warta &rarr;
+          </button>
+        </div>
+        <div class="row g-4" id="berandaWartaList"></div>
+      </div>
+    </section>
+
+    <!-- 2. JADWAL IBADAH -->
+    <section id="sec-jadwal" class="spa-section py-5">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+          <div>
+            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Kalender Gerejawi HKBP</p>
+            <h2 class="h2 mb-0">Jadwal Ibadah &amp; Pelayanan</h2>
+          </div>
+          <div class="d-flex gap-2">
+            <input type="search" id="filterJadwalSearch" class="form-control" placeholder="Cari Minggu, Parjamita, Ayat..." aria-label="Cari Jadwal" />
+            <select id="filterJadwalJenis" class="form-select" style="max-width: 210px;" aria-label="Filter Jenis Ibadah">
+              <option value="Semua">Semua Jenis</option>
+              <option value="Ibadah Minggu">Ibadah Minggu</option>
+              <option value="Sekolah Minggu">Sekolah Minggu</option>
+              <option value="Partangiangan Lingkungan">Partangiangan Lingkungan</option>
+              <option value="Ibadah Pemuda / NHKBP">Ibadah Pemuda / NHKBP</option>
+            </select>
+          </div>
+        </div>
+        <div class="surface-card overflow-hidden">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Tanggal &amp; Waktu</th>
+                  <th>Nama Minggu / Ibadah</th>
+                  <th>Ayat Khotbah &amp; Epistel</th>
+                  <th>Parjamita &amp; Paragenda</th>
+                  <th>Lokasi</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyJadwalPublic"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WARTA JEMAAT (TINGTING) -->
+    <section id="sec-warta" class="spa-section py-5">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+          <div>
+            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Publikasi Resmi Huria</p>
+            <h2 class="h2 mb-0">Warta Jemaat (Tingting)</h2>
+          </div>
+          <div class="d-flex gap-2">
+            <select id="filterWartaKategori" class="form-select" aria-label="Filter Kategori Warta">
+              <option value="Semua">Semua Kategori</option>
+              <option value="Tingting Mingguan">Tingting Mingguan</option>
+              <option value="Pembangunan">Pembangunan</option>
+              <option value="Pelayanan & Sakramen">Pelayanan &amp; Sakramen</option>
+              <option value="Diakoni Sosial">Diakoni Sosial</option>
+            </select>
+          </div>
+        </div>
+        <div class="row g-4" id="gridWartaPublic"></div>
+      </div>
+    </section>
+
+    <!-- 4. LAYANAN PERMOHONAN UPDATE DATA JEMAAT -->
+    <section id="sec-layanan" class="spa-section py-5">
+      <div class="container">
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Administrasi Digital Ruas</p>
+          <h2 class="h2 mb-1">Layanan Permohonan Update Database Jemaat</h2>
+          <p class="text-secondary mb-0">Permohonan jemaat akan diverifikasi terlebih dahulu oleh Sintua Lingkungan sebelum disetujui Sekretaris Huria/Admin.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="surface-card p-4">
+              <h3 class="h5 mb-3">Formulir Pengajuan Pembaruan Data</h3>
+              <form id="formPermohonanPublic" novalidate>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqLingkungan">Lingkungan <span class="text-danger">*</span></label>
+                    <select class="form-select" id="reqLingkungan" required>
+                      <option value="">-- Pilih Lingkungan --</option>
+                      <option value="Letare">Letare</option>
+                      <option value="Exaudi">Exaudi</option>
+                      <option value="Judika">Judika</option>
+                      <option value="Galatia">Galatia</option>
+                      <option value="Efesus">Efesus</option>
+                      <option value="Jeremia">Jeremia</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqJenis">Jenis Permohonan <span class="text-danger">*</span></label>
+                    <select class="form-select" id="reqJenis" required>
+                      <option value="Tambah Anggota/Anak Lahir">Tambah Anggota/Anak Lahir</option>
+                      <option value="Perbaikan Biodata">Perbaikan Biodata</option>
+                      <option value="Pindah/Mutasi">Pindah/Mutasi</option>
+                      <option value="Meninggal">Meninggal</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqNoKK">No. Kartu Keluarga (KK) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-mono-num" id="reqNoKK" placeholder="Contoh: 1211011405820001" required minlength="6" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqNamaPemohon">Nama Pemohon / Orang Tua <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="reqNamaPemohon" placeholder="Nama lengkap kepala keluarga/pemohon" required minlength="3" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqVerif">Tgl Lahir / NIK Verifikasi Keaslian <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="reqVerif" placeholder="YYYY-MM-DD atau 6 digit terakhir NIK" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-medium" for="reqNoHp">No. WhatsApp Aktif <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control font-mono-num" id="reqNoHp" placeholder="0813xxxxxxxx" required minlength="9" />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-medium" for="reqDetail">Rincian Perubahan Data <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="reqDetail" rows="4" placeholder="Tuliskan nama lengkap anggota baru, tanggal lahir, atau biodata yang perlu diperbaiki..." required minlength="10"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-navy px-4 py-2">Kirim Permohonan Update</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="surface-card p-4 h-100">
+              <h3 class="h5 mb-2">Cek Status Permohonan</h3>
+              <p class="small text-secondary mb-3">Masukkan Nomor KK atau ID Pengajuan (misal <code>REQ-2026-001</code>) untuk memantau progres verifikasi Sintua &amp; Admin.</p>
+              <form id="formCekStatus" class="input-group mb-4">
+                <input type="text" class="form-control font-mono-num" id="inputCekStatus" placeholder="No. KK atau ID Pengajuan..." required />
+                <button class="btn btn-gold" type="submit">Cek Status</button>
+              </form>
+              <div id="hasilCekStatus">
+                <p class="small text-secondary mb-0">Hasil pelacakan permohonan akan tampil di sini.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. LAPORAN KEUANGAN TRANSPARAN -->
+    <section id="sec-keuangan" class="spa-section py-5">
+      <div class="container">
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Akuntabilitas Perbendaharaan</p>
+          <h2 class="h2 mb-1">Laporan Keuangan Transparan (5 Jenis Kas)</h2>
+          <p class="text-secondary mb-0" id="infoRekeningPublic"></p>
+        </div>
+
+        <div class="row g-3 mb-4" id="cardsRingkasanKas"></div>
+
+        <div class="surface-card p-4">
+          <div class="row g-2 align-items-center mb-3">
+            <div class="col-md-4">
+              <h3 class="h5 mb-0">Rincian Transaksi Kas</h3>
+            </div>
+            <div class="col-md-4">
+              <select id="filterKasPublic" class="form-select form-select-sm" aria-label="Filter Jenis Kas">
+                <option value="Semua">Semua 5 Jenis Kas</option>
+                <option value="Kas Huria">Kas Huria</option>
+                <option value="Kas Pembangunan">Kas Pembangunan</option>
+                <option value="Kas Diakoni Sosial">Kas Diakoni Sosial</option>
+                <option value="Kas Sentralisasi (BPSK)">Kas Sentralisasi (BPSK)</option>
+                <option value="Kas Transitoris">Kas Transitoris</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select id="filterBulanPublic" class="form-select form-select-sm" aria-label="Filter Bulan">
+                <option value="Semua">Semua Bulan/Tahun</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jenis Kas</th>
+                  <th>Uraian &amp; Keterangan</th>
+                  <th>Tipe</th>
+                  <th class="text-end">Jumlah (Rp)</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyKeuanganPublic"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. GALERI KEGIATAN -->
+    <section id="sec-galeri" class="spa-section py-5">
+      <div class="container">
+        <div class="mb-4">
+          <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Dokumentasi Pelayanan</p>
+          <h2 class="h2 mb-0">Galeri Kegiatan Gereja</h2>
+        </div>
+        <div class="row g-4" id="gridGaleriPublic"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== DASHBOARD PENGURUS (RBAC) ==================== -->
+  <section id="adminDashboard" class="d-none no-print">
+    <div class="container-fluid">
+      <div class="row">
+        <aside class="col-lg-3 col-xl-2 admin-sidebar p-3">
+          <div class="pb-3 mb-3 border-bottom border-secondary border-opacity-25">
+            <div class="small text-uppercase" style="color: #fbbf24; letter-spacing: 0.08em;" id="adminRoleLabel"></div>
+            <div class="fw-semibold text-white mt-1" id="adminNameLabel"></div>
+            <div class="small text-white-50" id="adminLingkunganLabel"></div>
+          </div>
+          <nav class="nav flex-column" id="adminSidebarNav"></nav>
+          <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-grid gap-2">
+            <button id="btnKembaliPublik" class="btn btn-outline-light btn-sm" type="button">Lihat Portal Publik</button>
+            <button id="btnLogoutPengurus" class="btn btn-danger btn-sm" type="button">Keluar</button>
+          </div>
+        </aside>
+        <div class="col-lg-9 col-xl-10 p-4">
+          <div id="adminModuleContainer"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-top py-4 mt-5 no-print">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 small text-secondary">
+      <div>
+        <strong class="text-dark">HKBP Ressort Hutaraja — Distrik VI Dairi</strong> &middot; <span id="footerAlamat"></span>
+      </div>
+      <div id="footerKontak"></div>
+    </div>
+  </footer>
+
+  <!-- Print Area Khusus Cetak Warta / Rekap Kas -->
+  <div id="printContainer" class="print-area d-none p-4"></div>
+
+  <!-- Modal Baca Detail Warta -->
+  <div class="modal fade" id="modalWarta" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <div class="small text-secondary" id="modalWartaMeta"></div>
+            <h5 class="modal-title font-serif" id="modalWartaJudul"></h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="modalWartaIsi" style="white-space: pre-line; line-height: 1.75;"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" id="btnPrintWartaModal"><i class="bi bi-printer me-1"></i>Cetak Warta</button>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-navy d-none" id="btnPdfWartaModal"><i class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF Warta</a>
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Lightbox Galeri -->
+  <div class="modal fade" id="modalGaleri" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-serif" id="modalGaleriJudul"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body p-0 bg-dark text-center">
+          <img id="modalGaleriImg" src="" alt="" class="img-fluid" style="max-height: 70vh;" referrerpolicy="no-referrer" />
+        </div>
+        <div class="modal-footer justify-content-between">
+          <div class="small text-secondary" id="modalGaleriDesc"></div>
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Login Pengurus -->
+  <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <div class="small text-uppercase text-secondary fw-semibold" style="letter-spacing: 0.08em;">Akses Terbatas Parhalado</div>
+            <h5 class="modal-title font-serif">Login Dashboard Pengurus</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formLoginPengurus">
+            <div class="mb-3">
+              <label class="form-label fw-medium" for="loginUsername">Username</label>
+              <input type="text" class="form-control" id="loginUsername" required autocomplete="username" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-medium" for="loginPassword">Password</label>
+              <input type="password" class="form-control" id="loginPassword" required autocomplete="current-password" />
+            </div>
+            <button type="submit" class="btn btn-navy w-100 py-2">Masuk ke Dashboard</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    /**
+     * =========================================================================
+     * KONFIGURASI BACKEND GOOGLE APPS SCRIPT
+     * Ganti nilai GAS_API_URL dengan URL Web App (/exec) hasil deploy Code.gs.
+     * Jika dibiarkan kosong (""), aplikasi otomatis berjalan dalam Mode Pratinjau Lokal.
+     * =========================================================================
+     */
+    const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxXm-WdE2oMaXYIcV1exwR5URSiMM7F9w-kk-CuuMDqaD2g4Lk4hZzGFG9euGBXeSdr/exec';
+
+    const LINGKUNGAN_LIST = ['Letare', 'Exaudi', 'Judika', 'Galatia', 'Efesus', 'Jeremia'];
+    const JENIS_KAS_LIST = [
+      'Kas Huria',
+      'Kas Pembangunan',
+      'Kas Diakoni Sosial',
+      'Kas Sentralisasi (BPSK)',
+      'Kas Transitoris'
+    ];
+
+    const ROLE_MENUS = {
+      'Super Admin': [
+        { key: 'pengaturan', label: 'Pengaturan Tema', icon: 'bi-sliders' },
+        { key: 'jadwal', label: 'Jadwal Ibadah', icon: 'bi-calendar-event' },
+        { key: 'warta', label: 'Warta Jemaat', icon: 'bi-newspaper' },
+        { key: 'jemaat', label: 'Database Jemaat', icon: 'bi-people' },
+        { key: 'permohonan', label: 'Persetujuan Update', icon: 'bi-check2-square' },
+        { key: 'keuangan', label: 'Keuangan 5 Kas', icon: 'bi-cash-stack' },
+        { key: 'galeri', label: 'Galeri Kegiatan', icon: 'bi-images' },
+        { key: 'users', label: 'Akun Pengurus', icon: 'bi-shield-lock' }
+      ],
+      'Sekretaris Huria': [
+        { key: 'jadwal', label: 'Jadwal Ibadah', icon: 'bi-calendar-event' },
+        { key: 'warta', label: 'Warta Jemaat', icon: 'bi-newspaper' },
+        { key: 'permohonan', label: 'Persetujuan Update', icon: 'bi-check2-square' },
+        { key: 'galeri', label: 'Galeri Kegiatan', icon: 'bi-images' }
+      ],
+      'Bendahara': [
+        { key: 'keuangan', label: 'Keuangan 5 Kas', icon: 'bi-cash-stack' }
+      ],
+      'Sintua Lingkungan': [
+        { key: 'jemaat', label: 'Jemaat Lingkungan', icon: 'bi-people' },
+        { key: 'permohonan', label: 'Verifikasi Update', icon: 'bi-patch-check' }
+      ]
+    };
+
+    const state = {
+      token: '',
+      user: null,
+      activePublicTab: 'beranda',
+      activeAdminTab: '',
+      pengaturan: {},
+      jadwal: [],
+      warta: [],
+      statistik: { totalJiwa: 0, totalKK: 0, perLingkungan: [] },
+      keuangan: [],
+      ringkasanKas: [],
+      galeri: [],
+      jemaat: [],
+      permohonan: [],
+      users: [],
+      selectedWarta: null
+    };
+
+    // ===================== SANITASI & HELPER =====================
+    function esc(str) {
+      return String(str === null || str === undefined ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function safeUrl(url) {
+      const s = String(url || '').trim();
+      if (!s) return '';
+      return /^https?:\/\//i.test(s) ? s : '';
+    }
+
+    function formatRupiah(n) {
+      return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+      }).format(Number(n) || 0);
+    }
+
+    function setLoading(show, text) {
+      const el = document.getElementById('loadingOverlay');
+      document.getElementById('loadingText').textContent = text || 'Memproses data...';
+      el.classList.toggle('show', Boolean(show));
+    }
+
+    function showToast(message, type) {
+      const toastEl = document.getElementById('appToast');
+      const bodyEl = document.getElementById('appToastMessage');
+      toastEl.className = 'toast align-items-center border-0 text-white ' + (type === 'danger' ? 'bg-danger' : 'bg-success');
+      bodyEl.textContent = message;
+      bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 3800 }).show();
+    }
+
+    // ===================== KOMUNIKASI API (CORS-FREE) =====================
+    async function apiPost(action, payload) {
+      if (!GAS_API_URL) {
+        return handleDemoApi(action, payload || {});
+      }
+      const res = await fetch(GAS_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: action,
+          token: state.token || '',
+          payload: payload || {}
+        })
+      });
+      if (!res.ok) throw new Error('Gagal menghubungi server Apps Script (HTTP ' + res.status + ')');
+      const json = await res.json();
+      if (!json.success) throw new Error(json.message || 'Permintaan gagal diproses.');
+      return json;
+    }
+
+    function readFileAsBase64(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const str = String(reader.result || '');
+          resolve({
+            base64: str.slice(str.indexOf(',') + 1),
+            mimeType: file.type || 'application/octet-stream',
+            fileName: file.name
+          });
+        };
+        reader.onerror = function () { reject(new Error('Gagal membaca file.')); };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ===================== RENDER PORTAL PUBLIK =====================
+    function switchPublicTab(tab) {
+      state.activePublicTab = tab;
+      document.getElementById('adminDashboard').classList.add('d-none');
+      document.getElementById('publicPortal').classList.remove('d-none');
+      document.querySelectorAll('.spa-section').forEach(function (s) {
+        s.classList.toggle('active', s.id === 'sec-' + tab);
+      });
+      document.querySelectorAll('[data-nav]').forEach(function (a) {
+        if (a.classList.contains('nav-link')) {
+          a.classList.toggle('active', a.getAttribute('data-nav') === tab);
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderPublicPortal() {
+      const p = state.pengaturan;
+      document.getElementById('heroTahun').textContent = p.tahun_pelayanan || '2026';
+      document.getElementById('heroTema').textContent = p.tema_tahunan || 'Tema Tahunan HKBP';
+      document.getElementById('heroAyat').textContent = p.ayat_tahun || '';
+      document.getElementById('footerAlamat').textContent = p.alamat_gereja || '';
+      document.getElementById('footerKontak').textContent = p.kontak_sekretariat || '';
+      document.getElementById('infoRekeningPublic').textContent = p.info_rekening ? ('Rekening Persembahan: ' + p.info_rekening) : '';
+
+      // Jadwal Minggu Terdekat
+      const next = state.jadwal[0];
+      const heroSchedEl = document.getElementById('heroNextSchedule');
+      if (next) {
+        heroSchedEl.innerHTML =
+          '<div class="fw-bold fs-5 font-serif mb-1" style="color:var(--hkbp-navy);">' + esc(next.nama_minggu_hkbp) + '</div>' +
+          '<div class="small text-secondary mb-3">' + esc(next.hari_tanggal) + ' &middot; ' + esc(next.waktu) + ' &middot; ' + esc(next.lokasi) + '</div>' +
+          '<div class="small mb-2"><strong>Firman:</strong> ' + esc(next.ayat_khotbah_epistel) + '</div>' +
+          '<div class="small text-secondary"><strong>Parjamita:</strong> ' + esc(next.parjamita) + ' &middot; <strong>Paragenda:</strong> ' + esc(next.paragenda) + '</div>';
+      } else {
+        heroSchedEl.innerHTML = '<div class="small text-secondary">Belum ada jadwal ibadah tercatat.</div>';
+      }
+
+      // Statistik Jemaat Aktif
+      document.getElementById('statTotalJiwa').textContent = Number(state.statistik.totalJiwa || 0).toLocaleString('id-ID');
+      document.getElementById('statTotalKK').textContent = Number(state.statistik.totalKK || 0).toLocaleString('id-ID');
+      const barsEl = document.getElementById('statLingkunganBars');
+      barsEl.innerHTML = (state.statistik.perLingkungan || []).map(function (item) {
+        return '<div>' +
+          '<div class="d-flex justify-content-between small mb-1">' +
+          '<span class="fw-semibold">Lingkungan ' + esc(item.lingkungan) + '</span>' +
+          '<span class="font-mono-num text-secondary">' + item.jiwa + ' jiwa &middot; ' + item.kk + ' KK (' + item.persentase + '%)</span>' +
+          '</div>' +
+          '<div class="progress progress-thin"><div class="progress-bar" style="width:' + Math.min(100, item.persentase * 4) + '%"></div></div>' +
+          '</div>';
+      }).join('');
+
+      // Beranda Warta Terbaru
+      document.getElementById('berandaWartaList').innerHTML = state.warta.slice(0, 3).map(function (w) {
+        return '<div class="col-md-4"><div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">' +
+          '<div><div class="small text-secondary mb-2">' + esc(w.kategori) + ' &middot; ' + esc(w.tanggal) + '</div>' +
+          '<h3 class="h5 mb-2">' + esc(w.judul) + '</h3>' +
+          '<p class="small text-secondary mb-3">' + esc(String(w.isi_artikel || '').slice(0, 140)) + '...</p></div>' +
+          '<button class="btn btn-outline-secondary btn-sm align-self-start" type="button" onclick="openWartaDetail(\'' + esc(w.id) + '\')">Baca Selengkapnya</button>' +
+          '</div></div>';
+      }).join('');
+
+      renderJadwalTable();
+      renderWartaGrid();
+      renderKeuanganPublic();
+      renderGaleriPublic();
+    }
+
+    function renderJadwalTable() {
+      const q = (document.getElementById('filterJadwalSearch').value || '').toLowerCase();
+      const jenis = document.getElementById('filterJadwalJenis').value;
+      const rows = state.jadwal.filter(function (j) {
+        if (jenis !== 'Semua' && j.jenis_ibadah !== jenis) return false;
+        if (q) {
+          const hay = (j.nama_minggu_hkbp + ' ' + j.ayat_khotbah_epistel + ' ' + j.parjamita + ' ' + j.paragenda).toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+      const tbody = document.getElementById('tbodyJadwalPublic');
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-secondary py-4">Tidak ada jadwal ibadah yang cocok.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map(function (j) {
+        return '<tr>' +
+          '<td class="font-mono-num small text-nowrap"><strong>' + esc(j.hari_tanggal) + '</strong><br><span class="text-secondary">' + esc(j.waktu) + '</span></td>' +
+          '<td><div class="fw-semibold">' + esc(j.nama_minggu_hkbp) + '</div><div class="small text-secondary">' + esc(j.jenis_ibadah) + '</div></td>' +
+          '<td class="small">' + esc(j.ayat_khotbah_epistel) + '</td>' +
+          '<td class="small"><strong>P:</strong> ' + esc(j.parjamita) + '<br><strong>A:</strong> ' + esc(j.paragenda) + '</td>' +
+          '<td class="small text-secondary">' + esc(j.lokasi) + '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    function renderWartaGrid() {
+      const kat = document.getElementById('filterWartaKategori').value;
+      const list = state.warta.filter(function (w) {
+        return kat === 'Semua' || w.kategori === kat;
+      });
+      const el = document.getElementById('gridWartaPublic');
+      if (!list.length) {
+        el.innerHTML = '<div class="col-12"><div class="surface-card p-4 text-center text-secondary">Belum ada warta untuk kategori ini.</div></div>';
+        return;
+      }
+      el.innerHTML = list.map(function (w) {
+        const pdf = safeUrl(w.link_pdf_drive);
+        return '<div class="col-md-6"><div class="surface-card p-4 h-100 d-flex flex-column justify-content-between">' +
+          '<div><div class="small text-secondary mb-2">' + esc(w.kategori) + ' &middot; ' + esc(w.tanggal) + '</div>' +
+          '<h3 class="h4 mb-2">' + esc(w.judul) + '</h3>' +
+          '<p class="small text-secondary mb-3">' + esc(String(w.isi_artikel || '').slice(0, 210)) + '...</p></div>' +
+          '<div class="d-flex flex-wrap gap-2">' +
+          '<button class="btn btn-navy btn-sm" type="button" onclick="openWartaDetail(\'' + esc(w.id) + '\')">Baca &amp; Cetak</button>' +
+          (pdf ? '<a class="btn btn-outline-secondary btn-sm" href="' + esc(pdf) + '" target="_blank" rel="noopener noreferrer"><i class="bi bi-file-earmark-pdf me-1"></i>Unduh PDF</a>' : '') +
+          '</div></div></div>';
+      }).join('');
+    }
+
+    function openWartaDetail(id) {
+      const w = state.warta.find(function (item) { return item.id === id; });
+      if (!w) return;
+      state.selectedWarta = w;
+      document.getElementById('modalWartaMeta').textContent = w.kategori + ' · ' + w.tanggal;
+      document.getElementById('modalWartaJudul').textContent = w.judul;
+      document.getElementById('modalWartaIsi').textContent = w.isi_artikel;
+      const pdfBtn = document.getElementById('btnPdfWartaModal');
+      const pdf = safeUrl(w.link_pdf_drive);
+      if (pdf) {
+        pdfBtn.href = pdf;
+        pdfBtn.classList.remove('d-none');
+      } else {
+        pdfBtn.classList.add('d-none');
+      }
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalWarta')).show();
+    }
+
+    function printDocumentHtml(title, meta, bodyHtml) {
+      const pc = document.getElementById('printContainer');
+      pc.innerHTML =
+        '<div class="border-bottom pb-3 mb-4 text-center">' +
+        '<h2 class="font-serif mb-1">HKBP RESSORT HUTARAJA — DISTRIK VI DAIRI</h2>' +
+        '<div class="small text-secondary">' + esc(state.pengaturan.alamat_gereja || '') + '</div>' +
+        '</div>' +
+        '<div class="small text-secondary mb-1">' + esc(meta) + '</div>' +
+        '<h3 class="font-serif mb-3">' + esc(title) + '</h3>' +
+        '<div>' + bodyHtml + '</div>';
+      pc.classList.remove('d-none');
+      window.print();
+      pc.classList.add('d-none');
+    }
+
+    function renderKeuanganPublic() {
+      const cardsEl = document.getElementById('cardsRingkasanKas');
+      cardsEl.innerHTML = (state.ringkasanKas || []).map(function (k) {
+        return '<div class="col-md-6 col-xl"><div class="kas-card p-3 h-100">' +
+          '<div class="small text-secondary fw-semibold mb-1">' + esc(k.jenis_kas) + '</div>' +
+          '<div class="fs-5 fw-bold font-mono-num mb-2" style="color:var(--hkbp-navy);">' + esc(formatRupiah(k.saldo)) + '</div>' +
+          '<div class="small font-mono-num text-success">Masuk: ' + esc(formatRupiah(k.pemasukan)) + '</div>' +
+          '<div class="small font-mono-num text-danger">Keluar: ' + esc(formatRupiah(k.pengeluaran)) + '</div>' +
+          '</div></div>';
+      }).join('');
+
+      // Populate bulan filter
+      const bulanSelect = document.getElementById('filterBulanPublic');
+      const currentVal = bulanSelect.value || 'Semua';
+      const months = Array.from(new Set(state.keuangan.map(function (k) { return String(k.tanggal || '').slice(0, 7); }).filter(Boolean))).sort().reverse();
+      bulanSelect.innerHTML = '<option value="Semua">Semua Bulan/Tahun</option>' + months.map(function (m) {
+        return '<option value="' + esc(m) + '"' + (m === currentVal ? ' selected' : '') + '>' + esc(m) + '</option>';
+      }).join('');
+
+      renderKeuanganTable();
+    }
+
+    function renderKeuanganTable() {
+      const kas = document.getElementById('filterKasPublic').value;
+      const bulan = document.getElementById('filterBulanPublic').value;
+      const rows = state.keuangan.filter(function (k) {
+        if (kas !== 'Semua' && k.jenis_kas !== kas) return false;
+        if (bulan !== 'Semua' && String(k.tanggal || '').indexOf(bulan) !== 0) return false;
+        return true;
+      });
+      const tbody = document.getElementById('tbodyKeuanganPublic');
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-secondary py-4">Tidak ada transaksi kas untuk filter ini.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = rows.map(function (k) {
+        const isMasuk = k.tipe_transaksi === 'Pemasukan';
+        return '<tr>' +
+          '<td class="font-mono-num small text-nowrap">' + esc(k.tanggal) + '</td>' +
+          '<td class="small fw-medium">' + esc(k.jenis_kas) + '</td>' +
+          '<td><div class="small fw-semibold">' + esc(k.uraian) + '</div><div class="small text-secondary">' + esc(k.keterangan) + '</div></td>' +
+          '<td class="small fw-semibold ' + (isMasuk ? 'text-success' : 'text-danger') + '">' + esc(k.tipe_transaksi) + '</td>' +
+          '<td class="text-end font-mono-num small fw-semibold ' + (isMasuk ? 'text-success' : 'text-danger') + '">' + (isMasuk ? '+' : '-') + ' ' + esc(formatRupiah(k.jumlah)) + '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    function renderGaleriPublic() {
+      const el = document.getElementById('gridGaleriPublic');
+      if (!state.galeri.length) {
+        el.innerHTML = '<div class="col-12"><div class="surface-card p-4 text-center text-secondary">Belum ada foto kegiatan di Galeri.</div></div>';
+        return;
+      }
+      el.innerHTML = state.galeri.map(function (g) {
+        const imgUrl = safeUrl(g.url_foto_drive);
+        return '<div class="col-md-6 col-lg-4"><div class="surface-card gallery-card h-100">' +
+          '<div class="gallery-img-wrap">' +
+          (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(g.judul_kegiatan) + '" referrerpolicy="no-referrer" loading="lazy" />' : '<div class="h-100 d-flex align-items-center justify-content-center text-white-50"><i class="bi bi-image fs-1"></i></div>') +
+          '</div>' +
+          '<div class="p-3">' +
+          '<div class="small text-secondary mb-1">' + esc(g.lingkungan_atau_seksi) + ' &middot; ' + esc(g.tanggal) + '</div>' +
+          '<h3 class="h6 fw-bold mb-2">' + esc(g.judul_kegiatan) + '</h3>' +
+          '<p class="small text-secondary mb-2">' + esc(g.deskripsi) + '</p>' +
+          (imgUrl ? '<button class="btn btn-link btn-sm p-0 text-decoration-none fw-semibold" style="color:var(--hkbp-navy);" type="button" onclick="openGaleriModal(\'' + esc(g.id) + '\')">Perbesar Foto &rarr;</button>' : '') +
+          '</div></div></div>';
+      }).join('');
+    }
+
+    function openGaleriModal(id) {
+      const g = state.galeri.find(function (x) { return x.id === id; });
+      if (!g) return;
+      document.getElementById('modalGaleriJudul').textContent = g.judul_kegiatan;
+      document.getElementById('modalGaleriImg').src = safeUrl(g.url_foto_drive);
+      document.getElementById('modalGaleriImg').alt = g.judul_kegiatan;
+      document.getElementById('modalGaleriDesc').textContent = g.lingkungan_atau_seksi + ' · ' + g.tanggal + ' — ' + g.deskripsi;
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalGaleri')).show();
+    }
+
+    // ===================== DASHBOARD PENGURUS (RBAC) =====================
+    function openAdminDashboard() {
+      if (!state.user) {
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('modalLogin')).show();
+        return;
+      }
+      document.getElementById('publicPortal').classList.add('d-none');
+      document.getElementById('adminDashboard').classList.remove('d-none');
+      document.getElementById('adminRoleLabel').textContent = state.user.role;
+      document.getElementById('adminNameLabel').textContent = state.user.nama_pengurus;
+      document.getElementById('adminLingkunganLabel').textContent = 'Tugas: ' + (state.user.lingkungan_tugas || 'Semua');
+
+      const menus = ROLE_MENUS[state.user.role] || [];
+      if (!state.activeAdminTab || !menus.some(function (m) { return m.key === state.activeAdminTab; })) {
+        state.activeAdminTab = menus[0] ? menus[0].key : '';
+      }
+
+      document.getElementById('adminSidebarNav').innerHTML = menus.map(function (m) {
+        return '<button type="button" class="nav-link border-0 bg-transparent text-start ' + (m.key === state.activeAdminTab ? 'active' : '') + '" onclick="switchAdminTab(\'' + m.key + '\')">' +
+          '<i class="bi ' + m.icon + '"></i><span>' + esc(m.label) + '</span></button>';
+      }).join('');
+
+      renderAdminModule();
+    }
+
+    function switchAdminTab(key) {
+      state.activeAdminTab = key;
+      openAdminDashboard();
+    }
+
+    function renderAdminModule() {
+      const container = document.getElementById('adminModuleContainer');
+      const tab = state.activeAdminTab;
+      if (tab === 'pengaturan') return renderAdminPengaturan(container);
+      if (tab === 'jadwal') return renderAdminJadwal(container);
+      if (tab === 'warta') return renderAdminWarta(container);
+      if (tab === 'jemaat') return renderAdminJemaat(container);
+      if (tab === 'permohonan') return renderAdminPermohonan(container);
+      if (tab === 'keuangan') return renderAdminKeuangan(container);
+      if (tab === 'galeri') return renderAdminGaleri(container);
+      if (tab === 'users') return renderAdminUsers(container);
+    }
+
+    function renderAdminPengaturan(el) {
+      const p = state.pengaturan;
+      el.innerHTML = '<h2 class="h4 mb-3">Pengaturan Tema Tahunan &amp; Identitas Gereja</h2>' +
+        '<div class="surface-card p-4"><form id="formAdminPengaturan" class="row g-3">' +
+        '<div class="col-md-3"><label class="form-label fw-medium">Tahun Pelayanan</label><input class="form-control" name="tahun_pelayanan" value="' + esc(p.tahun_pelayanan || '2026') + '" required /></div>' +
+        '<div class="col-md-9"><label class="form-label fw-medium">Tema Tahunan HKBP</label><input class="form-control" name="tema_tahunan" value="' + esc(p.tema_tahunan || '') + '" required /></div>' +
+        '<div class="col-12"><label class="form-label fw-medium">Ayat Tahun</label><textarea class="form-control" rows="2" name="ayat_tahun" required>' + esc(p.ayat_tahun || '') + '</textarea></div>' +
+        '<div class="col-md-6"><label class="form-label fw-medium">Alamat Gereja</label><input class="form-control" name="alamat_gereja" value="' + esc(p.alamat_gereja || '') + '" /></div>' +
+        '<div class="col-md-6"><label class="form-label fw-medium">Kontak Sekretariat</label><input class="form-control" name="kontak_sekretariat" value="' + esc(p.kontak_sekretariat || '') + '" /></div>' +
+        '<div class="col-12"><label class="form-label fw-medium">Info Rekening Persembahan</label><input class="form-control" name="info_rekening" value="' + esc(p.info_rekening || '') + '" /></div>' +
+        '<div class="col-12"><button class="btn btn-navy" type="submit">Simpan Pengaturan</button></div></form></div>';
+
+      document.getElementById('formAdminPengaturan').onsubmit = async function (e) {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const payload = Object.fromEntries(fd.entries());
+        try {
+          setLoading(true, 'Menyimpan pengaturan...');
+          await apiPost('updatePengaturan', payload);
+          await refreshAllData();
+          showToast('Pengaturan berhasil diperbarui.', 'success');
+        } catch (err) {
+          showToast(err.message, 'danger');
+        } finally {
+          setLoading(false);
+        }
+      };
+    }
+
+    function renderAdminJadwal(el) {
+      el.innerHTML = '<h2 class="h4 mb-3">Manajemen Jadwal Ibadah</h2>' +
+        '<div class="surface-card p-4 mb-4"><form id="formAdminJadwal" class="row g-3">' +
+        '<div class="col-md-3"><label class="form-label small fw-semibold">Tanggal</label><input type="date" class="form-control form-control-sm" name="hari_tanggal" required /></div>' +
+        '<div class="col-md-2"><label class="form-label small fw-semibold">Waktu</label><input type="text" class="form-control form-control-sm" name="waktu" placeholder="08:00 WIB" required /></div>' +
+        '<div class="col-md-4"><label class="form-label small fw-semibold">Nama Minggu HKBP</label><input type="text" class="form-control form-control-sm" name="nama_minggu_hkbp" required /></div>' +
+        '<div class="col-md-3"><label class="form-label small fw-semibold">Jenis Ibadah</label><select class="form-select form-select-sm" name="jenis_ibadah"><option>Ibadah Minggu</option><option>Sekolah Minggu</option><option>Partangiangan Lingkungan</option><option>Ibadah Pemuda / NHKBP</option></select></div>' +
+        '<div class="col-md-4"><label class="form-label small fw-semibold">Ayat Khotbah / Epistel</label><input type="text" class="form-control form-control-sm" name="ayat_khotbah_epistel" required /></div>' +
+        '<div class="col-md-3"><label class="form-label small fw-semibold">Parjamita</label><input type="text" class="form-control form-control-sm" name="parjamita" required /></div>' +
+        '<div class="col-md-2"><label class="form-label small fw-semibold">Paragenda</label><input type="text" class="form-control form-control-sm" name="paragenda" required /></div>' +
+        '<div class="col-md-3"><label class="form-label small fw-semibold">Lokasi</label><input type="text" class="form-control form-control-sm" name="lokasi" value="Gereja Induk HKBP Ressort Hutaraja" required /></div>' +
+        '<div class="col-12"><button class="btn btn-navy btn-sm" type="submit">Tambah Jadwal Ibadah</button></div>' +
+        '</form></div>' +
+        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>Tanggal</th><th>Nama Minggu</th><th>Parjamita</th><th>Aksi</th></tr></thead><tbody>' +
+        state.jadwal.map(function (j) {
+          return '<tr><td class="font-mono-num small">' + esc(j.hari_tanggal) + ' ' + esc(j.waktu) + '</td><td class="small fw-semibold">' + esc(j.nama_minggu_hkbp) + '</td><td class="small">' + esc(j.parjamita) + '</td><td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteJadwal\',\'' + esc(j.id) + '\')">Hapus</button></td></tr>';
+        }).join('') + '</tbody></table></div>';
+
+      document.getElementById('formAdminJadwal').onsubmit = async function (e) {
+        e.preventDefault();
+        try {
+          setLoading(true, 'Menyimpan jadwal...');
+          await apiPost('saveJadwal', Object.fromEntries(new FormData(e.target).entries()));
+          await refreshAllData();
+          showToast('Jadwal ibadah berhasil ditambahkan.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      };
+    }
+
+    function renderAdminWarta(el) {
+      el.innerHTML = '<h2 class="h4 mb-3">Manajemen Warta Jemaat (Tingting &amp; Upload PDF Drive)</h2>' +
+        '<div class="surface-card p-4 mb-4"><form id="formAdminWarta" class="row g-3">' +
+        '<div class="col-md-3"><label class="form-label small fw-semibold">Tanggal</label><input type="date" class="form-control form-control-sm" name="tanggal" required /></div>' +
+        '<div class="col-md-5"><label class="form-label small fw-semibold">Judul Warta</label><input type="text" class="form-control form-control-sm" name="judul" required /></div>' +
+        '<div class="col-md-4"><label class="form-label small fw-semibold">Kategori</label><select class="form-select form-select-sm" name="kategori"><option>Tingting Mingguan</option><option>Pembangunan</option><option>Pelayanan & Sakramen</option><option>Diakoni Sosial</option></select></div>' +
+        '<div class="col-12"><label class="form-label small fw-semibold">Isi Artikel Warta</label><textarea class="form-control form-control-sm" rows="4" name="isi_artikel" required></textarea></div>' +
+        '<div class="col-md-6"><label class="form-label small fw-semibold">Upload PDF Warta ke Google Drive (Opsional)</label><input type="file" class="form-control form-control-sm" id="inputPdfWarta" accept="application/pdf" /></div>' +
+        '<div class="col-md-6"><label class="form-label small fw-semibold">Atau Link PDF Manual (https://...)</label><input type="url" class="form-control form-control-sm" name="link_pdf_drive" placeholder="https://drive.google.com/..." /></div>' +
+        '<div class="col-12"><button class="btn btn-navy btn-sm" type="submit">Terbitkan Warta</button></div>' +
+        '</form></div>' +
+        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>Tanggal</th><th>Judul</th><th>Kategori</th><th>Aksi</th></tr></thead><tbody>' +
+        state.warta.map(function (w) {
+          return '<tr><td class="font-mono-num small">' + esc(w.tanggal) + '</td><td class="small fw-semibold">' + esc(w.judul) + '</td><td class="small">' + esc(w.kategori) + '</td><td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteWarta\',\'' + esc(w.id) + '\')">Hapus</button></td></tr>';
+        }).join('') + '</tbody></table></div>';
+
+      document.getElementById('formAdminWarta').onsubmit = async function (e) {
+        e.preventDefault();
+        try {
+          setLoading(true, 'Menyimpan warta & mengunggah file...');
+          const payload = Object.fromEntries(new FormData(e.target).entries());
+          const fileInput = document.getElementById('inputPdfWarta');
+          if (fileInput.files && fileInput.files[0]) {
+            payload.fileUpload = await readFileAsBase64(fileInput.files[0]);
+          }
+          await apiPost('saveWarta', payload);
+          await refreshAllData();
+          showToast('Warta jemaat berhasil diterbitkan.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      };
+    }
+
+    function renderAdminJemaat(el) {
+      const isSuperAdmin = state.user.role === 'Super Admin';
+      el.innerHTML = '<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h4 mb-0">Database Jemaat' + (isSuperAdmin ? '' : ' — Lingkungan ' + esc(state.user.lingkungan_tugas)) + '</h2><span class="small text-secondary font-mono-num">' + state.jemaat.length + ' data tampil</span></div>' +
+        (isSuperAdmin ? (
+          '<div class="surface-card p-4 mb-4"><form id="formAdminJemaat" class="row g-2">' +
+          '<div class="col-md-3"><input class="form-control form-control-sm font-mono-num" name="no_kk" placeholder="No. KK *" required /></div>' +
+          '<div class="col-md-3"><input class="form-control form-control-sm" name="nama_lengkap" placeholder="Nama Lengkap *" required /></div>' +
+          '<div class="col-md-2"><select class="form-select form-select-sm" name="status_keluarga"><option>Ama/Suami</option><option>Ina/Istri</option><option>Anak</option></select></div>' +
+          '<div class="col-md-2"><select class="form-select form-select-sm" name="jenis_kelamin"><option>Laki-laki</option><option>Perempuan</option></select></div>' +
+          '<div class="col-md-2"><select class="form-select form-select-sm" name="lingkungan">' + LINGKUNGAN_LIST.map(function (l) { return '<option>' + l + '</option>'; }).join('') + '</select></div>' +
+          '<div class="col-md-3"><input class="form-control form-control-sm" name="alamat" placeholder="Alamat" /></div>' +
+          '<div class="col-md-2"><input class="form-control form-control-sm" name="no_hp" placeholder="No. HP" /></div>' +
+          '<div class="col-md-2"><input type="date" class="form-control form-control-sm" name="tanggal_lahir" /></div>' +
+          '<div class="col-md-2"><select class="form-select form-select-sm" name="status_keanggotaan"><option>Aktif</option><option>Pindah</option><option>Meninggal</option></select></div>' +
+          '<div class="col-md-3"><button class="btn btn-navy btn-sm w-100" type="submit">Tambah Jemaat</button></div>' +
+          '</form></div>'
+        ) : '') +
+        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>No. KK</th><th>Nama Lengkap</th><th>Status Kel.</th><th>Lingkungan</th><th>Status</th>' + (isSuperAdmin ? '<th>Aksi</th>' : '') + '</tr></thead><tbody>' +
+        state.jemaat.slice(0, 100).map(function (j) {
+          return '<tr><td class="font-mono-num small">' + esc(j.no_kk) + '</td><td class="small fw-semibold">' + esc(j.nama_lengkap) + '</td><td class="small">' + esc(j.status_keluarga) + '</td><td class="small">' + esc(j.lingkungan) + '</td><td class="small">' + esc(j.status_keanggotaan) + '</td>' +
+            (isSuperAdmin ? '<td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteJemaat\',\'' + esc(j.id) + '\')">Hapus</button></td>' : '') + '</tr>';
+        }).join('') + '</tbody></table></div>';
+
+      if (isSuperAdmin) {
+        document.getElementById('formAdminJemaat').onsubmit = async function (e) {
+          e.preventDefault();
+          try {
+            setLoading(true, 'Menyimpan data jemaat...');
+            await apiPost('saveJemaat', Object.fromEntries(new FormData(e.target).entries()));
+            await refreshAllData();
+            showToast('Data jemaat berhasil disimpan.', 'success');
+          } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+        };
+      }
+    }
+
+    function renderAdminPermohonan(el) {
+      const role = state.user.role;
+      el.innerHTML = '<h2 class="h4 mb-3">Verifikasi &amp; Persetujuan Update Database Jemaat</h2>' +
+        '<div class="vstack gap-3">' +
+        (state.permohonan.length ? state.permohonan.map(function (p) {
+          let actions = '';
+          if (role === 'Sintua Lingkungan' && p.status_verifikasi === 'Menunggu Sintua') {
+            actions = '<div class="d-flex gap-2 mt-3">' +
+              '<button class="btn btn-success btn-sm" onclick="handleSintuaAction(\'' + esc(p.id) + '\',\'Valid\')">Verifikasi Valid</button>' +
+              '<button class="btn btn-outline-danger btn-sm" onclick="handleSintuaAction(\'' + esc(p.id) + '\',\'Tolak\')">Tolak</button>' +
+              '</div>';
+          } else if ((role === 'Sekretaris Huria' || role === 'Super Admin') && p.status_verifikasi === 'Terverifikasi Sintua') {
+            actions = '<div class="d-flex gap-2 mt-3">' +
+              '<button class="btn btn-navy btn-sm" onclick="handleAdminFinalAction(\'' + esc(p.id) + '\',\'Setujui\')">Setujui &amp; Terapkan ke Database Induk</button>' +
+              '<button class="btn btn-outline-danger btn-sm" onclick="handleAdminFinalAction(\'' + esc(p.id) + '\',\'Tolak\')">Tolak</button>' +
+              '</div>';
+          }
+          return '<div class="surface-card p-4">' +
+            '<div class="d-flex justify-content-between flex-wrap gap-2 mb-2">' +
+            '<div class="small font-mono-num text-secondary">' + esc(p.id) + ' &middot; ' + esc(p.tanggal_pengajuan) + ' &middot; Lingkungan ' + esc(p.lingkungan) + '</div>' +
+            '<div class="small fw-bold" style="color:var(--hkbp-navy);">Status: ' + esc(p.status_verifikasi) + '</div>' +
+            '</div>' +
+            '<h3 class="h6 fw-bold mb-1">' + esc(p.jenis_permohonan) + ' — ' + esc(p.nama_pemohon) + ' (KK: ' + esc(p.no_kk_terkait) + ')</h3>' +
+            '<p class="small text-secondary mb-2">' + esc(p.detail_perubahan) + '</p>' +
+            '<div class="small text-secondary">Verifikasi: ' + esc(p.nik_atau_tgl_lahir_verifikasi) + ' &middot; WA: ' + esc(p.no_hp_pemohon) + '</div>' +
+            (p.catatan_sintua ? '<div class="small mt-2 text-success"><strong>Catatan Sintua:</strong> ' + esc(p.catatan_sintua) + '</div>' : '') +
+            (p.catatan_admin ? '<div class="small mt-1 text-primary"><strong>Catatan Admin:</strong> ' + esc(p.catatan_admin) + '</div>' : '') +
+            actions + '</div>';
+        }).join('') : '<div class="surface-card p-4 text-center text-secondary">Belum ada permohonan update data.</div>') +
+        '</div>';
+    }
+
+    async function handleSintuaAction(id, keputusan) {
+      const catatan = keputusan === 'Valid' ? 'Terverifikasi valid oleh Sintua Lingkungan di lapangan.' : 'Ditolak karena ketidaksesuaian data keluarga.';
+      try {
+        setLoading(true, 'Memperbarui verifikasi...');
+        await apiPost('verifikasiSintua', { id: id, keputusan: keputusan, catatan_sintua: catatan });
+        await refreshAllData();
+        showToast('Permohonan berhasil diperbarui.', 'success');
+      } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+    }
+
+    async function handleAdminFinalAction(id, keputusan) {
+      try {
+        setLoading(true, 'Memfinalisasi permohonan...');
+        await apiPost('finalisasiPermohonan', { id: id, keputusan: keputusan, catatan_admin: keputusan === 'Setujui' ? 'Disetujui dan diterapkan ke Database Induk.' : 'Ditolak oleh Sekretaris/Admin.' });
+        await refreshAllData();
+        showToast('Finalisasi permohonan berhasil.', 'success');
+      } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+    }
+
+    function renderAdminKeuangan(el) {
+      el.innerHTML = '<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h4 mb-0">Manajemen Keuangan (5 Jenis Kas)</h2>' +
+        '<button class="btn btn-outline-secondary btn-sm" type="button" onclick="printRekapKeuangan()"><i class="bi bi-printer me-1"></i>Cetak Rekap Kas</button></div>' +
+        '<div class="surface-card p-4 mb-4"><form id="formAdminKeuangan" class="row g-2">' +
+        '<div class="col-md-2"><input type="date" class="form-control form-control-sm" name="tanggal" required /></div>' +
+        '<div class="col-md-3"><select class="form-select form-select-sm" name="jenis_kas">' + JENIS_KAS_LIST.map(function (k) { return '<option>' + k + '</option>'; }).join('') + '</select></div>' +
+        '<div class="col-md-2"><select class="form-select form-select-sm" name="tipe_transaksi"><option>Pemasukan</option><option>Pengeluaran</option></select></div>' +
+        '<div class="col-md-3"><input type="number" min="1" class="form-control form-control-sm font-mono-num" name="jumlah" placeholder="Jumlah (Rp) *" required /></div>' +
+        '<div class="col-md-2"><button class="btn btn-navy btn-sm w-100" type="submit">Simpan</button></div>' +
+        '<div class="col-md-6"><input class="form-control form-control-sm" name="uraian" placeholder="Uraian Transaksi *" required /></div>' +
+        '<div class="col-md-6"><input class="form-control form-control-sm" name="keterangan" placeholder="Keterangan / No. Kwitansi" /></div>' +
+        '</form></div>' +
+        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>Tanggal</th><th>Kas</th><th>Uraian</th><th>Tipe</th><th class="text-end">Jumlah</th><th>Aksi</th></tr></thead><tbody>' +
+        state.keuangan.map(function (k) {
+          return '<tr><td class="font-mono-num small">' + esc(k.tanggal) + '</td><td class="small">' + esc(k.jenis_kas) + '</td><td class="small">' + esc(k.uraian) + '</td><td class="small">' + esc(k.tipe_transaksi) + '</td><td class="text-end font-mono-num small">' + esc(formatRupiah(k.jumlah)) + '</td><td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteKeuangan\',\'' + esc(k.id) + '\')">Hapus</button></td></tr>';
+        }).join('') + '</tbody></table></div>';
+
+      document.getElementById('formAdminKeuangan').onsubmit = async function (e) {
+        e.preventDefault();
+        try {
+          setLoading(true, 'Menyimpan transaksi kas...');
+          await apiPost('saveKeuangan', Object.fromEntries(new FormData(e.target).entries()));
+          await refreshAllData();
+          showToast('Transaksi keuangan berhasil dicatat.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      };
+    }
+
+    function printRekapKeuangan() {
+      const rows = (state.ringkasanKas || []).map(function (k) {
+        return '<tr><td>' + esc(k.jenis_kas) + '</td><td class="text-end">' + esc(formatRupiah(k.pemasukan)) + '</td><td class="text-end">' + esc(formatRupiah(k.pengeluaran)) + '</td><td class="text-end fw-bold">' + esc(formatRupiah(k.saldo)) + '</td></tr>';
+      }).join('');
+      printDocumentHtml(
+        'Rekapitulasi Saldo 5 Jenis Kas Huria',
+        'Dicetak pada ' + new Date().toLocaleDateString('id-ID'),
+        '<table class="table table-bordered"><thead><tr><th>Jenis Kas</th><th class="text-end">Total Pemasukan</th><th class="text-end">Total Pengeluaran</th><th class="text-end">Saldo Akhir</th></tr></thead><tbody>' + rows + '</tbody></table>'
+      );
+    }
+
+    function renderAdminGaleri(el) {
+      el.innerHTML = '<h2 class="h4 mb-3">Manajemen Galeri Kegiatan (Upload Foto ke Google Drive)</h2>' +
+        '<div class="surface-card p-4 mb-4"><form id="formAdminGaleri" class="row g-3">' +
+        '<div class="col-md-3"><label class="form-label small fw-semibold">Tanggal</label><input type="date" class="form-control form-control-sm" name="tanggal" required /></div>' +
+        '<div class="col-md-5"><label class="form-label small fw-semibold">Judul Kegiatan</label><input class="form-control form-control-sm" name="judul_kegiatan" required /></div>' +
+        '<div class="col-md-4"><label class="form-label small fw-semibold">Lingkungan / Seksi</label><input class="form-control form-control-sm" name="lingkungan_atau_seksi" required /></div>' +
+        '<div class="col-12"><label class="form-label small fw-semibold">Deskripsi</label><textarea class="form-control form-control-sm" rows="2" name="deskripsi" required></textarea></div>' +
+        '<div class="col-md-6"><label class="form-label small fw-semibold">Upload Foto (JPG/PNG/WEBP ke Drive)</label><input type="file" class="form-control form-control-sm" id="inputFotoGaleri" accept="image/*" /></div>' +
+        '<div class="col-md-6"><label class="form-label small fw-semibold">Atau URL Foto Langsung</label><input type="url" class="form-control form-control-sm" name="url_foto_drive" placeholder="https://drive.google.com/uc?export=view&id=..." /></div>' +
+        '<div class="col-12"><button class="btn btn-navy btn-sm" type="submit">Simpan ke Galeri</button></div>' +
+        '</form></div>' +
+        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>Tanggal</th><th>Judul</th><th>Seksi</th><th>Aksi</th></tr></thead><tbody>' +
+        state.galeri.map(function (g) {
+          return '<tr><td class="font-mono-num small">' + esc(g.tanggal) + '</td><td class="small fw-semibold">' + esc(g.judul_kegiatan) + '</td><td class="small">' + esc(g.lingkungan_atau_seksi) + '</td><td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteGaleri\',\'' + esc(g.id) + '\')">Hapus</button></td></tr>';
+        }).join('') + '</tbody></table></div>';
+
+      document.getElementById('formAdminGaleri').onsubmit = async function (e) {
+        e.preventDefault();
+        try {
+          setLoading(true, 'Mengunggah foto ke Google Drive...');
+          const payload = Object.fromEntries(new FormData(e.target).entries());
+          const fileInput = document.getElementById('inputFotoGaleri');
+          if (fileInput.files && fileInput.files[0]) {
+            payload.fileUpload = await readFileAsBase64(fileInput.files[0]);
+          }
+          await apiPost('saveGaleri', payload);
+          await refreshAllData();
+          showToast('Foto kegiatan berhasil ditambahkan.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      };
+    }
+
+    function renderAdminUsers(el) {
+      el.innerHTML = '<h2 class="h4 mb-3">Manajemen Akun Pengurus (RBAC)</h2>' +
+        '<div class="surface-card p-4 mb-4"><form id="formAdminUser" class="row g-2">' +
+        '<div class="col-md-2"><input class="form-control form-control-sm" name="username" placeholder="Username *" required /></div>' +
+        '<div class="col-md-2"><input type="password" class="form-control form-control-sm" name="password" placeholder="Password *" required /></div>' +
+        '<div class="col-md-3"><input class="form-control form-control-sm" name="nama_pengurus" placeholder="Nama Pengurus *" required /></div>' +
+        '<div class="col-md-2"><select class="form-select form-select-sm" name="role"><option>Super Admin</option><option>Sekretaris Huria</option><option>Bendahara</option><option>Sintua Lingkungan</option></select></div>' +
+        '<div class="col-md-2"><select class="form-select form-select-sm" name="lingkungan_tugas"><option>Semua</option>' + LINGKUNGAN_LIST.map(function (l) { return '<option>' + l + '</option>'; }).join('') + '</select></div>' +
+        '<div class="col-md-1"><button class="btn btn-navy btn-sm w-100" type="submit">Tambah</button></div>' +
+        '</form></div>' +
+        '<div class="surface-card table-responsive"><table class="table table-sm align-middle mb-0"><thead class="table-light"><tr><th>Username</th><th>Nama Pengurus</th><th>Peran</th><th>Lingkungan Tugas</th><th>Aksi</th></tr></thead><tbody>' +
+        state.users.map(function (u) {
+          return '<tr><td class="font-mono-num small">' + esc(u.username) + '</td><td class="small fw-semibold">' + esc(u.nama_pengurus) + '</td><td class="small">' + esc(u.role) + '</td><td class="small">' + esc(u.lingkungan_tugas) + '</td><td><button class="btn btn-outline-danger btn-sm" onclick="adminDeleteItem(\'deleteUser\',\'' + esc(u.id) + '\')">Hapus</button></td></tr>';
+        }).join('') + '</tbody></table></div>';
+
+      document.getElementById('formAdminUser').onsubmit = async function (e) {
+        e.preventDefault();
+        try {
+          setLoading(true, 'Menyimpan akun...');
+          await apiPost('saveUser', Object.fromEntries(new FormData(e.target).entries()));
+          await refreshAllData();
+          showToast('Akun pengurus berhasil ditambahkan.', 'success');
+        } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+      };
+    }
+
+    async function adminDeleteItem(action, id) {
+      try {
+        setLoading(true, 'Menghapus data...');
+        await apiPost(action, { id: id });
+        await refreshAllData();
+        showToast('Data berhasil dihapus.', 'success');
+      } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+    }
+
+    // ===================== DATA SYNC & DEMO FALLBACK =====================
+    async function refreshAllData() {
+      if (state.token && state.user) {
+        const res = await apiPost('getDashboardData', {});
+        Object.assign(state, res.data);
+        renderPublicPortal();
+        openAdminDashboard();
+      } else {
+        const res = await apiPost('getPublicData', {});
+        Object.assign(state, res.data);
+        renderPublicPortal();
+      }
+    }
+
+    const demoStore = {
+      pengaturan: {
+        tahun_pelayanan: '2026',
+        tema_tahunan: 'Tahun Transformasi HKBP — Berakar, Bertumbuh, dan Berbuah dalam Kasih Kristus',
+        ayat_tahun: 'Kolose 2:7 — "Hendaklah kamu berakar di dalam Dia dan dibangun di atas Dia..."',
+        alamat_gereja: 'Jl. Gereja Hutaraja No. 1, Kec. Siempat Nempu, Kab. Dairi, Sumatera Utara 22261',
+        info_rekening: 'Bank Sumut: 220-02-04-018842-1 a.n. HKBP Ressort Hutaraja',
+        kontak_sekretariat: '+62 813-6211-0400 · sekretariat@hkbphutaraja.or.id'
+      },
+      jadwal: [
+        { id: 'JDW-001', hari_tanggal: '2026-11-29', waktu: '08:00 WIB', nama_minggu_hkbp: 'Minggu Advent I (Sesi Pagi)', jenis_ibadah: 'Ibadah Minggu', ayat_khotbah_epistel: 'Khotbah: Yeremia 33:14-16 | Epistel: 1 Tesalonika 3:9-13', parjamita: 'Pdt. Parlindungan Simanjuntak, S.Th.', paragenda: 'St. Hotman Sihombing', lokasi: 'Gereja Induk HKBP Ressort Hutaraja' }
+      ],
+      warta: [
+        { id: 'WRT-001', tanggal: '2026-11-22', judul: 'Tingting Mingguan — Persiapan Ibadah Advent I & Natal 2026', kategori: 'Tingting Mingguan', isi_artikel: 'Syalom jemaat HKBP Ressort Hutaraja. Ibadah Minggu Advent I dimulai pukul 08.00 WIB (Bahasa Indonesia) dan 10.30 WIB (Bahasa Batak Toba).', link_pdf_drive: '' }
+      ],
+      jemaat: [
+        { id: 'JMT-001', no_kk: '1211011405820001', nama_lengkap: 'St. Hotman Sihombing', status_keluarga: 'Ama/Suami', jenis_kelamin: 'Laki-laki', lingkungan: 'Letare', status_keanggotaan: 'Aktif' },
+        { id: 'JMT-002', no_kk: '1211012207850002', nama_lengkap: 'Parlindungan Manullang', status_keluarga: 'Ama/Suami', jenis_kelamin: 'Laki-laki', lingkungan: 'Exaudi', status_keanggotaan: 'Aktif' }
+      ],
+      permohonan: [],
+      keuangan: [
+        { id: 'KEU-001', tanggal: '2026-11-01', jenis_kas: 'Kas Huria', tipe_transaksi: 'Pemasukan', uraian: 'Saldo Awal & Pelean Minggu', jumlah: 48500000, keterangan: 'November 2026' },
+        { id: 'KEU-002', tanggal: '2026-11-02', jenis_kas: 'Kas Pembangunan', tipe_transaksi: 'Pemasukan', uraian: 'Janji Iman Renovasi Sekolah Minggu', jumlah: 112000000, keterangan: 'Tahap II' },
+        { id: 'KEU-003', tanggal: '2026-11-03', jenis_kas: 'Kas Diakoni Sosial', tipe_transaksi: 'Pemasukan', uraian: 'Amplop Diakoni Sosial', jumlah: 24800000, keterangan: '6 Lingkungan' },
+        { id: 'KEU-004', tanggal: '2026-11-08', jenis_kas: 'Kas Sentralisasi (BPSK)', tipe_transaksi: 'Pemasukan', uraian: 'Bagian Sentralisasi 55%', jumlah: 19600000, keterangan: 'BPSK HKBP' },
+        { id: 'KEU-005', tanggal: '2026-11-10', jenis_kas: 'Kas Transitoris', tipe_transaksi: 'Pemasukan', uraian: 'Persembahan Panti Karya Hephata', jumlah: 9300000, keterangan: 'Distrik VI Dairi' }
+      ],
+      galeri: [],
+      users: [
+        { id: 'USR-001', username: 'superadmin', password: 'adminhutaraja', nama_pengurus: 'Pdt. Parlindungan Simanjuntak, S.Th.', role: 'Super Admin', lingkungan_tugas: 'Semua' },
+        { id: 'USR-002', username: 'sekretaris', password: 'sekretaris123', nama_pengurus: 'St. Togar Lumbantobing', role: 'Sekretaris Huria', lingkungan_tugas: 'Semua' },
+        { id: 'USR-003', username: 'bendahara', password: 'bendahara123', nama_pengurus: 'St. Tiurma br. Simanjuntak', role: 'Bendahara', lingkungan_tugas: 'Semua' },
+        { id: 'USR-004', username: 'sintua.letare', password: 'sintua123', nama_pengurus: 'St. Hotman Sihombing', role: 'Sintua Lingkungan', lingkungan_tugas: 'Letare' }
+      ]
+    };
+
+    function computeDemoPublic() {
+      const aktif = demoStore.jemaat.filter(function (j) { return j.status_keanggotaan === 'Aktif'; });
+      const kkSet = new Set(aktif.map(function (j) { return j.no_kk; }));
+      return {
+        pengaturan: demoStore.pengaturan,
+        jadwal: demoStore.jadwal,
+        warta: demoStore.warta,
+        statistik: {
+          totalJiwa: aktif.length,
+          totalKK: kkSet.size,
+          perLingkungan: LINGKUNGAN_LIST.map(function (l) {
+            const list = aktif.filter(function (j) { return j.lingkungan === l; });
+            return { lingkungan: l, jiwa: list.length, kk: new Set(list.map(function (x) { return x.no_kk; })).size, persentase: aktif.length ? Number(((list.length / aktif.length) * 100).toFixed(1)) : 0 };
+          })
+        },
+        keuangan: demoStore.keuangan,
+        ringkasanKas: JENIS_KAS_LIST.map(function (kas) {
+          let m = 0, k = 0;
+          demoStore.keuangan.forEach(function (r) { if (r.jenis_kas === kas) { if (r.tipe_transaksi === 'Pemasukan') m += Number(r.jumlah); else k += Number(r.jumlah); } });
+          return { jenis_kas: kas, pemasukan: m, pengeluaran: k, saldo: m - k };
+        }),
+        galeri: demoStore.galeri
+      };
+    }
+
+    function handleDemoApi(action, payload) {
+      if (action === 'getPublicData') return { success: true, data: computeDemoPublic() };
+      if (action === 'submitPermohonan') {
+        const item = Object.assign({ id: 'REQ-2026-' + String(demoStore.permohonan.length + 1).padStart(3, '0'), tanggal_pengajuan: new Date().toISOString().slice(0, 10), status_verifikasi: 'Menunggu Sintua', catatan_sintua: '', catatan_admin: '' }, payload);
+        demoStore.permohonan.unshift(item);
+        return { success: true, data: item };
+      }
+      if (action === 'checkStatus') {
+        const q = String(payload.query || '').toLowerCase();
+        return { success: true, data: demoStore.permohonan.filter(function (p) { return p.id.toLowerCase() === q || p.no_kk_terkait.toLowerCase() === q; }) };
+      }
+      if (action === 'login') {
+        const u = demoStore.users.find(function (x) { return x.username === String(payload.username || '').toLowerCase() && x.password === payload.password; });
+        if (!u) throw new Error('Username atau password salah (Mode Lokal: superadmin/adminhutaraja).');
+        return { success: true, data: { token: 'demo-token', user: { id: u.id, username: u.username, nama_pengurus: u.nama_pengurus, role: u.role, lingkungan_tugas: u.lingkungan_tugas } } };
+      }
+      if (action === 'getDashboardData') {
+        const pub = computeDemoPublic();
+        const ling = state.user.lingkungan_tugas;
+        return {
+          success: true,
+          data: Object.assign(pub, {
+            jemaat: state.user.role === 'Sintua Lingkungan' ? demoStore.jemaat.filter(function (j) { return j.lingkungan === ling; }) : demoStore.jemaat,
+            permohonan: state.user.role === 'Sintua Lingkungan' ? demoStore.permohonan.filter(function (p) { return p.lingkungan === ling; }) : demoStore.permohonan,
+            users: demoStore.users
+          })
+        };
+      }
+      if (action === 'updatePengaturan') { Object.assign(demoStore.pengaturan, payload); return { success: true }; }
+      if (action === 'saveJadwal') { demoStore.jadwal.unshift(Object.assign({ id: 'JDW-' + Date.now() }, payload)); return { success: true }; }
+      if (action === 'deleteJadwal') { demoStore.jadwal = demoStore.jadwal.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'saveWarta') { demoStore.warta.unshift(Object.assign({ id: 'WRT-' + Date.now() }, payload)); return { success: true }; }
+      if (action === 'deleteWarta') { demoStore.warta = demoStore.warta.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'saveJemaat') { demoStore.jemaat.unshift(Object.assign({ id: 'JMT-' + Date.now() }, payload)); return { success: true }; }
+      if (action === 'deleteJemaat') { demoStore.jemaat = demoStore.jemaat.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'saveKeuangan') { demoStore.keuangan.unshift(Object.assign({ id: 'KEU-' + Date.now(), jumlah: Number(payload.jumlah) || 0 }, payload)); return { success: true }; }
+      if (action === 'deleteKeuangan') { demoStore.keuangan = demoStore.keuangan.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'saveGaleri') { demoStore.galeri.unshift(Object.assign({ id: 'GLR-' + Date.now() }, payload)); return { success: true }; }
+      if (action === 'deleteGaleri') { demoStore.galeri = demoStore.galeri.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'saveUser') { demoStore.users.push(Object.assign({ id: 'USR-' + Date.now() }, payload)); return { success: true }; }
+      if (action === 'deleteUser') { demoStore.users = demoStore.users.filter(function (x) { return x.id !== payload.id; }); return { success: true }; }
+      if (action === 'verifikasiSintua') {
+        const p = demoStore.permohonan.find(function (x) { return x.id === payload.id; });
+        if (p) { p.status_verifikasi = payload.keputusan === 'Valid' ? 'Terverifikasi Sintua' : 'Ditolak'; p.catatan_sintua = payload.catatan_sintua; }
+        return { success: true };
+      }
+      if (action === 'finalisasiPermohonan') {
+        const p = demoStore.permohonan.find(function (x) { return x.id === payload.id; });
+        if (p) {
+          p.status_verifikasi = payload.keputusan === 'Setujui' ? 'Disetujui Admin' : 'Ditolak';
+          p.catatan_admin = payload.catatan_admin;
+          if (payload.keputusan === 'Setujui' && p.jenis_permohonan === 'Tambah Anggota/Anak Lahir') {
+            demoStore.jemaat.unshift({ id: 'JMT-' + Date.now(), no_kk: p.no_kk_terkait, nama_lengkap: p.nama_pemohon + ' (Anggota Baru)', status_keluarga: 'Anak', jenis_kelamin: 'Laki-laki', lingkungan: p.lingkungan, status_keanggotaan: 'Aktif' });
+          }
+        }
+        return { success: true };
+      }
+      return { success: true };
+    }
+
+    // ===================== EVENT LISTENERS =====================
+    document.addEventListener('DOMContentLoaded', async function () {
+      document.querySelectorAll('[data-nav]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          switchPublicTab(el.getAttribute('data-nav'));
+        });
+      });
+
+      document.getElementById('filterJadwalSearch').addEventListener('input', renderJadwalTable);
+      document.getElementById('filterJadwalJenis').addEventListener('change', renderJadwalTable);
+      document.getElementById('filterWartaKategori').addEventListener('change', renderWartaGrid);
+      document.getElementById('filterKasPublic').addEventListener('change', renderKeuanganTable);
+      document.getElementById('filterBulanPublic').addEventListener('change', renderKeuanganTable);
+
+      document.getElementById('btnPrintWartaModal').addEventListener('click', function () {
+        if (!state.selectedWarta) return;
+        printDocumentHtml(
+          state.selectedWarta.judul,
+          state.selectedWarta.kategori + ' · ' + state.selectedWarta.tanggal,
+          '<div style="white-space:pre-line; line-height:1.8;">' + esc(state.selectedWarta.isi_artikel) + '</div>'
+        );
+      });
+
+      document.getElementById('formPermohonanPublic').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const form = e.target;
+        if (!form.checkValidity()) {
+          form.classList.add('was-validated');
+          showToast('Mohon lengkapi seluruh kolom wajib dengan benar.', 'danger');
+          return;
+        }
+        try {
+          setLoading(true, 'Mengirim permohonan ke Sintua Lingkungan...');
+          const res = await apiPost('submitPermohonan', {
+            lingkungan: document.getElementById('reqLingkungan').value,
+            jenis_permohonan: document.getElementById('reqJenis').value,
+            no_kk_terkait: document.getElementById('reqNoKK').value.trim(),
+            nama_pemohon: document.getElementById('reqNamaPemohon').value.trim(),
+            nik_atau_tgl_lahir_verifikasi: document.getElementById('reqVerif').value.trim(),
+            no_hp_pemohon: document.getElementById('reqNoHp').value.trim(),
+            detail_perubahan: document.getElementById('reqDetail').value.trim()
+          });
+          form.reset();
+          form.classList.remove('was-validated');
+          showToast('Berhasil! ID Pengajuan Anda: ' + res.data.id + ' (Status: Menunggu Sintua)', 'success');
+          document.getElementById('inputCekStatus').value = res.data.id;
+          document.getElementById('formCekStatus').dispatchEvent(new Event('submit'));
+        } catch (err) {
+          showToast(err.message, 'danger');
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      document.getElementById('formCekStatus').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const q = document.getElementById('inputCekStatus').value.trim();
+        if (!q) return;
+        try {
+          setLoading(true, 'Mencari status permohonan...');
+          const res = await apiPost('checkStatus', { query: q });
+          const list = res.data || [];
+          const out = document.getElementById('hasilCekStatus');
+          if (!list.length) {
+            out.innerHTML = '<div class="alert alert-warning small mb-0">Data permohonan tidak ditemukan untuk "' + esc(q) + '".</div>';
+            return;
+          }
+          out.innerHTML = list.map(function (p) {
+            return '<div class="border rounded-3 p-3 mb-2">' +
+              '<div class="d-flex justify-content-between small mb-1"><strong class="font-mono-num">' + esc(p.id) + '</strong><span class="fw-bold" style="color:var(--hkbp-navy);">' + esc(p.status_verifikasi) + '</span></div>' +
+              '<div class="small fw-semibold">' + esc(p.jenis_permohonan) + ' &middot; Lingkungan ' + esc(p.lingkungan) + '</div>' +
+              '<div class="small text-secondary mt-1">' + esc(p.detail_perubahan) + '</div>' +
+              (p.catatan_sintua ? '<div class="small text-success mt-2"><strong>Sintua:</strong> ' + esc(p.catatan_sintua) + '</div>' : '') +
+              (p.catatan_admin ? '<div class="small text-primary mt-1"><strong>Admin:</strong> ' + esc(p.catatan_admin) + '</div>' : '') +
+              '</div>';
+          }).join('');
+        } catch (err) {
+          showToast(err.message, 'danger');
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      document.getElementById('btnPortalPengurus').addEventListener('click', openAdminDashboard);
+      document.getElementById('btnKembaliPublik').addEventListener('click', function () {
+        switchPublicTab('beranda');
+      });
+      document.getElementById('btnLogoutPengurus').addEventListener('click', async function () {
+        try { await apiPost('logout', {}); } catch (e) {}
+        state.token = '';
+        state.user = null;
+        document.getElementById('btnPortalPengurus').textContent = 'Portal Pengurus';
+        switchPublicTab('beranda');
+        showToast('Anda berhasil keluar dari Dashboard Pengurus.', 'success');
+      });
+
+      document.getElementById('formLoginPengurus').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        try {
+          setLoading(true, 'Memverifikasi akun pengurus...');
+          const res = await apiPost('login', {
+            username: document.getElementById('loginUsername').value.trim(),
+            password: document.getElementById('loginPassword').value
+          });
+          state.token = res.data.token;
+          state.user = res.data.user;
+          document.getElementById('btnPortalPengurus').textContent = 'Dashboard Pengurus';
+          bootstrap.Modal.getOrCreateInstance(document.getElementById('modalLogin')).hide();
+          e.target.reset();
+          await refreshAllData();
+          showToast('Selamat datang, ' + state.user.nama_pengurus + '.', 'success');
+        } catch (err) {
+          showToast(err.message, 'danger');
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      try {
+        setLoading(true, 'Memuat data HKBP Ressort Hutaraja...');
+        await refreshAllData();
+      } catch (err) {
+        showToast(err.message, 'danger');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>
