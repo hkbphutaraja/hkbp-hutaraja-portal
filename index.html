@@ -251,6 +251,7 @@
       .print-area { display: block !important; }
     }
   </style>
+  <script>/* stub awal: mencegah error "not defined" sebelum skrip utama dimuat; versi lengkap ada di skrip utama */function handleImgErrorFallback(){}</script>
 </head>
 <body>
   <!-- Non-blocking Top Sync Indicator (Background Data Refresh) -->
@@ -2001,8 +2002,9 @@
         const fileUpload = await readFileAsBase64(file);
         const compactDataUrl = await optimizeImageDataUrl(file, 480, 42000);
         if (compactDataUrl) fileUpload.dataUrl = compactDataUrl;
-        await apiPost('updatePengaturan', { qrisFileUpload: fileUpload });
-        await refreshAllData();
+        const resQ = await apiPost('updatePengaturan', { qrisFileUpload: fileUpload });
+        if (resQ.data && resQ.data.qris_image_url !== undefined) state.pengaturan.qris_image_url = resQ.data.qris_image_url;
+        commitLocal_();
         showToast('Gambar QRIS resmi gereja berhasil diunggah.', 'success');
       } catch (err) {
         showToast(err.message, 'danger');
@@ -2016,7 +2018,8 @@
       try {
         setLoading(true, 'Menghapus gambar QRIS...');
         await apiPost('updatePengaturan', { qris_image_url: '' });
-        await refreshAllData();
+        state.pengaturan.qris_image_url = '';
+        commitLocal_();
         showToast('Gambar QRIS dihapus.', 'success');
       } catch (err) {
         showToast(err.message, 'danger');
@@ -2170,8 +2173,9 @@
         const fileUpload = await readFileAsBase64(file);
         const compactDataUrl = await optimizeImageDataUrl(file, 240, 42000);
         if (compactDataUrl) fileUpload.dataUrl = compactDataUrl;
-        await apiPost('updatePengaturan', { logoFileUpload: fileUpload });
-        await refreshAllData();
+        const resL = await apiPost('updatePengaturan', { logoFileUpload: fileUpload });
+        if (resL.data && resL.data.logo_url !== undefined) state.pengaturan.logo_url = resL.data.logo_url;
+        commitLocal_();
         showToast('Logo gereja berhasil diunggah.', 'success');
       } catch (err) {
         showToast(err.message, 'danger');
@@ -2185,7 +2189,8 @@
       try {
         setLoading(true, 'Menghapus logo...');
         await apiPost('updatePengaturan', { logo_url: '' });
-        await refreshAllData();
+        state.pengaturan.logo_url = '';
+        commitLocal_();
         showToast('Logo gereja dihapus.', 'success');
       } catch (err) {
         showToast(err.message, 'danger');
@@ -2955,7 +2960,8 @@
         try {
           setLoading(true, 'Menyimpan pengaturan...');
           await apiPost('updatePengaturan', payload);
-          await refreshAllData();
+          Object.assign(state.pengaturan, payload);
+          commitLocal_();
           showToast('Pengaturan berhasil diperbarui.', 'success');
         } catch (err) {
           showToast(err.message, 'danger');
@@ -2994,9 +3000,9 @@
         e.preventDefault();
         try {
           setLoading(true, 'Menyimpan jadwal...');
-          await apiPost('saveJadwal', Object.fromEntries(new FormData(e.target).entries()));
+          const resJ = await apiPost('saveJadwal', Object.fromEntries(new FormData(e.target).entries()));
           state.editingJadwalId = '';
-          await refreshAllData();
+          applyLocalSave_('jadwal', resJ.data);
           showToast('Jadwal ibadah berhasil disimpan.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
@@ -3034,9 +3040,9 @@
           if (fileInput.files && fileInput.files[0]) {
             payload.fileUpload = await readFileAsBase64(fileInput.files[0]);
           }
-          await apiPost('saveWarta', payload);
+          const resW = await apiPost('saveWarta', payload);
           state.editingWartaId = '';
-          await refreshAllData();
+          applyLocalSave_('warta', resW.data);
           showToast('Warta jemaat berhasil disimpan.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
@@ -3097,7 +3103,8 @@
         try {
           setLoading(true, 'Menyimpan jenis kepengurusan...');
           await apiPost('updatePengaturan', { jenis_kepengurusan_parhalado: JSON.stringify(next) });
-          await refreshAllData();
+          state.pengaturan.jenis_kepengurusan_parhalado = JSON.stringify(next);
+          commitLocal_();
           showToast('Jenis kepengurusan ditambahkan.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
@@ -3111,9 +3118,9 @@
           if (fileInput.files && fileInput.files[0]) {
             payload.fileUpload = await readFileAsBase64(fileInput.files[0]);
           }
-          await apiPost('saveParhalado', payload);
+          const resP = await apiPost('saveParhalado', payload);
           state.editingParhaladoId = '';
-          await refreshAllData();
+          applyLocalSave_('parhalado', resP.data);
           showToast('Data Parhalado berhasil disimpan.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
@@ -3124,7 +3131,8 @@
       try {
         setLoading(true, 'Menghapus jenis kepengurusan...');
         await apiPost('updatePengaturan', { jenis_kepengurusan_parhalado: JSON.stringify(next) });
-        await refreshAllData();
+        state.pengaturan.jenis_kepengurusan_parhalado = JSON.stringify(next);
+        commitLocal_();
         showToast('Jenis kepengurusan dihapus.', 'success');
       } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
     }
@@ -3463,7 +3471,16 @@
 
       const searchEl = document.getElementById('adminJemaatSearchInput');
       if (searchEl) {
-        searchEl.oninput = function (e) { state.jemaatSearch = e.target.value; renderAdminModule(); };
+        searchEl.oninput = function (e) {
+          const v = e.target.value;
+          clearTimeout(window._jemaatSearchTimer);
+          window._jemaatSearchTimer = setTimeout(function () {
+            state.jemaatSearch = v;
+            renderAdminModule();
+            const again = document.getElementById('adminJemaatSearchInput');
+            if (again) { again.focus(); const L = again.value.length; again.setSelectionRange(L, L); }
+          }, 300);
+        };
       }
       const lingEl = document.getElementById('adminJemaatLingSelect');
       if (lingEl) {
@@ -3473,12 +3490,22 @@
       if (isSuperAdmin) {
         document.getElementById('formAdminJemaat').onsubmit = async function (e) {
           e.preventDefault();
+          const formEl = e.target;
+          const payload = Object.fromEntries(new FormData(formEl).entries());
+          const btn = formEl.querySelector('[type="submit"]');
+          if (btn) btn.disabled = true;
           try {
-            setLoading(true, 'Menyimpan data jemaat...');
-            await apiPost('saveJemaat', Object.fromEntries(new FormData(e.target).entries()));
-            await refreshAllData();
+            showToast('Menyimpan data jemaat...', 'success');
+            const res = await apiPost('saveJemaat', payload);
+            const saved = res.data;
+            if (saved && saved.id) {
+              const idx = state.jemaat.findIndex(function (j) { return j.id === saved.id; });
+              if (idx >= 0) state.jemaat[idx] = saved; else state.jemaat.unshift(saved);
+            }
+            renderAdminModule();
             showToast('Data jemaat berhasil disimpan.', 'success');
-          } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
+          } catch (err) { showToast(err.message, 'danger'); }
+          finally { if (btn) btn.disabled = false; }
         };
         const importInput = document.getElementById('inputImportJemaatXlsx');
         if (importInput) {
@@ -3595,8 +3622,10 @@
       const catatan = keputusan === 'Valid' ? 'Terverifikasi valid oleh Sintua Lingkungan di lapangan.' : 'Ditolak karena ketidaksesuaian data keluarga.';
       try {
         setLoading(true, 'Memperbarui verifikasi...');
-        await apiPost('verifikasiSintua', { id: id, keputusan: keputusan, catatan_sintua: catatan });
-        await refreshAllData();
+        const resV = await apiPost('verifikasiSintua', { id: id, keputusan: keputusan, catatan_sintua: catatan });
+        const pi = (state.permohonan || []).findIndex(function (x) { return x.id === id; });
+        if (resV.data && pi >= 0) state.permohonan[pi] = resV.data;
+        commitLocal_();
         showToast('Permohonan berhasil diperbarui.', 'success');
       } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
     }
@@ -3631,8 +3660,8 @@
         e.preventDefault();
         try {
           setLoading(true, 'Menyimpan transaksi kas...');
-          await apiPost('saveKeuangan', Object.fromEntries(new FormData(e.target).entries()));
-          await refreshAllData();
+          const resK = await apiPost('saveKeuangan', Object.fromEntries(new FormData(e.target).entries()));
+          applyLocalSave_('keuangan', resK.data);
           showToast('Transaksi keuangan berhasil dicatat.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
@@ -3679,9 +3708,9 @@
           if (fileInput.files && fileInput.files[0]) {
             payload.fileUpload = await readFileAsBase64(fileInput.files[0]);
           }
-          await apiPost('saveGaleri', payload);
+          const resG = await apiPost('saveGaleri', payload);
           state.editingGaleriId = '';
-          await refreshAllData();
+          applyLocalSave_('galeri', resG.data);
           showToast('Data galeri berhasil disimpan.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
@@ -3714,19 +3743,72 @@
         e.preventDefault();
         try {
           setLoading(true, 'Menyimpan akun...');
-          await apiPost('saveUser', Object.fromEntries(new FormData(e.target).entries()));
+          const resU = await apiPost('saveUser', Object.fromEntries(new FormData(e.target).entries()));
           state.editingUserId = '';
-          await refreshAllData();
+          applyLocalSave_('users', resU.data);
           showToast('Akun pengurus berhasil disimpan.', 'success');
         } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
       };
     }
 
+    // ===================== UPDATE LOKAL INSTAN (tanpa memuat ulang seluruh data dari server) =====================
+    const LOCAL_SORT = {
+      jadwal: function (a, b) { return String(a.hari_tanggal || '').localeCompare(String(b.hari_tanggal || '')); },
+      warta: function (a, b) { return String(b.tanggal || '').localeCompare(String(a.tanggal || '')); },
+      keuangan: function (a, b) { return String(b.tanggal || '').localeCompare(String(a.tanggal || '')); },
+      galeri: function (a, b) { return String(b.tanggal || '').localeCompare(String(a.tanggal || '')); }
+    };
+
+    function recomputeRingkasanKasLocal_() {
+      state.ringkasanKas = JENIS_KAS_LIST.map(function (kas) {
+        let pemasukan = 0, pengeluaran = 0;
+        (state.keuangan || []).forEach(function (r) {
+          if (r.jenis_kas === kas) {
+            if (r.tipe_transaksi === 'Pemasukan') pemasukan += Number(r.jumlah) || 0;
+            if (r.tipe_transaksi === 'Pengeluaran') pengeluaran += Number(r.jumlah) || 0;
+          }
+        });
+        return { jenis_kas: kas, pemasukan: pemasukan, pengeluaran: pengeluaran, saldo: pemasukan - pengeluaran };
+      });
+    }
+
+    function commitLocal_() {
+      saveCachedPublicData();
+      renderPublicPortal();
+      const dash = document.getElementById('adminDashboard');
+      if (state.user && dash && !dash.classList.contains('d-none')) renderAdminModule();
+    }
+
+    function applyLocalSave_(key, row) {
+      if (!row || !row.id) return;
+      const clean = Object.assign({}, row);
+      if (key === 'users') delete clean.password;
+      if (!Array.isArray(state[key])) state[key] = [];
+      const idx = state[key].findIndex(function (x) { return x.id === clean.id; });
+      if (idx >= 0) state[key][idx] = Object.assign({}, state[key][idx], clean); else state[key].push(clean);
+      if (LOCAL_SORT[key]) state[key].sort(LOCAL_SORT[key]);
+      if (key === 'keuangan') recomputeRingkasanKasLocal_();
+      commitLocal_();
+    }
+
+    const DELETE_STATE_KEY = {
+      deleteJemaat: 'jemaat', deleteJadwal: 'jadwal', deleteWarta: 'warta',
+      deleteParhalado: 'parhalado', deleteKeuangan: 'keuangan', deleteGaleri: 'galeri',
+      deletePendaftaranLayanan: 'pendaftaran_layanan', deleteUser: 'users'
+    };
+
     async function adminDeleteItem(action, id) {
       try {
         setLoading(true, 'Menghapus data...');
         await apiPost(action, { id: id });
-        await refreshAllData();
+        const key = DELETE_STATE_KEY[action];
+        if (key && Array.isArray(state[key])) {
+          state[key] = state[key].filter(function (x) { return x.id !== id; });
+          if (key === 'keuangan') recomputeRingkasanKasLocal_();
+          commitLocal_();
+        } else {
+          await refreshAllData();
+        }
         showToast('Data berhasil dihapus.', 'success');
       } catch (err) { showToast(err.message, 'danger'); } finally { setLoading(false); }
     }
@@ -4039,7 +4121,7 @@
             setLoading(true, 'Mengirim pendaftaran layanan...');
             await apiPost('submitPendaftaranLayanan', payload);
             frm.reset();
-            await refreshAllData();
+            refreshAllData().catch(function () {});
             showToast('Pendaftaran layanan berhasil dikirim ke Sekretariat Huria.', 'success');
           } catch (err) {
             showToast(err.message, 'danger');
