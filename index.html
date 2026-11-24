@@ -563,6 +563,18 @@
           </button>
         </div>
         <div class="row g-4" id="berandaWartaList"></div>
+
+        <!-- Ringkasan Artikel, Berita Kegiatan & Galeri Foto -->
+        <div class="d-flex justify-content-between align-items-end mb-3 mt-5">
+          <div>
+            <p class="small text-uppercase text-secondary fw-semibold mb-1" style="letter-spacing: 0.08em;">Kabar Huria</p>
+            <h2 class="h3 mb-0">Artikel, Berita Kegiatan &amp; Galeri Foto</h2>
+          </div>
+          <button class="btn btn-link text-decoration-none fw-semibold" style="color: var(--hkbp-navy);" type="button" data-nav="publikasi" data-sub="galeri">
+            Buka Artikel &amp; Galeri &rarr;
+          </button>
+        </div>
+        <div class="row g-4" id="berandaGaleriList"></div>
       </div>
     </section>
 
@@ -1305,7 +1317,7 @@
           <span id="footerHakCipta">&copy; 2026 HKBP Ressort Hutaraja</span>
           <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('footer_hak_cipta','Hak Cipta Footer')"><i class="bi bi-pencil-fill"></i></button>
         </div>
-        <div class="text-secondary">Team IT & Multimedia</div>
+        <div class="text-secondary">Tim IT HKBP Hutaraja</div>
       </div>
     </div>
   </footer>
@@ -2434,6 +2446,7 @@
       renderWartaGrid();
       renderParhaladoPublic();
       renderKeuanganPublic();
+      renderBerandaGaleri();
       renderGaleriPublic();
       renderSitemapSections();
       syncSuperAdminEditUI();
@@ -2845,25 +2858,40 @@
       }).join('');
     }
 
+    function galeriCardHtml_(g, colClass, maxDesc) {
+      const imgUrl = safeImgUrl(g.url_foto_drive);
+      let desc = String(g.deskripsi || '');
+      if (maxDesc && desc.length > maxDesc) desc = desc.slice(0, maxDesc) + '...';
+      return '<div class="' + colClass + '"><div class="surface-card gallery-card h-100">' +
+        '<div class="gallery-img-wrap">' +
+        (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(g.judul_kegiatan) + '" referrerpolicy="no-referrer" loading="lazy" onerror="handleImgErrorFallback(this)" />' : '<div class="h-100 d-flex align-items-center justify-content-center text-white-50"><i class="bi bi-image fs-1"></i></div>') +
+        '</div>' +
+        '<div class="p-3">' +
+        '<div class="small text-secondary mb-1">' + esc(g.lingkungan_atau_seksi) + ' &middot; ' + esc(g.tanggal) + '</div>' +
+        '<h3 class="h6 fw-bold mb-2">' + esc(g.judul_kegiatan) + '</h3>' +
+        '<p class="small text-secondary mb-2">' + esc(desc) + '</p>' +
+        (imgUrl ? '<button class="btn btn-link btn-sm p-0 text-decoration-none fw-semibold" style="color:var(--hkbp-navy);" type="button" onclick="openGaleriModal(\'' + esc(g.id) + '\')">Perbesar Foto &rarr;</button>' : '') +
+        '</div></div></div>';
+    }
+
+    function renderBerandaGaleri() {
+      const el = document.getElementById('berandaGaleriList');
+      if (!el) return;
+      const list = Array.isArray(state.galeri) ? state.galeri.slice(0, 3) : [];
+      if (!list.length) {
+        el.innerHTML = '<div class="col-12"><div class="surface-card p-4 text-center text-secondary">Belum ada artikel atau foto kegiatan.</div></div>';
+        return;
+      }
+      el.innerHTML = list.map(function (g) { return galeriCardHtml_(g, 'col-md-4', 140); }).join('');
+    }
+
     function renderGaleriPublic() {
       const el = document.getElementById('gridGaleriPublic');
       if (!state.galeri.length) {
         el.innerHTML = '<div class="col-12"><div class="surface-card p-4 text-center text-secondary">Belum ada foto kegiatan di Galeri.</div></div>';
         return;
       }
-      el.innerHTML = state.galeri.map(function (g) {
-        const imgUrl = safeImgUrl(g.url_foto_drive);
-        return '<div class="col-md-6 col-lg-4"><div class="surface-card gallery-card h-100">' +
-          '<div class="gallery-img-wrap">' +
-          (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(g.judul_kegiatan) + '" referrerpolicy="no-referrer" loading="lazy" onerror="handleImgErrorFallback(this)" />' : '<div class="h-100 d-flex align-items-center justify-content-center text-white-50"><i class="bi bi-image fs-1"></i></div>') +
-          '</div>' +
-          '<div class="p-3">' +
-          '<div class="small text-secondary mb-1">' + esc(g.lingkungan_atau_seksi) + ' &middot; ' + esc(g.tanggal) + '</div>' +
-          '<h3 class="h6 fw-bold mb-2">' + esc(g.judul_kegiatan) + '</h3>' +
-          '<p class="small text-secondary mb-2">' + esc(g.deskripsi) + '</p>' +
-          (imgUrl ? '<button class="btn btn-link btn-sm p-0 text-decoration-none fw-semibold" style="color:var(--hkbp-navy);" type="button" onclick="openGaleriModal(\'' + esc(g.id) + '\')">Perbesar Foto &rarr;</button>' : '') +
-          '</div></div></div>';
-      }).join('');
+      el.innerHTML = state.galeri.map(function (g) { return galeriCardHtml_(g, 'col-md-6 col-lg-4', 0); }).join('');
     }
 
     function openGaleriModal(id) {
@@ -2898,10 +2926,22 @@
 
       document.getElementById('adminSidebarNav').innerHTML = menus.map(function (m) {
         return '<button type="button" class="nav-link border-0 bg-transparent text-start ' + (m.key === state.activeAdminTab ? 'active' : '') + '" onclick="switchAdminTab(\'' + m.key + '\')">' +
-          '<i class="bi ' + m.icon + '"></i><span>' + esc(m.label) + '</span></button>';
+          '<i class="bi ' + m.icon + '"></i><span>' + esc(m.label) + '</span>' + menuBadgeHtml_(m.key) + '</button>';
       }).join('');
 
       renderAdminModule();
+    }
+
+    function pendingPermohonanCount_() {
+      const role = state.user ? state.user.role : '';
+      const target = role === 'Sintua Lingkungan' ? 'Menunggu Sintua' : 'Terverifikasi Sintua';
+      return (state.permohonan || []).filter(function (p) { return p.status_verifikasi === target; }).length;
+    }
+
+    function menuBadgeHtml_(key) {
+      if (key !== 'permohonan') return '';
+      const n = pendingPermohonanCount_();
+      return n > 0 ? ' <span class="badge rounded-pill bg-danger ms-1">' + n + '</span>' : '';
     }
 
     function switchAdminTab(key) {
@@ -3587,9 +3627,23 @@
 
     function renderAdminPermohonan(el) {
       const role = state.user.role;
-      el.innerHTML = '<h2 class="h4 mb-3">Verifikasi &amp; Persetujuan Update Database Jemaat</h2>' +
+      const isSintua = role === 'Sintua Lingkungan';
+      const pendingN = pendingPermohonanCount_();
+      const list = (state.permohonan || []).slice();
+      if (isSintua) {
+        list.sort(function (a, b) {
+          const pa = a.status_verifikasi === 'Menunggu Sintua' ? 0 : 1;
+          const pb = b.status_verifikasi === 'Menunggu Sintua' ? 0 : 1;
+          return pa - pb;
+        });
+      }
+      const banner = isSintua
+        ? '<div class="alert alert-info small py-2 mb-3">Anda memverifikasi usulan perubahan data jemaat untuk <strong>Wijk ' + esc(state.user.lingkungan_tugas || '-') + '</strong>. ' +
+          (pendingN > 0 ? 'Menunggu verifikasi Anda: <strong>' + pendingN + '</strong> permohonan.' : 'Tidak ada permohonan yang menunggu verifikasi Anda.') + '</div>'
+        : (pendingN > 0 ? '<div class="alert alert-info small py-2 mb-3">Menunggu persetujuan akhir: <strong>' + pendingN + '</strong> permohonan yang sudah diverifikasi Sintua.</div>' : '');
+      el.innerHTML = '<h2 class="h4 mb-3">Verifikasi &amp; Persetujuan Update Database Jemaat</h2>' + banner +
         '<div class="vstack gap-3">' +
-        (state.permohonan.length ? state.permohonan.map(function (p) {
+        (list.length ? list.map(function (p) {
           let actions = '';
           if (role === 'Sintua Lingkungan' && p.status_verifikasi === 'Menunggu Sintua') {
             actions = '<div class="d-flex gap-2 mt-3">' +
@@ -3619,7 +3673,18 @@
     }
 
     async function handleSintuaAction(id, keputusan) {
-      const catatan = keputusan === 'Valid' ? 'Terverifikasi valid oleh Sintua Lingkungan di lapangan.' : 'Ditolak karena ketidaksesuaian data keluarga.';
+      const input = window.prompt(
+        keputusan === 'Valid'
+          ? 'Catatan verifikasi (opsional, boleh dikosongkan):'
+          : 'Alasan penolakan (wajib diisi):',
+        ''
+      );
+      if (input === null) return;
+      const catatan = String(input).trim();
+      if (keputusan === 'Tolak' && !catatan) {
+        showToast('Alasan penolakan wajib diisi.', 'danger');
+        return;
+      }
       try {
         setLoading(true, 'Memperbarui verifikasi...');
         const resV = await apiPost('verifikasiSintua', { id: id, keputusan: keputusan, catatan_sintua: catatan });
@@ -3776,7 +3841,7 @@
       saveCachedPublicData();
       renderPublicPortal();
       const dash = document.getElementById('adminDashboard');
-      if (state.user && dash && !dash.classList.contains('d-none')) renderAdminModule();
+      if (state.user && dash && !dash.classList.contains('d-none')) openAdminDashboard();
     }
 
     function applyLocalSave_(key, row) {
