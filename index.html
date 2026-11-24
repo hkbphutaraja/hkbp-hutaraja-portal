@@ -354,13 +354,6 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-nowrap" href="#persembahan" data-nav="persembahan" role="button" data-bs-toggle="dropdown" aria-expanded="false">Persembahan</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#prs-saluran" data-nav="persembahan" data-sub="saluran">Saluran Persembahan &amp; QRIS</a></li>
-              <li><a class="dropdown-item" href="#prs-kas" data-nav="persembahan" data-sub="kas">Transparansi 5 Kas Gereja</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-nowrap" href="#layanan" data-nav="layanan" role="button" data-bs-toggle="dropdown" aria-expanded="false">Layanan</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#lay-update" data-nav="layanan" data-sub="perubahan-data">Usulan Perubahan Data Jemaat</a></li>
@@ -449,7 +442,7 @@
       <!-- Akses Cepat (Quick Links) -->
       <div class="container pt-4">
         <div class="row g-3">
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-4">
             <div class="quick-link-card p-3 h-100" data-nav="publikasi" data-sub="warta">
               <div class="d-flex align-items-center gap-2 mb-2">
                 <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#eff6ff;color:var(--hkbp-navy);"><i class="bi bi-newspaper fs-5"></i></span>
@@ -458,7 +451,7 @@
               <div class="small text-secondary">Baca Tingting mingguan &amp; unduh PDF resmi huria.</div>
             </div>
           </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-4">
             <div class="quick-link-card p-3 h-100" data-nav="publikasi" data-sub="tata-ibadah">
               <div class="d-flex align-items-center gap-2 mb-2">
                 <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#fef3c7;color:#b45309;"><i class="bi bi-file-earmark-text fs-5"></i></span>
@@ -467,16 +460,7 @@
               <div class="small text-secondary">Unduh liturgi kebaktian Bhs. Batak &amp; Bhs. Indonesia.</div>
             </div>
           </div>
-          <div class="col-6 col-lg-3">
-            <div class="quick-link-card p-3 h-100" data-nav="persembahan" data-sub="saluran">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#ecfdf5;color:#047857;"><i class="bi bi-qr-code-scan fs-5"></i></span>
-                <div class="fw-bold small text-dark">Persembahan &amp; QRIS</div>
-              </div>
-              <div class="small text-secondary">Saluran kolekte, QRIS resmi, rekening &amp; 5 kas gereja.</div>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
+          <div class="col-6 col-lg-4">
             <div class="quick-link-card p-3 h-100" data-nav="publikasi" data-sub="renungan">
               <div class="d-flex align-items-center gap-2 mb-2">
                 <span class="rounded-2 d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;background:#f5f3ff;color:#6d28d9;"><i class="bi bi-book fs-5"></i></span>
@@ -887,6 +871,7 @@
     </section>
 
     <!-- 7. PERSEMBAHAN / DONASI & TRANSPARANSI 5 KAS -->
+    <!-- DISEMBUNYIKAN dari portal publik: tidak ada menu/tautan ke bagian ini. Untuk menampilkannya kembali, tambahkan lagi menu dan 'persembahan' di validTabs. -->
     <section id="sec-persembahan" class="spa-section py-5">
       <div class="container">
         <div class="mb-4">
@@ -1298,7 +1283,6 @@
             <div class="col-6"><a href="#dewan" data-nav="dewan" class="text-secondary text-decoration-none">Dewan &amp; Pelayanan</a></div>
             <div class="col-6"><a href="#wijk" data-nav="wijk" class="text-secondary text-decoration-none">Lingkungan (Wijk)</a></div>
             <div class="col-6"><a href="#publikasi" data-nav="publikasi" class="text-secondary text-decoration-none">Publikasi &amp; Pustaka</a></div>
-            <div class="col-6"><a href="#persembahan" data-nav="persembahan" class="text-secondary text-decoration-none">Persembahan &amp; 5 Kas</a></div>
             <div class="col-6"><a href="#layanan" data-nav="layanan" class="text-secondary text-decoration-none">Layanan &amp; Formulir</a></div>
           </div>
         </div>
@@ -1306,7 +1290,6 @@
           <div class="fw-bold text-dark text-uppercase mb-2" style="letter-spacing:0.08em;font-size:0.75rem;">Akses Cepat</div>
           <div class="vstack gap-1">
             <a href="#publikasi" data-nav="publikasi" data-sub="warta" class="text-secondary text-decoration-none">Warta Jemaat Pekan Ini</a>
-            <a href="#persembahan" data-nav="persembahan" data-sub="saluran" class="text-secondary text-decoration-none">QRIS &amp; Rekening Persembahan</a>
             <a href="#kontak" data-nav="kontak" class="text-secondary text-decoration-none">Kontak &amp; Peta Lokasi</a>
             <button type="button" class="btn btn-link btn-sm p-0 text-start text-decoration-none fw-semibold" style="color:var(--hkbp-navy);" onclick="openAdminDashboard()">Portal Pengurus &rarr;</button>
           </div>
@@ -1317,7 +1300,7 @@
           <span id="footerHakCipta">&copy; 2026 HKBP Ressort Hutaraja</span>
           <button type="button" class="btn btn-sm btn-outline-warning py-0 px-1 ms-1 d-none cms-edit-btn" onclick="inlineEditSetting('footer_hak_cipta','Hak Cipta Footer')"><i class="bi bi-pencil-fill"></i></button>
         </div>
-        <div class="text-secondary">Tim IT HKBP Hutaraja</div>
+        <div class="text-secondary">Koinonia &middot; Marturia &middot; Diakonia</div>
       </div>
     </div>
   </footer>
@@ -1909,7 +1892,7 @@
     }
 
     function switchPublicTab(tab, sub) {
-      const validTabs = ['beranda', 'profil', 'ibadah', 'dewan', 'wijk', 'publikasi', 'persembahan', 'layanan', 'kontak'];
+      const validTabs = ['beranda', 'profil', 'ibadah', 'dewan', 'wijk', 'publikasi', 'layanan', 'kontak'];
       const targetTab = validTabs.indexOf(tab) !== -1 ? tab : 'beranda';
       state.activePublicTab = targetTab;
       document.getElementById('adminDashboard').classList.add('d-none');
